@@ -1,59 +1,63 @@
-"""Agent Richy — Web App Home Page.
+"""Agent Richy — AI Financial Coach.
 
-Landing page with onboarding, Richy character, and dashboard.
+Home page: avatar greeting, quick onboarding (name + age), then routes to chat.
+This is an AI-FIRST tool — Richy the agent IS the product.
 """
 
 import streamlit as st
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client
+from agent_richy.avatar import get_avatar_html
 
 # ── Page config ──────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Agent Richy — Financial Coach",
+    page_title="Agent Richy — AI Financial Coach",
     page_icon="💰",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # ── Custom CSS ───────────────────────────────────────────────────────────
 st.markdown("""
 <style>
     .main-header {
-        font-size: 2.8rem;
+        font-size: 3rem;
         font-weight: 800;
         text-align: center;
-        background: linear-gradient(90deg, #FFD700, #FFA500);
+        background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 0;
     }
     .sub-header {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         text-align: center;
         color: #aaa;
+        margin-bottom: 1.5rem;
+    }
+    .tagline {
+        font-size: 1rem;
+        text-align: center;
+        color: #777;
+        margin-top: -0.5rem;
         margin-bottom: 2rem;
     }
-    .card {
-        background: #1a1a2e;
-        border-radius: 12px;
-        padding: 1.5rem;
-        border: 1px solid #333;
-        height: 100%;
-    }
-    .card:hover { border-color: #FFD700; }
-    .card h3 { margin-top: 0; }
-    .metric-row {
+    .avatar-center {
         display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 1rem;
+        justify-content: center;
+        align-items: center;
         margin: 1rem 0;
     }
-    .hero-emoji {
-        font-size: 5rem;
+    .feature-item {
+        background: #16213e;
+        border-radius: 12px;
+        padding: 1.2rem;
+        border: 1px solid #333;
         text-align: center;
-        margin: 0.5rem 0;
     }
+    .feature-item h4 { margin: 0.5rem 0 0.3rem; color: #FFD700; }
+    .feature-item p { margin: 0; color: #aaa; font-size: 0.85rem; }
+    .stDeployButton { display: none; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -66,156 +70,160 @@ if "onboarded" not in st.session_state:
     st.session_state.onboarded = False
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
-
-# ── Helper to get OpenAI client lazily ───────────────────────────────────
-def get_client():
-    if st.session_state.llm_client is None:
-        st.session_state.llm_client = get_openai_client()
-    return st.session_state.llm_client
+if "financial_plan" not in st.session_state:
+    st.session_state.financial_plan = {}
+if "plan_generated" not in st.session_state:
+    st.session_state.plan_generated = False
 
 
 # =========================================================================
 #  ONBOARDING
 # =========================================================================
 if not st.session_state.onboarded:
-    st.markdown('<p class="hero-emoji">💰</p>', unsafe_allow_html=True)
+    # Centered avatar
+    _, col_avatar, _ = st.columns([1, 2, 1])
+    with col_avatar:
+        st.markdown(
+            f'<div class="avatar-center">{get_avatar_html("happy", 200)}</div>',
+            unsafe_allow_html=True,
+        )
+
     st.markdown('<p class="main-header">Agent Richy</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="sub-header">Your Personal AI Financial Coach — For ALL Ages</p>',
+        '<p class="sub-header">Your Personal AI Financial Coach</p>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<p class="tagline">Talk to me. I\'ll build your entire financial plan.</p>',
         unsafe_allow_html=True,
     )
 
-    with st.chat_message("assistant", avatar="💰"):
-        st.markdown(
-            "**Hey there! I'm Agent Richy** — your personal financial coach! 🎉\n\n"
-            "Whether you're a kid learning about money, a teenager starting to earn, "
-            "or an adult trying to break the paycheck-to-paycheck cycle — **I'm here to help.**\n\n"
-            "Let me get to know you first!"
-        )
-
-    with st.form("onboarding", border=True):
-        col1, col2 = st.columns(2)
-        with col1:
+    _, form_col, _ = st.columns([1, 2, 1])
+    with form_col:
+        with st.form("onboarding", border=True):
             name = st.text_input("What's your name?", placeholder="Enter your name")
-        with col2:
             age = st.number_input("How old are you?", min_value=5, max_value=120, value=25)
-        submitted = st.form_submit_button("Let's Go! 🚀", use_container_width=True)
-        if submitted and name:
-            profile = UserProfile(name=name, age=int(age))
-            profile.user_type = "youth" if age < 18 else "adult"
-            st.session_state.profile = profile
-            st.session_state.onboarded = True
-            st.rerun()
-        elif submitted:
-            st.warning("Please enter your name to continue.")
+            submitted = st.form_submit_button("Talk to Richy 🚀", use_container_width=True)
+            if submitted and name:
+                profile = UserProfile(name=name, age=int(age))
+                profile.user_type = "youth" if age < 18 else "adult"
+                st.session_state.profile = profile
+                st.session_state.onboarded = True
+                st.rerun()
+            elif submitted:
+                st.warning("Please enter your name to continue.")
+
+    st.markdown("---")
+    st.markdown("### What Richy Can Do")
+    f1, f2, f3, f4 = st.columns(4)
+    with f1:
+        st.markdown("""
+        <div class="feature-item">
+            <h4>🤖 AI Financial Advisor</h4>
+            <p>Tell me your situation — I'll create a personalized plan</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with f2:
+        st.markdown("""
+        <div class="feature-item">
+            <h4>📊 Auto-Built Plans</h4>
+            <p>Budget, debt payoff, investing — all generated from our chat</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with f3:
+        st.markdown("""
+        <div class="feature-item">
+            <h4>📚 Learning Center</h4>
+            <p>30+ lessons with quizzes for kids, teens, and adults</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with f4:
+        st.markdown("""
+        <div class="feature-item">
+            <h4>💬 Just Talk</h4>
+            <p>No forms. No spreadsheets. Just tell me about your money.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.stop()
 
+
 # =========================================================================
-#  DASHBOARD (post-onboarding)
+#  POST-ONBOARDING DASHBOARD
 # =========================================================================
 profile = st.session_state.profile
 
 # ── Sidebar ──────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("---")
-    st.markdown(f"**👤 {profile.name}** (age {profile.age})")
-    mode = "🎓 Youth Mode" if profile.is_youth() else "💼 Adult Mode"
-    st.markdown(mode)
-    if profile.completed_assessment:
+    st.markdown(
+        f'<div class="avatar-center">{get_avatar_html("happy", 100)}</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(f"**{profile.name}** · age {profile.age}")
+    mode = "🎓 Youth" if profile.is_youth() else "💼 Adult"
+    st.caption(mode)
+
+    if profile.monthly_income > 0:
         surplus = profile.monthly_surplus()
-        color = "green" if surplus >= 0 else "red"
-        st.markdown(f"Surplus: :{'green' if surplus >= 0 else 'red'}[${surplus:,.0f}/mo]")
+        st.metric("Monthly Surplus", f"${surplus:,.0f}")
+
     st.markdown("---")
-    if st.button("🔄 Reset Profile"):
+    if st.button("🔄 Start Over", use_container_width=True):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
 
-# ── Header ───────────────────────────────────────────────────────────────
-st.markdown(
-    f'<p class="main-header">💰 Welcome, {profile.name}!</p>',
-    unsafe_allow_html=True,
-)
+# ── Main content ─────────────────────────────────────────────────────────
+col1, col2 = st.columns([1, 2])
 
-if profile.is_youth():
-    st.markdown('<p class="sub-header">🌟 Youth Financial Lab</p>', unsafe_allow_html=True)
-else:
-    st.markdown('<p class="sub-header">📊 Adult Financial Planning Suite</p>', unsafe_allow_html=True)
+with col1:
+    st.markdown(
+        f'<div class="avatar-center">{get_avatar_html("happy", 180)}</div>',
+        unsafe_allow_html=True,
+    )
 
-# ── Richy greeting ───────────────────────────────────────────────────────
-with st.chat_message("assistant", avatar="💰"):
+with col2:
+    st.markdown(f'<p class="main-header">Hey, {profile.name}!</p>', unsafe_allow_html=True)
+
     if profile.is_youth():
         st.markdown(
-            f"Hey **{profile.name}**! You're getting a head start on money skills — "
-            "that's awesome! 🎮\n\n"
-            "Use the **sidebar** to chat with me, explore financial tools, "
-            "take lessons, or check your profile."
-        )
-    elif profile.completed_assessment:
-        surplus = profile.monthly_surplus()
-        st.markdown(
-            f"Welcome back **{profile.name}**! Your monthly surplus is "
-            f"**${surplus:,.2f}**. Here's your dashboard — let's keep building! 💪"
+            "Ready to learn about money? **Start chatting with me** "
+            "or explore the **Learning Center** 📚"
         )
     else:
-        st.markdown(
-            f"Hey **{profile.name}**! I'd recommend starting with a "
-            "**Financial Assessment** on the Profile page, or just chat with me.\n\n"
-            "Use the **sidebar** to navigate between tools! 💡"
-        )
+        if st.session_state.plan_generated:
+            st.markdown(
+                "Your financial plan is ready! Check the **My Plan** page. "
+                "Or keep chatting to refine it 💪"
+            )
+        else:
+            st.markdown(
+                "Tell me about your income, debts, and goals — "
+                "I'll create your complete financial plan. "
+                "**No forms. Just conversation.** 💬"
+            )
 
-# ── Quick metrics (if assessed) ─────────────────────────────────────────
-if profile.completed_assessment:
-    st.markdown("### 📊 Your Numbers at a Glance")
-    c1, c2, c3, c4 = st.columns(4)
-    surplus = profile.monthly_surplus()
-    with c1:
-        st.metric("Monthly Income", f"${profile.monthly_income:,.0f}")
-    with c2:
-        st.metric("Monthly Expenses", f"${profile.monthly_expenses:,.0f}")
-    with c3:
-        st.metric("Monthly Surplus", f"${surplus:,.0f}",
-                   delta=f"{profile.savings_rate():.1f}% rate")
-    with c4:
-        ef_mo = profile.months_of_emergency()
-        st.metric("Emergency Fund", f"${profile.emergency_fund:,.0f}",
-                   delta=f"{ef_mo:.1f} months")
-
-    if profile.debts:
-        st.markdown("---")
-        dc1, dc2 = st.columns(2)
-        with dc1:
-            st.metric("Total Debt", f"${profile.total_debt():,.0f}")
-        with dc2:
-            if profile.credit_score:
-                st.metric("Credit Score", profile.credit_score)
-
-# ── Navigation cards ─────────────────────────────────────────────────────
 st.markdown("---")
-st.markdown("### 🧰 Quick Access")
 
-c1, c2, c3, c4 = st.columns(4)
+# ── Quick navigation ─────────────────────────────────────────────────────
+c1, c2, c3 = st.columns(3)
 with c1:
-    st.markdown("#### 🤖 Chat with Richy")
-    st.caption("Ask anything about money, debt, investing, or budgeting.")
-    st.page_link("pages/1_Chat_with_Richy.py", label="Open Chat →", use_container_width=True)
-with c2:
-    st.markdown("#### 💰 Financial Tools")
-    st.caption("Budget simulator, debt payoff, tax estimator, mortgage calc & more.")
-    st.page_link("pages/2_Financial_Tools.py", label="Open Tools →", use_container_width=True)
-with c3:
-    st.markdown("#### 📚 Learning Center")
-    st.caption("Video lessons, bad habits quiz, savings challenges.")
-    st.page_link("pages/3_Learning_Center.py", label="Start Learning →", use_container_width=True)
-with c4:
-    st.markdown("#### 📋 My Profile")
-    st.caption("Financial assessment, snapshot, and personal recommendations.")
-    st.page_link("pages/4_My_Profile.py", label="View Profile →", use_container_width=True)
+    st.markdown("### 💬 Talk to Richy")
+    st.caption("Tell me everything — I'll build your plan from our conversation.")
+    st.page_link("pages/1_Chat_with_Richy.py", label="Start Chatting →", use_container_width=True)
 
-# ── Motivational footer ─────────────────────────────────────────────────
+with c2:
+    st.markdown("### 📊 My Plan")
+    st.caption("Your AI-generated financial plan — budget, debt, investments, goals.")
+    st.page_link("pages/3_My_Plan.py", label="View Plan →", use_container_width=True)
+
+with c3:
+    st.markdown("### 📚 Learning Center")
+    st.caption("30+ lessons with quizzes — for all ages.")
+    st.page_link("pages/2_Learning_Center.py", label="Start Learning →", use_container_width=True)
+
 st.markdown("---")
 st.markdown(
-    "> *\"The best time to start was yesterday. The second best time is now.\"*  \n"
-    "> — Agent Richy 💰"
+    "> *\"Don't fill out forms. Tell me your story — "
+    "I'll build the plan.\"*  \n> — Agent Richy 💰"
 )

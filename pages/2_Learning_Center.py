@@ -1,8 +1,9 @@
-"""Learning Center — Full financial literacy curriculum with lessons, quizzes, videos & challenges."""
+"""Learning Center — Financial literacy curriculum with lessons, quizzes, videos & challenges."""
 
 import streamlit as st
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client, ask_llm
+from agent_richy.avatar import get_avatar_html
 from agent_richy.utils.video_generator import (
     VIDEO_PROMPTS,
     get_video_path,
@@ -20,6 +21,13 @@ from agent_richy.modules.adult import BAD_HABITS_ADULT
 
 st.set_page_config(page_title="Learning Center", page_icon="📚", layout="wide")
 
+# ── CSS ──────────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+    .avatar-center { display:flex; justify-content:center; align-items:center; margin:0.5rem 0; }
+</style>
+""", unsafe_allow_html=True)
+
 # ── Session guard ────────────────────────────────────────────────────────
 if "profile" not in st.session_state:
     st.warning("Please start from the **Home** page first.")
@@ -33,7 +41,7 @@ client = st.session_state.get("llm_client")
 if "completed_lessons" not in st.session_state:
     st.session_state.completed_lessons = set()
 if "quiz_scores" not in st.session_state:
-    st.session_state.quiz_scores = {}  # lesson_id -> (correct, total)
+    st.session_state.quiz_scores = {}
 
 # ── Determine audience ───────────────────────────────────────────────────
 def _get_audience() -> str:
@@ -48,31 +56,27 @@ def _get_audience() -> str:
 audience = _get_audience()
 lessons = get_lessons_for_audience(audience)
 
-# ── Helper: audience badge color ─────────────────────────────────────────
 AUDIENCE_COLORS = {"kids": "🟢", "middle": "🔵", "high": "🟣"}
 
 # ╔═══════════════════════════════════════════════════════════════════════╗
 # ║  HEADER                                                              ║
 # ╚═══════════════════════════════════════════════════════════════════════╝
-st.markdown("## 📚 Learning Center")
-
-with st.chat_message("assistant", avatar="💰"):
+header_col1, header_col2 = st.columns([1, 5])
+with header_col1:
+    st.markdown(
+        f'<div class="avatar-center">{get_avatar_html("happy", 100)}</div>',
+        unsafe_allow_html=True,
+    )
+with header_col2:
+    st.markdown("## 📚 Learning Center")
     completed_count = len(st.session_state.completed_lessons)
     total_lessons = len(lessons)
     if completed_count == 0:
-        greeting = (
-            f"Welcome, **{profile.name}**! 🎓 You have **{total_lessons} lessons** "
-            "ready to explore.  Each one has a mini-lesson, a real-world example, "
-            "a video, a quiz, and an activity.  Let's level up your money skills!"
-        )
+        st.caption(f"Welcome! You have {total_lessons} lessons to explore.")
     elif completed_count == total_lessons:
-        greeting = "🏆 You've completed EVERY lesson!  You're a financial literacy champion!"
+        st.caption("🏆 You've completed every lesson! Champion!")
     else:
-        greeting = (
-            f"Great progress, **{profile.name}**! You've completed "
-            f"**{completed_count}/{total_lessons}** lessons.  Keep it up!"
-        )
-    st.markdown(greeting)
+        st.caption(f"Progress: {completed_count}/{total_lessons} lessons completed")
 
 # ── Progress bar ─────────────────────────────────────────────────────────
 if lessons:
@@ -83,28 +87,26 @@ if lessons:
 # ║  TABS                                                                ║
 # ╚═══════════════════════════════════════════════════════════════════════╝
 tabs = st.tabs([
-    "📖 Lesson Curriculum",
-    "🎬 Video Library",
+    "📖 Lessons",
+    "🎬 Videos",
     "🚫 Bad Habits Quiz",
     "💰 Savings Challenges",
     "🛡️ Insurance Guide",
 ])
 
 # =====================================================================
-# TAB 1 — LESSON CURRICULUM (main tab)
+# TAB 1 — LESSON CURRICULUM
 # =====================================================================
 with tabs[0]:
     st.markdown("### 📖 Financial Literacy Curriculum")
     st.caption(
-        "Lessons inspired by the best youth financial education programs: "
-        "Junior Achievement, Biz Kid$, NGPF, Khan Academy, CFPB Money As You Grow, "
-        "EverFi, Jump$tart Coalition, and more — all with original examples."
+        "Inspired by Junior Achievement, Biz Kid$, NGPF, Khan Academy, "
+        "CFPB, EverFi, Jump$tart — all with original examples."
     )
 
-    # ── Filters ──────────────────────────────────────────────────────
+    # Filters
     filter_cols = st.columns([2, 2, 2])
     with filter_cols[0]:
-        # Grade level filter
         grade_options = ["All Levels"]
         if any(l["audience"] == "kids" for l in lessons):
             grade_options.append("🟢 Elementary (Ages 5-10)")
@@ -115,15 +117,13 @@ with tabs[0]:
         grade_filter = st.selectbox("Grade Level", grade_options)
 
     with filter_cols[1]:
-        # Category filter
         categories = ["All Categories"] + sorted(set(l["category"] for l in lessons))
         cat_filter = st.selectbox("Category", categories)
 
     with filter_cols[2]:
-        # Status filter
         status_filter = st.selectbox("Status", ["All", "Not Started", "Completed"])
 
-    # ── Apply filters ────────────────────────────────────────────────
+    # Apply filters
     filtered = lessons[:]
     if "Elementary" in grade_filter:
         filtered = [l for l in filtered if l["audience"] == "kids"]
@@ -142,7 +142,6 @@ with tabs[0]:
 
     st.caption(f"Showing {len(filtered)} of {len(lessons)} lessons")
 
-    # ── Render each lesson ───────────────────────────────────────────
     generated_videos = get_all_generated_videos()
 
     for lesson in filtered:
@@ -156,19 +155,16 @@ with tabs[0]:
             f"{badge} {lesson['audience'].title()} · {lesson['category']}",
             expanded=False,
         ):
-            # ── Lesson Text section ──────────────────────────────────
             st.markdown("#### 📖 The Lesson")
             st.markdown(lesson["lesson_text"])
 
-            # ── Example section ──────────────────────────────────────
             st.markdown("---")
             st.markdown("#### 💡 Real-World Example")
             st.info(lesson["example"])
 
-            # ── Key Takeaway ─────────────────────────────────────────
             st.success(f"🔑 **Key Takeaway:** {lesson['key_takeaway']}")
 
-            # ── Video section ────────────────────────────────────────
+            # Video
             vkey = lesson.get("video_key", "")
             if vkey and vkey in VIDEO_PROMPTS:
                 st.markdown("---")
@@ -179,7 +175,7 @@ with tabs[0]:
                 else:
                     prompt_data = VIDEO_PROMPTS[vkey]
                     st.warning(
-                        "🎬 Video not generated yet.  Run locally: "
+                        "🎬 Video not generated yet. Run: "
                         "`python generate_videos.py --key " + vkey + "`"
                     )
                     with st.popover("🎨 See Video Storyboard"):
@@ -187,7 +183,7 @@ with tabs[0]:
                         st.caption(prompt_data["prompt"])
                         st.markdown(f"**Lesson:** {prompt_data['lesson']}")
 
-            # ── Quiz section ─────────────────────────────────────────
+            # Quiz
             quiz = lesson.get("quiz", [])
             if quiz:
                 st.markdown("---")
@@ -206,8 +202,7 @@ with tabs[0]:
                         answers.append(choice)
 
                     quiz_submitted = st.form_submit_button(
-                        "Check Answers ✔️",
-                        use_container_width=True,
+                        "Check Answers ✔️", use_container_width=True,
                     )
 
                 if quiz_submitted:
@@ -221,24 +216,24 @@ with tabs[0]:
                         elif user_ans is None:
                             st.warning(f"Q{qi + 1}: ⚠️ No answer selected.")
                         else:
-                            st.error(f"Q{qi + 1}: ❌ Your answer: {user_ans}  →  Correct: **{correct_ans}**")
+                            st.error(f"Q{qi + 1}: ❌ {user_ans} → Correct: **{correct_ans}**")
 
                     st.session_state.quiz_scores[lid] = (correct, len(quiz))
                     pct = correct / len(quiz)
                     if pct == 1.0:
                         st.balloons()
-                        st.success(f"🏆 Perfect score: {correct}/{len(quiz)}!")
+                        st.success(f"🏆 Perfect: {correct}/{len(quiz)}!")
                     elif pct >= 0.6:
-                        st.info(f"📊 Score: {correct}/{len(quiz)} — Good job, review the ones you missed!")
+                        st.info(f"Score: {correct}/{len(quiz)} — Good, review the misses!")
                     else:
-                        st.warning(f"📊 Score: {correct}/{len(quiz)} — Re-read the lesson and try again!")
+                        st.warning(f"Score: {correct}/{len(quiz)} — Re-read and try again!")
 
-            # ── Activity section ─────────────────────────────────────
+            # Activity
             st.markdown("---")
             st.markdown("#### 🎯 Activity")
             st.markdown(lesson["activity"])
 
-            # ── Mark complete button ─────────────────────────────────
+            # Mark complete
             st.markdown("---")
             comp_cols = st.columns([3, 1])
             with comp_cols[1]:
@@ -253,7 +248,7 @@ with tabs[0]:
                         st.rerun()
 
     if not filtered:
-        st.info("No lessons match your current filters.  Try adjusting the filters above.")
+        st.info("No lessons match your filters. Try adjusting above.")
 
 
 # =====================================================================
@@ -261,24 +256,19 @@ with tabs[0]:
 # =====================================================================
 with tabs[1]:
     st.markdown("### 🎬 Video Lesson Library")
-    st.caption("All educational video content in one place.  Powered by CogVideoX AI generation.")
+    st.caption("AI-generated educational videos powered by CogVideoX.")
 
     generated_videos = get_all_generated_videos()
     total_prompts = len(VIDEO_PROMPTS)
 
-    # Status bar
     if generated_videos:
-        st.success(f"🎥 {len(generated_videos)}/{total_prompts} videos generated and ready to play!")
+        st.success(f"🎥 {len(generated_videos)}/{total_prompts} videos ready!")
     else:
         st.info(
-            "🎬 No videos generated yet.  To create videos, run on your local GPU:\n\n"
-            "```bash\n"
-            "pip install -r requirements-gpu.txt\n"
-            "python generate_videos.py\n"
-            "```"
+            "No videos generated yet. To create:\n\n"
+            "```bash\npip install -r requirements-gpu.txt\npython generate_videos.py\n```"
         )
 
-    # Group by topic
     by_topic: dict = {}
     for key, meta in VIDEO_PROMPTS.items():
         by_topic.setdefault(meta["topic"].title(), []).append((key, meta))
@@ -296,14 +286,9 @@ with tabs[1]:
                         st.video(video_path)
                     else:
                         st.caption("📽️ Not yet generated")
-
                     st.markdown(f"📖 {meta['lesson']}")
-
                     with st.popover("🎨 Storyboard"):
                         st.caption(meta["prompt"])
-
-    if not by_topic:
-        st.info("No video prompts available.")
 
 
 # =====================================================================
@@ -316,21 +301,21 @@ with tabs[2]:
     if profile.is_youth():
         habits = [
             ("Spending all my money as soon as I get it",
-             "Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings.  Pay yourself first!"),
+             "Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings. Pay yourself first!"),
             ("Buying things just because friends have them",
-             "FOMO spending is real.  Ask: 'Will I use this in 30 days?'  If not, skip it."),
+             "FOMO spending is real. Ask: 'Will I use this in 30 days?' If not, skip it."),
             ("Never tracking where my money goes",
-             "Use a notebook or free app.  You can't fix what you don't measure."),
+             "Use a notebook or free app. You can't fix what you don't measure."),
             ("Impulse buying on Amazon / online shopping",
-             "The 72-hour rule: wait 3 days before buying anything non-essential.  You'll skip most."),
+             "The 72-hour rule: wait 3 days before buying anything non-essential."),
             ("Not saving for bigger goals",
-             "Even $5/week = $260/year.  Set a goal, visualize it, and automate savings."),
+             "Even $5/week = $260/year. Set a goal, visualize it, automate savings."),
             ("Lending money to friends and not getting it back",
-             "It's OK to say no.  If you lend, keep it small and don't lend what you can't afford to lose."),
+             "It's OK to say no. Keep loans small and don't lend what you can't lose."),
             ("Comparing my stuff to what influencers have",
-             "Most influencer lifestyles are sponsored/rented.  Your goal: build real wealth, not fake image."),
+             "Most influencer lifestyles are sponsored. Build real wealth, not fake image."),
             ("Not knowing the difference between needs and wants",
-             "Before ANY purchase, ask: 'Can I survive without this?'  If yes, it's a want — not a need."),
+             "Before ANY purchase: 'Can I survive without this?' If yes, it's a want."),
         ]
     else:
         habits = BAD_HABITS_ADULT
@@ -343,16 +328,12 @@ with tabs[2]:
             st.session_state.quiz_answers[i] = st.checkbox(
                 habit, key=f"habit_{i}", value=st.session_state.quiz_answers.get(i, False)
             )
-
-        submitted = st.form_submit_button("Check My Results 📊", use_container_width=True)
+        submitted = st.form_submit_button("Check Results 📊", use_container_width=True)
 
     if submitted:
         score = sum(1 for v in st.session_state.quiz_answers.values() if v)
         total = len(habits)
         good = total - score
-
-        st.markdown("---")
-        st.markdown("### Results")
 
         rc1, rc2 = st.columns(2)
         with rc1:
@@ -370,33 +351,18 @@ with tabs[2]:
 
         st.progress(good / total)
 
-        # Show fixes for identified habits
-        identified = []
         for i, (habit, fix) in enumerate(habits):
             if st.session_state.quiz_answers.get(i, False):
-                identified.append(habit)
                 with st.expander(f"🔧 Fix: {habit[:60]}...", expanded=True):
                     st.success(fix)
 
-        profile.bad_habits = [h.split("(")[0].strip() for h in identified]
+        profile.bad_habits = [h.split("(")[0].strip()
+                              for i, (h, _) in enumerate(habits)
+                              if st.session_state.quiz_answers.get(i, False)]
 
         if score == 0:
             st.balloons()
-            st.success("🎉 Zero bad habits found — you're crushing it!")
-        elif identified:
-            resp = ask_llm(
-                client,
-                system_prompt=(
-                    "You are Agent Richy.  Create a motivating 30-day challenge to fix "
-                    f"this financial habit: {identified[0]}.  "
-                    "Include weekly milestones.  Be specific and encouraging.  Under 200 words."
-                ),
-                user_message=f"Age: {profile.age}, Income: ${profile.monthly_income:,.0f}/mo",
-            )
-            if resp:
-                st.markdown("### 🤖 Richy's 30-Day Challenge")
-                with st.chat_message("assistant", avatar="💰"):
-                    st.markdown(resp)
+            st.success("🎉 Zero bad habits — you're crushing it!")
 
 
 # =====================================================================
@@ -404,84 +370,53 @@ with tabs[2]:
 # =====================================================================
 with tabs[3]:
     st.markdown("### 💰 Savings Challenges")
-    st.caption("Pick a challenge and start building your savings muscle!")
+    st.caption("Pick a challenge and build your savings muscle!")
 
     challenges = [
         {
-            "name": "52-Week Challenge",
-            "icon": "📅",
+            "name": "52-Week Challenge", "icon": "📅",
             "desc": "Save $1 in week 1, $2 in week 2 … $52 in week 52.",
-            "total": "$1,378 in one year",
-            "detail": (
-                "Week 1: $1 | Week 2: $2 | Week 3: $3 … Week 52: $52\n\n"
-                "**Total saved: $1,378!**\n\n"
-                "💡 **Pro tip:** Reverse it!  Start at $52 when motivated, "
-                "finish with $1 when energy dips."
-            ),
+            "total": "$1,378/year",
+            "detail": "Week 1: $1 | Week 2: $2 | … Week 52: $52\n\n"
+                      "**Total: $1,378!**\n\n💡 Reverse it: start at $52 when motivated.",
         },
         {
-            "name": "No-Spend Weekend",
-            "icon": "🚫",
-            "desc": "One weekend per month with zero non-essential spending.",
-            "total": "$100-$300/month saved",
-            "detail": (
-                "Pick one weekend per month.  Rules:\n"
-                "- No dining out, no shopping, no paid entertainment\n"
-                "- Cook at home, enjoy free activities (parks, hikes, game nights)\n"
-                "- Transfer what you WOULD have spent to savings\n\n"
-                "Average savings: $100-$300 per no-spend weekend!"
-            ),
+            "name": "No-Spend Weekend", "icon": "🚫",
+            "desc": "One weekend per month — zero non-essential spending.",
+            "total": "$100-$300/month",
+            "detail": "Rules: no dining out, no shopping, no paid entertainment.\n"
+                      "Cook at home, enjoy parks, game nights.\n"
+                      "Transfer what you WOULD have spent to savings.",
         },
         {
-            "name": "Round-Up Challenge",
-            "icon": "🔄",
-            "desc": "Round every purchase up to the nearest dollar and save the difference.",
+            "name": "Round-Up Challenge", "icon": "🔄",
+            "desc": "Round every purchase up and save the difference.",
             "total": "$30-$50/month",
-            "detail": (
-                "Every purchase, round up to the next dollar:\n"
-                "- Coffee $4.35 → $5.00, save $0.65\n"
-                "- Gas $42.18 → $43.00, save $0.82\n\n"
-                "Most banking apps automate this!  "
-                "Check: Acorns, Chime, Bank of America's Keep the Change."
-            ),
+            "detail": "Coffee $4.35 → $5.00, save $0.65\nGas $42.18 → $43.00, save $0.82\n\n"
+                      "Most banking apps automate this! Check: Acorns, Chime.",
         },
         {
-            "name": "100 Envelope Challenge",
-            "icon": "✉️",
-            "desc": "Number 100 envelopes 1-100.  Pick one randomly each day.",
+            "name": "100 Envelope Challenge", "icon": "✉️",
+            "desc": "Number 100 envelopes 1-100. Pick one randomly each day.",
             "total": "$5,050 in 100 days",
-            "detail": (
-                "Label 100 envelopes 1-100.\n"
-                "Each day, randomly pick one and save that dollar amount.\n\n"
-                "After 100 days: **$5,050 saved!**\n\n"
-                "💡 Digital: use a random number generator and transfer to savings."
-            ),
+            "detail": "Label 100 envelopes 1-100. Each day, randomly pick one and save that amount.\n\n"
+                      "💡 Digital: use a random number generator and transfer to savings.",
         },
         {
-            "name": "Subscription Detox (30 Days)",
-            "icon": "📺",
-            "desc": "Cancel ALL subscriptions for 30 days.  Reactivate only what you truly miss.",
+            "name": "Subscription Detox", "icon": "📺",
+            "desc": "Cancel ALL subscriptions for 30 days. Only reactivate what you miss.",
             "total": "$50-$200/month",
-            "detail": (
-                "Steps:\n"
-                "1. List every subscription\n"
-                "2. Cancel ALL of them (most reactivate easily)\n"
-                "3. After 30 days, only re-subscribe to ones you genuinely missed\n\n"
-                "Average savings: $50-$200/month = $600-$2,400/year!"
-            ),
+            "detail": "1. List every subscription\n2. Cancel ALL\n"
+                      "3. After 30 days, only re-subscribe to genuinely missed ones.\n\n"
+                      "Average savings: $600-$2,400/year!",
         },
         {
-            "name": "Spare Change Jar",
-            "icon": "🫙",
-            "desc": "Empty pocket change into a jar every night.  Count it monthly.",
+            "name": "Spare Change Jar", "icon": "🫙",
+            "desc": "Empty pocket change into a jar every night.",
             "total": "$20-$60/month",
-            "detail": (
-                "Classic and effective — especially for kids.\n"
-                "- Every night, empty coins from pockets / bags into a jar\n"
-                "- At month-end, count and deposit to savings\n"
-                "- Challenge: guess how much is in the jar before counting!\n\n"
-                "Great way to make saving a daily habit."
-            ),
+            "detail": "Classic and effective — especially for kids.\n"
+                      "Monthly count and deposit to savings.\n"
+                      "Challenge: guess the amount before counting!",
         },
     ]
 
@@ -492,7 +427,7 @@ with tabs[3]:
                 st.markdown(f"### {ch['icon']} {ch['name']}")
                 st.markdown(ch["desc"])
                 st.markdown(f"**Potential:** {ch['total']}")
-                with st.expander("See details"):
+                with st.expander("Details"):
                     st.markdown(ch["detail"])
 
 
@@ -501,44 +436,35 @@ with tabs[3]:
 # =====================================================================
 with tabs[4]:
     st.markdown("### 🛡️ Insurance Guide")
-    st.caption("Insurance protects what you build.  Here's what you need to know.")
+    st.caption("Insurance protects what you build.")
 
     insurance_types = [
         ("🏥 Health Insurance", "critical",
-         "The most important insurance.  One ER visit = $3,000-$30,000 without it.\n\n"
-         "**Key terms:** Premium (monthly cost), deductible (what you pay first), "
-         "copay (your share per visit), out-of-pocket max (your yearly ceiling).\n\n"
-         "Stay on a parent's plan until age **26**.  After that: employer plan or ACA marketplace."),
+         "One ER visit = $3,000-$30,000 without it.\n\n"
+         "**Key terms:** Premium, deductible, copay, out-of-pocket max.\n\n"
+         "Stay on parent's plan until age **26**. After: employer or ACA marketplace."),
         ("🚗 Auto Insurance", "required by law",
-         "Required in 49/50 states.  At minimum: $100K/$300K liability.\n\n"
-         "**Teen drivers:** $150-$300/month.  Lower it with: good grades discount, "
-         "defensive driving course, higher deductible ($1,000 if you have savings).\n\n"
-         "Shop around annually — rates vary 30-50% between providers."),
+         "Required in 49/50 states. At minimum: $100K/$300K liability.\n\n"
+         "Lower it with: good grades discount, defensive driving, higher deductible ($1,000).\n\n"
+         "Shop around annually — rates vary 30-50%."),
         ("🏠 Renters Insurance", "essential & cheap",
-         "~$15-$25/month.  Covers personal property + liability.\n\n"
-         "If your laptop, phone, clothes, and furniture were stolen or destroyed, "
-         "could you replace them?  That's what renter's insurance does.\n\n"
-         "**Every renter should have it.**"),
-        ("💀 Life Insurance", "if anyone depends on your income",
-         "Get **term life** (not whole life).  10-12x annual income.\n\n"
-         "A healthy 25-year-old: $500K coverage ≈ $20/month.\n"
-         "A healthy 35-year-old: $500K coverage ≈ $30/month.\n\n"
-         "Buy it young when it's cheapest.  Only needed if someone relies on your income."),
-        ("🦽 Disability Insurance", "your biggest asset is your ability to earn",
-         "Long-term disability replaces 60-70% of your income if you can't work.\n\n"
-         "1 in 4 workers will be disabled before retirement age.  "
-         "Many employers offer it — check your benefits!"),
-        ("☂️ Umbrella Insurance", "if you have significant assets",
-         "$1M umbrella coverage ≈ $200/year.\n\n"
-         "Covers beyond auto/home liability limits.  Essential once your "
-         "net worth exceeds your auto/home liability coverage."),
+         "~$15-$25/month. Covers personal property + liability.\n\n"
+         "If your stuff was stolen/destroyed, could you replace it? **Every renter should have it.**"),
+        ("💀 Life Insurance", "if dependents rely on your income",
+         "Get **term life** (not whole). 10-12x annual income.\n\n"
+         "25yr-old: $500K ≈ $20/mo. Only needed if someone depends on your income."),
+        ("🦽 Disability Insurance", "your biggest asset: ability to earn",
+         "Replaces 60-70% of income if you can't work.\n\n"
+         "1 in 4 workers disabled before retirement. Check employer benefits!"),
+        ("☂️ Umbrella Insurance", "if significant assets",
+         "$1M coverage ≈ $200/year. Essential once net worth exceeds auto/home liability."),
     ]
 
     for title, priority, detail in insurance_types:
-        with st.expander(f"{title} — *{priority}*", expanded=False):
+        with st.expander(f"{title} — *{priority}*"):
             st.markdown(detail)
 
     st.info(
-        "**Never skip:** Health, Auto, Disability  \n"
-        "**Add when applicable:** Renters/Homeowners, Life (if dependents), Umbrella (if assets)"
+        "**Never skip:** Health, Auto, Disability\n\n"
+        "**Add when applicable:** Renters/Homeowners, Life, Umbrella"
     )
