@@ -9,7 +9,7 @@ import math
 import streamlit as st
 import plotly.graph_objects as go
 from agent_richy.profiles import UserProfile
-from agent_richy.avatar import get_avatar_html, get_avatar_chat_html
+from agent_richy.avatar import get_avatar_html, get_avatar_chat_html, get_sidebar_avatar
 from agent_richy.utils.helpers import load_investments
 from agent_richy.modules.adult import (
     estimate_federal_tax, mortgage_payment, debt_payoff_schedule, months_to_goal,
@@ -53,6 +53,20 @@ if "profile" not in st.session_state:
 profile: UserProfile = st.session_state.profile
 plan = st.session_state.get("financial_plan", {})
 plan_generated = st.session_state.get("plan_generated", False)
+
+# ── Sidebar ──────────────────────────────────────────────────────────────
+with st.sidebar:
+    expr_side = "happy" if plan_generated else "thinking"
+    st.markdown(get_sidebar_avatar(expr_side, profile.name), unsafe_allow_html=True)
+    if profile.monthly_income > 0:
+        expenses = profile.monthly_expenses or {}
+        total_exp = sum(expenses.values()) if expenses else 0
+        surplus = profile.monthly_income - total_exp
+        st.metric("Monthly Surplus", f"${surplus:,.0f}")
+    st.markdown("---")
+    st.page_link("app.py", label="🏠 Home")
+    st.page_link("pages/1_Chat_with_Richy.py", label="💬 Chat with Richy")
+    st.page_link("pages/2_Learning_Center.py", label="📚 Learning Center")
 
 # ── Header ───────────────────────────────────────────────────────────────
 header_col1, header_col2 = st.columns([1, 5])

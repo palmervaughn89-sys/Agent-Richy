@@ -14,7 +14,10 @@ import re
 import streamlit as st
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client, format_currency
-from agent_richy.avatar import get_avatar_html, get_avatar_chat_html, get_thinking_html, detect_expression
+from agent_richy.avatar import (
+    get_avatar_html, get_avatar_chat_html, get_thinking_html,
+    detect_expression, get_avatar_with_speech, get_sidebar_avatar,
+)
 
 st.set_page_config(page_title="Chat with Richy", page_icon="💬", layout="wide")
 
@@ -42,6 +45,18 @@ st.markdown("""
         color: #aaa;
         margin-top: 4px;
     }
+    .richy-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 16px;
+        background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,165,0,0.03));
+        border: 1px solid rgba(255,215,0,0.12);
+        border-radius: 16px;
+        margin-bottom: 12px;
+    }
+    .richy-header-text h2 { margin:0; }
+    .richy-header-text p { margin:0; color:#aaa; font-size:0.85rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -405,19 +420,35 @@ def _offline_response(question: str) -> str:
 # ══════════════════════════════════════════════════════════════════════════
 
 # ── Header with avatar ───────────────────────────────────────────────────
-header_col1, header_col2 = st.columns([1, 5])
-with header_col1:
-    expression = st.session_state.last_expression
+expression = st.session_state.last_expression
+
+# Sidebar avatar (persistent)
+with st.sidebar:
     st.markdown(
-        f'<div class="avatar-center">{get_avatar_html(expression, 120)}</div>',
+        get_sidebar_avatar(expression, profile.name or "Friend"),
         unsafe_allow_html=True,
     )
-with header_col2:
-    st.markdown("## 💬 Chat with Agent Richy")
-    if has_ai:
-        st.caption("AI-powered — tell me about your finances and I'll build your plan!")
-    else:
-        st.caption("Offline mode — set OPENAI_API_KEY for full AI chat. I can still help!")
+    if profile.monthly_income > 0:
+        surplus = profile.monthly_surplus()
+        st.metric("Monthly Surplus", f"${surplus:,.0f}")
+    if st.session_state.plan_generated:
+        st.success("✅ Plan ready!")
+        st.page_link("pages/3_My_Plan.py", label="📊 View My Plan", use_container_width=True)
+    st.markdown("---")
+    st.page_link("app.py", label="🏠 Home", use_container_width=True)
+    st.page_link("pages/2_Learning_Center.py", label="📚 Learning Center", use_container_width=True)
+
+# Main header with large avatar
+st.markdown(
+    f"""<div class="richy-header">
+        <div>{get_avatar_html(expression, 140)}</div>
+        <div class="richy-header-text">
+            <h2>💬 Chat with Agent Richy</h2>
+            <p>{'AI-powered — tell me about your finances and I\'ll build your plan!' if has_ai else 'Offline mode — set OPENAI_API_KEY for full AI chat. I can still help!'}</p>
+        </div>
+    </div>""",
+    unsafe_allow_html=True,
+)
 
 # ── Plan status indicator ────────────────────────────────────────────────
 if st.session_state.plan_generated:

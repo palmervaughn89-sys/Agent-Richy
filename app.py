@@ -7,7 +7,7 @@ This is an AI-FIRST tool — Richy the agent IS the product.
 import streamlit as st
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client
-from agent_richy.avatar import get_avatar_html
+from agent_richy.avatar import get_avatar_html, get_large_hero_avatar, get_sidebar_avatar, get_avatar_with_speech
 
 # ── Page config ──────────────────────────────────────────────────────────
 st.set_page_config(
@@ -80,13 +80,10 @@ if "plan_generated" not in st.session_state:
 #  ONBOARDING
 # =========================================================================
 if not st.session_state.onboarded:
-    # Centered avatar
+    # Large hero avatar with glow
     _, col_avatar, _ = st.columns([1, 2, 1])
     with col_avatar:
-        st.markdown(
-            f'<div class="avatar-center">{get_avatar_html("happy", 200)}</div>',
-            unsafe_allow_html=True,
-        )
+        st.markdown(get_large_hero_avatar("happy"), unsafe_allow_html=True)
 
     st.markdown('<p class="main-header">Agent Richy</p>', unsafe_allow_html=True)
     st.markdown(
@@ -156,7 +153,7 @@ profile = st.session_state.profile
 # ── Sidebar ──────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(
-        f'<div class="avatar-center">{get_avatar_html("happy", 100)}</div>',
+        get_sidebar_avatar("happy", profile.name),
         unsafe_allow_html=True,
     )
     st.markdown(f"**{profile.name}** · age {profile.age}")
@@ -178,7 +175,7 @@ col1, col2 = st.columns([1, 2])
 
 with col1:
     st.markdown(
-        f'<div class="avatar-center">{get_avatar_html("happy", 180)}</div>',
+        f'<div class="avatar-center">{get_avatar_html("happy", 220)}</div>',
         unsafe_allow_html=True,
     )
 

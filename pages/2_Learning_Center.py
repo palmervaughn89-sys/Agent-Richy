@@ -1,14 +1,16 @@
-"""Learning Center — Financial literacy curriculum with lessons, quizzes, videos & challenges."""
+"""Learning Center — Financial literacy curriculum with animated video lessons, quizzes & challenges."""
 
 import streamlit as st
+import streamlit.components.v1 as components
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client, ask_llm
-from agent_richy.avatar import get_avatar_html
-from agent_richy.utils.video_generator import (
-    VIDEO_PROMPTS,
-    get_video_path,
-    get_all_generated_videos,
+from agent_richy.avatar import get_avatar_html, get_avatar_with_speech
+from agent_richy.animated_lessons import (
+    ANIMATED_SHORTS,
+    render_animated_short,
+    get_shorts_for_audience,
 )
+from agent_richy.utils.video_generator import VIDEO_PROMPTS
 from agent_richy.lessons import (
     ELEMENTARY_LESSONS,
     MIDDLE_SCHOOL_LESSONS,
@@ -25,6 +27,15 @@ st.set_page_config(page_title="Learning Center", page_icon="📚", layout="wide"
 st.markdown("""
 <style>
     .avatar-center { display:flex; justify-content:center; align-items:center; margin:0.5rem 0; }
+    .video-card {
+        background: linear-gradient(135deg, #16213e, #0f3460);
+        border-radius: 16px; padding: 16px; border: 1px solid rgba(255,215,0,0.15);
+        text-align: center; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .video-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(255,215,0,0.15);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -61,10 +72,10 @@ AUDIENCE_COLORS = {"kids": "🟢", "middle": "🔵", "high": "🟣"}
 # ╔═══════════════════════════════════════════════════════════════════════╗
 # ║  HEADER                                                              ║
 # ╚═══════════════════════════════════════════════════════════════════════╝
-header_col1, header_col2 = st.columns([1, 5])
+header_col1, header_col2 = st.columns([1, 4])
 with header_col1:
     st.markdown(
-        f'<div class="avatar-center">{get_avatar_html("happy", 100)}</div>',
+        f'<div class="avatar-center">{get_avatar_html("happy", 120)}</div>',
         unsafe_allow_html=True,
     )
 with header_col2:
@@ -88,7 +99,7 @@ if lessons:
 # ╚═══════════════════════════════════════════════════════════════════════╝
 tabs = st.tabs([
     "📖 Lessons",
-    "🎬 Videos",
+    "🎬 Video Shorts",
     "🚫 Bad Habits Quiz",
     "💰 Savings Challenges",
     "🛡️ Insurance Guide",
@@ -104,7 +115,6 @@ with tabs[0]:
         "CFPB, EverFi, Jump$tart — all with original examples."
     )
 
-    # Filters
     filter_cols = st.columns([2, 2, 2])
     with filter_cols[0]:
         grade_options = ["All Levels"]
@@ -123,7 +133,6 @@ with tabs[0]:
     with filter_cols[2]:
         status_filter = st.selectbox("Status", ["All", "Not Started", "Completed"])
 
-    # Apply filters
     filtered = lessons[:]
     if "Elementary" in grade_filter:
         filtered = [l for l in filtered if l["audience"] == "kids"]
@@ -141,8 +150,6 @@ with tabs[0]:
         filtered = [l for l in filtered if l["id"] not in st.session_state.completed_lessons]
 
     st.caption(f"Showing {len(filtered)} of {len(lessons)} lessons")
-
-    generated_videos = get_all_generated_videos()
 
     for lesson in filtered:
         lid = lesson["id"]
@@ -164,24 +171,14 @@ with tabs[0]:
 
             st.success(f"🔑 **Key Takeaway:** {lesson['key_takeaway']}")
 
-            # Video
+            # Animated Video Short
             vkey = lesson.get("video_key", "")
-            if vkey and vkey in VIDEO_PROMPTS:
+            if vkey and vkey in ANIMATED_SHORTS:
                 st.markdown("---")
                 st.markdown("#### 🎬 Video Lesson")
-                vpath = get_video_path(vkey)
-                if vpath:
-                    st.video(vpath)
-                else:
-                    prompt_data = VIDEO_PROMPTS[vkey]
-                    st.warning(
-                        "🎬 Video not generated yet. Run: "
-                        "`python generate_videos.py --key " + vkey + "`"
-                    )
-                    with st.popover("🎨 See Video Storyboard"):
-                        st.markdown(f"**{prompt_data['title']}**")
-                        st.caption(prompt_data["prompt"])
-                        st.markdown(f"**Lesson:** {prompt_data['lesson']}")
+                html = render_animated_short(vkey)
+                if html:
+                    components.html(html, height=680, scrolling=False)
 
             # Quiz
             quiz = lesson.get("quiz", [])
@@ -252,43 +249,55 @@ with tabs[0]:
 
 
 # =====================================================================
-# TAB 2 — VIDEO LIBRARY
+# TAB 2 — ANIMATED VIDEO SHORTS
 # =====================================================================
 with tabs[1]:
-    st.markdown("### 🎬 Video Lesson Library")
-    st.caption("AI-generated educational videos powered by CogVideoX.")
+    st.markdown("### 🎬 TikTok-Style Video Lessons")
+    st.caption(
+        "Short, animated educational videos — swipe through to learn financial concepts fast! "
+        "Each plays automatically with smooth animations."
+    )
 
-    generated_videos = get_all_generated_videos()
-    total_prompts = len(VIDEO_PROMPTS)
+    # Get videos for this audience
+    available_keys = get_shorts_for_audience(audience)
+    total_videos = len(available_keys)
+    st.success(f"🎥 **{total_videos} animated video lessons** ready to watch!")
 
-    if generated_videos:
-        st.success(f"🎥 {len(generated_videos)}/{total_prompts} videos ready!")
-    else:
-        st.info(
-            "No videos generated yet. To create:\n\n"
-            "```bash\npip install -r requirements-gpu.txt\npython generate_videos.py\n```"
-        )
-
+    # Group by topic
     by_topic: dict = {}
-    for key, meta in VIDEO_PROMPTS.items():
-        by_topic.setdefault(meta["topic"].title(), []).append((key, meta))
+    for key in available_keys:
+        meta = ANIMATED_SHORTS.get(key, {})
+        topic = meta.get("topic", "other").title()
+        by_topic.setdefault(topic, []).append((key, meta))
+
+    # Topic filter
+    topics = ["All Topics"] + sorted(by_topic.keys())
+    selected_topic = st.selectbox("Filter by Topic", topics)
+
+    if selected_topic != "All Topics":
+        by_topic = {k: v for k, v in by_topic.items() if k == selected_topic}
 
     for topic, items in sorted(by_topic.items()):
         st.markdown(f"#### {topic}")
+
         cols = st.columns(min(len(items), 3))
         for i, (key, meta) in enumerate(items):
             with cols[i % len(cols)]:
-                aud_badge = AUDIENCE_COLORS.get(meta["audience"], "⚪")
+                aud_badge = AUDIENCE_COLORS.get(meta.get("audience", ""), "⚪")
                 with st.container(border=True):
-                    st.markdown(f"**{meta['title']}** {aud_badge}")
-                    video_path = get_video_path(key)
-                    if video_path:
-                        st.video(video_path)
-                    else:
-                        st.caption("📽️ Not yet generated")
-                    st.markdown(f"📖 {meta['lesson']}")
-                    with st.popover("🎨 Storyboard"):
-                        st.caption(meta["prompt"])
+                    st.markdown(f"**{meta.get('title', key)}** {aud_badge}")
+                    st.caption(f"Topic: {meta.get('topic', '').title()}")
+
+                    # Play button expander
+                    with st.expander("▶️ Watch Video"):
+                        html = render_animated_short(key)
+                        if html:
+                            components.html(html, height=680, scrolling=False)
+
+                    # Show lesson text
+                    prompt_meta = VIDEO_PROMPTS.get(key, {})
+                    if prompt_meta:
+                        st.markdown(f"📖 {prompt_meta.get('lesson', '')}")
 
 
 # =====================================================================
