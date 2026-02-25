@@ -9,7 +9,8 @@ import math
 import streamlit as st
 import plotly.graph_objects as go
 from agent_richy.profiles import UserProfile
-from agent_richy.avatar import get_avatar_html, get_avatar_chat_html, get_sidebar_avatar
+import streamlit.components.v1 as components
+from agent_richy.avatar import get_avatar_html, get_avatar_chat_html, get_sidebar_avatar, wrap_avatar_html
 from agent_richy.utils.helpers import load_investments
 from agent_richy.modules.adult import (
     estimate_federal_tax, mortgage_payment, debt_payoff_schedule, months_to_goal,
@@ -57,7 +58,7 @@ plan_generated = st.session_state.get("plan_generated", False)
 # ── Sidebar ──────────────────────────────────────────────────────────────
 with st.sidebar:
     expr_side = "happy" if plan_generated else "thinking"
-    st.markdown(get_sidebar_avatar(expr_side, profile.name), unsafe_allow_html=True)
+    components.html(wrap_avatar_html(get_sidebar_avatar(expr_side, profile.name)), height=220)
     if profile.monthly_income > 0:
         expenses = profile.monthly_expenses or {}
         total_exp = sum(expenses.values()) if expenses else 0
@@ -72,10 +73,7 @@ with st.sidebar:
 header_col1, header_col2 = st.columns([1, 5])
 with header_col1:
     expr = "happy" if plan_generated else "thinking"
-    st.markdown(
-        f'<div class="avatar-center">{get_avatar_html(expr, 100)}</div>',
-        unsafe_allow_html=True,
-    )
+    components.html(wrap_avatar_html(get_avatar_html(expr, 100)), height=180)
 with header_col2:
     st.markdown(f"## 📊 {profile.name}'s Financial Plan")
     if plan_generated:
@@ -92,10 +90,7 @@ if not plan_generated and profile.monthly_income == 0:
 
     _, center_col, _ = st.columns([1, 2, 1])
     with center_col:
-        st.markdown(
-            f'<div class="avatar-center">{get_avatar_html("thinking", 180)}</div>',
-            unsafe_allow_html=True,
-        )
+        components.html(wrap_avatar_html(get_avatar_html("thinking", 180)), height=300)
         st.markdown("""
         <div class="empty-plan">
             <h2>💬 Your plan starts with a conversation</h2>

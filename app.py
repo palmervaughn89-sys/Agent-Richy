@@ -7,7 +7,8 @@ This is an AI-FIRST tool — Richy the agent IS the product.
 import streamlit as st
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client
-from agent_richy.avatar import get_avatar_html, get_large_hero_avatar, get_sidebar_avatar, get_avatar_with_speech
+import streamlit.components.v1 as components
+from agent_richy.avatar import get_avatar_html, get_large_hero_avatar, get_sidebar_avatar, get_avatar_with_speech, wrap_avatar_html
 
 # ── Page config ──────────────────────────────────────────────────────────
 st.set_page_config(
@@ -83,7 +84,7 @@ if not st.session_state.onboarded:
     # Large hero avatar with glow
     _, col_avatar, _ = st.columns([1, 2, 1])
     with col_avatar:
-        st.markdown(get_large_hero_avatar("happy"), unsafe_allow_html=True)
+        components.html(wrap_avatar_html(get_large_hero_avatar("happy")), height=420)
 
     st.markdown('<p class="main-header">Agent Richy</p>', unsafe_allow_html=True)
     st.markdown(
@@ -152,10 +153,7 @@ profile = st.session_state.profile
 
 # ── Sidebar ──────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(
-        get_sidebar_avatar("happy", profile.name),
-        unsafe_allow_html=True,
-    )
+    components.html(wrap_avatar_html(get_sidebar_avatar("happy", profile.name)), height=220)
     st.markdown(f"**{profile.name}** · age {profile.age}")
     mode = "🎓 Youth" if profile.is_youth() else "💼 Adult"
     st.caption(mode)
@@ -174,10 +172,7 @@ with st.sidebar:
 col1, col2 = st.columns([1, 2])
 
 with col1:
-    st.markdown(
-        f'<div class="avatar-center">{get_avatar_html("happy", 220)}</div>',
-        unsafe_allow_html=True,
-    )
+    components.html(wrap_avatar_html(get_avatar_html("happy", 220)), height=340)
 
 with col2:
     st.markdown(f'<p class="main-header">Hey, {profile.name}!</p>', unsafe_allow_html=True)

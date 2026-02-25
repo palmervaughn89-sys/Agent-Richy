@@ -7,6 +7,10 @@ Renders a fully visible, animated SVG character with:
 - Persistent sidebar/header presence
 - Smooth CSS transitions between expressions
 - Idle floating animation + per-expression animations
+
+NOTE: Streamlit's st.markdown(unsafe_allow_html=True) strips <svg> and <style> tags.
+All avatar rendering MUST go through streamlit.components.v1.html() for proper display.
+Use the render_avatar_component() helper or call components.html(html, height=...) directly.
 """
 
 from typing import Optional
@@ -585,3 +589,33 @@ def _animation_css(anim: str) -> str:
         "none": "",
     }
     return base + extras.get(anim, "")
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  HTML WRAPPER — for streamlit.components.v1.html()
+# ═══════════════════════════════════════════════════════════════════════
+
+def wrap_avatar_html(inner_html: str) -> str:
+    """Wrap avatar HTML in a full document so it renders in an iframe.
+
+    Streamlit's st.markdown strips <svg> and <style> tags even with
+    unsafe_allow_html=True.  components.html() renders in an iframe and
+    works perfectly.  This helper adds the boilerplate <html> wrapper.
+    """
+    return f"""<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<style>
+    html, body {{
+        margin: 0; padding: 0;
+        background: transparent;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100%;
+    }}
+</style>
+</head>
+<body>{inner_html}</body>
+</html>"""

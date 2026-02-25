@@ -4,7 +4,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from agent_richy.profiles import UserProfile
 from agent_richy.utils.helpers import get_openai_client, ask_llm
-from agent_richy.avatar import get_avatar_html, get_avatar_with_speech
+from agent_richy.avatar import get_avatar_html, get_avatar_with_speech, wrap_avatar_html
 from agent_richy.animated_lessons import (
     ANIMATED_SHORTS,
     render_animated_short,
@@ -74,10 +74,7 @@ AUDIENCE_COLORS = {"kids": "🟢", "middle": "🔵", "high": "🟣"}
 # ╚═══════════════════════════════════════════════════════════════════════╝
 header_col1, header_col2 = st.columns([1, 4])
 with header_col1:
-    st.markdown(
-        f'<div class="avatar-center">{get_avatar_html("happy", 120)}</div>',
-        unsafe_allow_html=True,
-    )
+    components.html(wrap_avatar_html(get_avatar_html("happy", 120)), height=200)
 with header_col2:
     st.markdown("## 📚 Learning Center")
     completed_count = len(st.session_state.completed_lessons)
