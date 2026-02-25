@@ -1,0 +1,14 @@
+# Agent Richy — GPU requirements for local video generation
+# Install AFTER the base requirements:
+#   pip install -r requirements.txt
+#   pip install -r requirements-gpu.txt
+#
+# Requires: NVIDIA GPU with 12GB+ VRAM, CUDA toolkit installed
+
+torch>=2.1.0
+diffusers>=0.25.0
+accelerate>=0.25.0
+transformers>=4.36.0
+
+# Optional but recommended — faster attention
+# xformers>=0.0.23
