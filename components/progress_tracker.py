@@ -32,19 +32,30 @@ def render_progress_bar(completed: int, total: int, label: str = "") -> None:
     """, unsafe_allow_html=True)
 
 
-def render_module_progress(module_title: str, module_icon: str,
-                           completed: int, total: int,
+def render_module_progress(completed_or_title, total_or_icon=None,
+                           color_or_completed=None, total: int = None,
                            badges: list[str] = None) -> None:
     """Render module progress with badge display.
 
-    Args:
-        module_title: Module name.
-        module_icon: Module emoji icon.
-        completed: Lessons completed.
-        total: Total lessons in module.
-        badges: List of earned badge emojis.
+    Supports two calling conventions:
+      render_module_progress(completed, total, color)  — simple bar
+      render_module_progress(title, icon, completed, total, badges)  — full card
     """
-    is_complete = completed >= total
+    # Detect calling convention
+    if isinstance(completed_or_title, (int, float)) and isinstance(total_or_icon, (int, float)):
+        # Simple: (completed, total, color_string)
+        completed_cnt = int(completed_or_title)
+        total_cnt = int(total_or_icon)
+        bar_color = color_or_completed if isinstance(color_or_completed, str) else COLORS['blue']
+        render_progress_bar(completed_cnt, total_cnt)
+        return
+
+    # Full card: (title, icon, completed, total, badges)
+    module_title = str(completed_or_title)
+    module_icon = str(total_or_icon) if total_or_icon else "📚"
+    completed_cnt = int(color_or_completed) if color_or_completed is not None else 0
+    total_cnt = int(total) if total is not None else 0
+    is_complete = completed_cnt >= total_cnt and total_cnt > 0
 
     st.markdown(f"""
     <div class="module-card" style="{'border-color: ' + COLORS['gold'] + ';' if is_complete else ''}">
@@ -54,7 +65,7 @@ def render_module_progress(module_title: str, module_icon: str,
                 <div>
                     <div style="font-weight: 700; color: {COLORS['text_primary']};">{module_title}</div>
                     <div style="font-size: 0.8rem; color: {COLORS['text_secondary']};">
-                        {completed}/{total} lessons
+                        {completed_cnt}/{total_cnt} lessons
                     </div>
                 </div>
             </div>
@@ -65,7 +76,7 @@ def render_module_progress(module_title: str, module_icon: str,
     </div>
     """, unsafe_allow_html=True)
 
-    render_progress_bar(completed, total)
+    render_progress_bar(completed_cnt, total_cnt)
 
     if badges:
         badge_html = " ".join(
@@ -74,21 +85,26 @@ def render_module_progress(module_title: str, module_icon: str,
         st.markdown(badge_html, unsafe_allow_html=True)
 
 
-def render_achievement_badges(earned: list[str], available: list[str]) -> None:
+def render_achievement_badges(earned: list[str], available: list[str] = None) -> None:
     """Render earned and locked achievement badges.
 
     Args:
-        earned: List of earned badge emojis.
-        available: List of all possible badge emojis.
+        earned: List of earned badge emojis/strings.
+        available: List of all possible badge emojis. If None, only show earned.
     """
     html = ""
-    for badge in available:
-        if badge in earned:
+    if available:
+        for badge in available:
+            if badge in earned:
+                html += f'<span class="achievement-badge">{badge}</span>'
+            else:
+                html += f'<span class="achievement-badge locked">{badge}</span>'
+    else:
+        for badge in earned:
             html += f'<span class="achievement-badge">{badge}</span>'
-        else:
-            html += f'<span class="achievement-badge locked">{badge}</span>'
 
-    st.markdown(f'<div style="margin: 0.5rem 0;">{html}</div>', unsafe_allow_html=True)
+    if html:
+        st.markdown(f'<div style="margin: 0.5rem 0;">{html}</div>', unsafe_allow_html=True)
 
 
 def render_onboarding_progress(current_step: int, total_steps: int) -> None:

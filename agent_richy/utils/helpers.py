@@ -24,6 +24,35 @@ def get_openai_client():
     return None
 
 
+def get_gemini_client():
+    """Return a Google Generative AI client if API key is configured, otherwise None."""
+    try:
+        api_key = os.environ.get("GOOGLE_API_KEY", "")
+        if api_key:
+            import google.generativeai as genai
+            genai.configure(api_key=api_key)
+            return genai
+    except ImportError:
+        pass
+    return None
+
+
+def get_llm_client():
+    """Return the best available LLM client — OpenAI first, Gemini fallback.
+
+    Returns:
+        Tuple of (client, provider_name) where provider is 'openai' or 'gemini',
+        or (None, None) if no API key is configured.
+    """
+    openai_client = get_openai_client()
+    if openai_client:
+        return openai_client, "openai"
+    gemini_client = get_gemini_client()
+    if gemini_client:
+        return gemini_client, "gemini"
+    return None, None
+
+
 def ask_llm(client, system_prompt: str, user_message: str, model: str = "gpt-4o") -> Optional[str]:
     """Send a message to the LLM and return the response text, or None on failure."""
     if client is None:

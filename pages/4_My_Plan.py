@@ -251,7 +251,7 @@ if income > 0 and (not profile.debts or profile.total_debt() < income * 6):
         balances_proj = []
         contributed_proj = []
         for yr in years_list:
-            b = compound_growth(invest_amount, annual_rate, yr * 12)
+            b = compound_growth(invest_amount, annual_rate, yr)
             balances_proj.append(b)
             contributed_proj.append(invest_amount * 12 * yr)
 

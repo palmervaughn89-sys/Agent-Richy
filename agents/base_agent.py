@@ -101,7 +101,7 @@ RESPONSE RULES:
 
     def send_message(self, user_input: str, chat_history: list,
                      profile, financial_plan: dict,
-                     client=None) -> str:
+                     client=None, provider: str = "openai") -> str:
         """Send a message to the LLM and get a response.
 
         Args:
@@ -109,10 +109,11 @@ RESPONSE RULES:
             chat_history: List of previous messages.
             profile: UserProfile object.
             financial_plan: Current financial plan dict.
-            client: OpenAI client instance.
+            client: LLM client instance (OpenAI or Gemini).
+            provider: 'openai' or 'gemini'.
 
         Returns:
-            The assistant's response string, or None for streaming.
+            The assistant's response string, or a streaming response.
         """
         if not client:
             return self._offline_response(user_input, profile)
@@ -122,12 +123,15 @@ RESPONSE RULES:
                 user_profile=self._profile_to_dict(profile),
                 financial_plan=financial_plan,
             )
-            messages = [{"role": "system", "content": system_prompt}]
 
-            # Add recent history (last 20 messages for context)
+            if provider == "gemini":
+                return self._send_gemini(client, system_prompt, user_input,
+                                         chat_history, profile)
+
+            # OpenAI path (default)
+            messages = [{"role": "system", "content": system_prompt}]
             for msg in chat_history[-20:]:
                 messages.append({"role": msg["role"], "content": msg["content"]})
-
             messages.append({"role": "user", "content": user_input})
 
             response = client.chat.completions.create(
@@ -141,6 +145,41 @@ RESPONSE RULES:
 
         except Exception as e:
             logger.error(f"LLM call failed for {self.name}: {e}")
+            return self._offline_response(user_input, profile)
+
+    def _send_gemini(self, genai_module, system_prompt: str, user_input: str,
+                     chat_history: list, profile, stream: bool = False):
+        """Send message via Google Gemini.
+
+        Args:
+            genai_module: The google.generativeai module.
+            system_prompt: System prompt text.
+            user_input: User message.
+            chat_history: Chat history.
+            profile: User profile.
+            stream: If True, return a streaming response iterator.
+
+        Returns:
+            Response text string, or streaming iterator if stream=True.
+        """
+        try:
+            model = genai_module.GenerativeModel(
+                "gemini-1.5-flash",
+                system_instruction=system_prompt,
+            )
+            # Build conversation history
+            history_parts = []
+            for msg in chat_history[-20:]:
+                role = "user" if msg["role"] == "user" else "model"
+                history_parts.append({"role": role, "parts": [msg["content"]]})
+
+            chat = model.start_chat(history=history_parts)
+            response = chat.send_message(user_input, stream=stream)
+            if stream:
+                return response  # caller iterates chunks
+            return response.text
+        except Exception as e:
+            logger.error(f"Gemini call failed for {self.name}: {e}")
             return self._offline_response(user_input, profile)
 
     def _offline_response(self, user_input: str, profile) -> str:

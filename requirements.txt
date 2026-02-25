@@ -1,11 +1,14 @@
-openai>=1.0.0
-python-dotenv>=1.0.0
-requests>=2.31.0
-pytest>=7.4.0
+openai==1.82.0
+python-dotenv==1.1.0
+requests==2.32.3
+pytest==8.3.5
 
 # Web app
-streamlit>=1.30.0
-plotly>=5.18.0
+streamlit==1.45.1
+plotly==6.1.2
+
+# Google Gemini fallback LLM
+google-generativeai==0.8.5
 
 # CogVideoX AI video generation (install separately for local GPU):
 #   pip install -r requirements-gpu.txt

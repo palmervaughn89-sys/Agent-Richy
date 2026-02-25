@@ -23,6 +23,7 @@ if not st.session_state.get("onboarded"):
 
 profile = get_profile()
 client = st.session_state.llm_client
+llm_provider = st.session_state.get("llm_provider", "openai")
 has_ai = client is not None
 
 # ── Sidebar ──────────────────────────────────────────────────────────────
@@ -94,9 +95,11 @@ render_active_agent_header(active_key)
 
 if not has_ai:
     st.info(
-        "🔑 Running in offline mode — set `OPENAI_API_KEY` for full AI conversations. "
+        "🔑 Running in offline mode — set `OPENAI_API_KEY` (or `GOOGLE_API_KEY`) for full AI conversations. "
         "I can still help with basic advice!"
     )
+elif llm_provider == "gemini":
+    st.caption("Powered by Google Gemini · Set `OPENAI_API_KEY` for GPT-4o")
 
 # ── Plan status badge ────────────────────────────────────────────────────
 if st.session_state.get("plan_generated"):
@@ -131,7 +134,7 @@ if not history:
     history = get_chat_history(active_key)
 
     # Display opening
-    with st.chat_message("assistant", avatar=agent_info.get("icon", "💰")):
+    with st.chat_message("assistant"):
         st.markdown(opening)
 
     # Suggestion buttons
@@ -179,8 +182,7 @@ else:
         if i == 0 and msg["role"] == "assistant":
             # Show first message normally
             pass
-        avatar = agent_info.get("icon", "💰") if msg["role"] == "assistant" else "👤"
-        with st.chat_message(msg["role"], avatar=avatar):
+        with st.chat_message(msg["role"]):
             display = (BaseAgent.strip_json_block(msg["content"])
                        if msg["role"] == "assistant" else msg["content"])
             st.markdown(display)
@@ -214,10 +216,10 @@ if user_input:
         st.stop()
 
     add_message("user", user_input, active_key)
-    with st.chat_message("user", avatar="👤"):
+    with st.chat_message("user"):
         st.markdown(user_input)
 
-    with st.chat_message("assistant", avatar=agent_info.get("icon", "💰")):
+    with st.chat_message("assistant"):
         if has_ai:
             try:
                 # Build messages for API
@@ -243,26 +245,53 @@ if user_input:
                 </div>
                 """, unsafe_allow_html=True)
 
-                response = client.chat.completions.create(
-                    model="gpt-4o",
-                    messages=messages,
-                    temperature=0.7,
-                    max_tokens=1000,
-                    stream=True,
-                )
+                if llm_provider == "gemini":
+                    # Gemini path (streaming)
+                    import google.generativeai as genai
+                    model = genai.GenerativeModel(
+                        "gemini-1.5-flash",
+                        system_instruction=system_prompt,
+                    )
+                    history_parts = []
+                    for msg in history[-20:]:
+                        role = "user" if msg["role"] == "user" else "model"
+                        history_parts.append({"role": role, "parts": [msg["content"]]})
+                    chat = model.start_chat(history=history_parts)
+                    spinner_placeholder.empty()
 
-                spinner_placeholder.empty()
+                    full_response = ""
+                    placeholder = st.empty()
+                    gemini_resp = chat.send_message(user_input, stream=True)
+                    for chunk in gemini_resp:
+                        if chunk.text:
+                            full_response += chunk.text
+                            display = BaseAgent.strip_json_block(full_response)
+                            placeholder.markdown(display + "▌")
 
-                full_response = ""
-                placeholder = st.empty()
-                for chunk in response:
-                    if chunk.choices[0].delta.content:
-                        full_response += chunk.choices[0].delta.content
-                        display = BaseAgent.strip_json_block(full_response)
-                        placeholder.markdown(display + "▌")
+                    display = BaseAgent.strip_json_block(full_response)
+                    placeholder.markdown(display)
+                else:
+                    # OpenAI path (streaming)
+                    response = client.chat.completions.create(
+                        model="gpt-4o",
+                        messages=messages,
+                        temperature=0.7,
+                        max_tokens=1000,
+                        stream=True,
+                    )
 
-                display = BaseAgent.strip_json_block(full_response)
-                placeholder.markdown(display)
+                    spinner_placeholder.empty()
+
+                    full_response = ""
+                    placeholder = st.empty()
+                    for chunk in response:
+                        if chunk.choices[0].delta.content:
+                            full_response += chunk.choices[0].delta.content
+                            display = BaseAgent.strip_json_block(full_response)
+                            placeholder.markdown(display + "▌")
+
+                    display = BaseAgent.strip_json_block(full_response)
+                    placeholder.markdown(display)
 
                 # Extract financial data
                 extracted = BaseAgent.extract_financial_data(full_response)

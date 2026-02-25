@@ -4,19 +4,33 @@ import streamlit as st
 from config import COLORS
 
 
-def render_video_lesson(title: str, video_url: str, description: str,
-                        duration: str, objectives: list[str] = None,
+def render_video_lesson(lesson_or_title, video_url: str = "",
+                        description: str = "", duration: str = "",
+                        objectives: list[str] = None,
                         lesson_id: str = "") -> None:
     """Render a complete video lesson with player and learning objectives.
 
     Args:
-        title: Lesson title.
-        video_url: YouTube embed URL or video file URL.
-        description: Short lesson description.
-        duration: Duration string (e.g., "4:32").
+        lesson_or_title: Either a lesson dict (with keys: title, video_url,
+                         description, duration, objectives) or a title string.
+        video_url: YouTube embed URL or video file URL (if lesson_or_title is a string).
+        description: Short lesson description (if lesson_or_title is a string).
+        duration: Duration string e.g. "4:32" (if lesson_or_title is a string).
         objectives: List of learning objectives.
         lesson_id: Unique lesson identifier.
     """
+    # Support being called with a lesson dict or individual args
+    if isinstance(lesson_or_title, dict):
+        lesson = lesson_or_title
+        title = lesson.get("title", "")
+        video_url = lesson.get("video_url", "")
+        description = lesson.get("description", "")
+        duration = lesson.get("duration", "")
+        objectives = lesson.get("objectives", objectives)
+        lesson_id = lesson.get("id", lesson_id)
+    else:
+        title = lesson_or_title
+
     st.markdown(f"### {title}")
     st.caption(f"⏱️ {duration} • {description}")
 
@@ -89,16 +103,19 @@ def render_video_card(title: str, duration: str, description: str,
     return False
 
 
-def render_video_quiz(questions: list[dict], lesson_id: str) -> int | None:
+def render_video_quiz(questions_or_quiz, lesson_id: str = "") -> int | None:
     """Render a post-video quiz. Returns score if submitted, else None.
 
     Args:
-        questions: List of quiz questions with keys: q, choices, answer.
+        questions_or_quiz: List of quiz question dicts with keys: q, choices, answer.
         lesson_id: Unique lesson ID for form keys.
 
     Returns:
         Number of correct answers if submitted, else None.
     """
+    questions = questions_or_quiz if isinstance(questions_or_quiz, list) else []
+    if not questions:
+        return None
     with st.form(f"quiz_{lesson_id}"):
         st.markdown("### 🧪 Quick Quiz")
         st.caption("Test what you learned!")

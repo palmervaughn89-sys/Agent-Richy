@@ -6,7 +6,7 @@ from typing import Any
 import streamlit as st
 
 from agent_richy.profiles import UserProfile
-from agent_richy.utils.helpers import get_openai_client
+from agent_richy.utils.helpers import get_llm_client
 from config import FREE_MESSAGE_LIMIT
 
 logger = logging.getLogger(__name__)
@@ -49,9 +49,11 @@ def init_session_state() -> None:
         if key not in st.session_state:
             st.session_state[key] = default
 
-    # Initialize LLM client once
+    # Initialize LLM client once (OpenAI preferred, Gemini fallback)
     if not st.session_state.llm_initialized:
-        st.session_state.llm_client = get_openai_client()
+        llm_client, llm_provider = get_llm_client()
+        st.session_state.llm_client = llm_client
+        st.session_state.llm_provider = llm_provider  # "openai" | "gemini" | None
         st.session_state.llm_initialized = True
 
 
