@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0A1628;
+  --navy-light: #0F2035;
+  --navy-card: #111D32;
+  --blue: #2563EB;
+  --gold: #F59E0B;
+  --green: #10B981;
+  --red: #EF4444;
+  --surface: #0F172A;
+}
+
+body {
+  @apply bg-navy text-slate-100 font-sans antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-navy;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-alt rounded-full;
+}
+
+/* Chat message markdown */
+.chat-message h3 {
+  @apply text-lg font-bold text-brand-gold mt-3 mb-1;
+}
+.chat-message p {
+  @apply mb-2 leading-relaxed;
+}
+.chat-message ul, .chat-message ol {
+  @apply ml-4 mb-2 space-y-1;
+}
+.chat-message li {
+  @apply list-disc;
+}
+.chat-message strong {
+  @apply text-white font-semibold;
+}
+.chat-message code {
+  @apply bg-surface-alt px-1.5 py-0.5 rounded text-sm text-brand-blue-light;
+}
+.chat-message table {
+  @apply w-full border-collapse my-3;
+}
+.chat-message th, .chat-message td {
+  @apply border border-surface-alt px-3 py-1.5 text-left text-sm;
+}
+.chat-message th {
+  @apply bg-surface-alt font-semibold;
+}
+
+/* Avatar speech bubble */
+.speech-bubble {
+  @apply relative bg-navy-card rounded-xl px-3 py-2 text-sm;
+}
+.speech-bubble::after {
+  content: '';
+  @apply absolute -bottom-2 left-4 w-0 h-0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #111D32;
+}

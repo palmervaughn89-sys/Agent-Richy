@@ -14,6 +14,12 @@ dist/
 .eggs/
 *.egg
 
+# Node / Next.js
+node_modules/
+.next/
+out/
+.vercel/
+
 # IDE
 .vscode/
 .idea/
@@ -23,6 +29,7 @@ dist/
 # Environment variables
 .env
 *.env
+.env.local
 
 # Testing
 .pytest_cache/
@@ -42,3 +49,6 @@ logs/
 data/cache/
 *.pkl
 *.h5
+
+# Videos — uncomment the line below to exclude large MP4s from git
+# videos/shows/*.mp4
