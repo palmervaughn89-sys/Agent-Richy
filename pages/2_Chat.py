@@ -9,7 +9,9 @@ from utils.session import (
 )
 from agents import get_agent, route_to_agent
 from agents.base_agent import BaseAgent
-from components.agent_card import render_active_agent_header, render_agent_selector
+from components.agent_card import render_active_agent_header
+from utils.intent_detection import build_enriched_context
+from utils.response_cache import set_session_cache, fake_thinking_delay
 
 st.set_page_config(page_title="Chat — Agent Richy", page_icon="💬", layout="wide")
 inject_styles()
@@ -189,9 +191,13 @@ else:
 
 
 # ── Agent routing suggestion ─────────────────────────────────────────────
-def _check_routing(user_msg: str):
+def _check_routing(user_msg: str, enriched: dict = None):
     """Check if we should suggest a different agent."""
-    suggested = route_to_agent(user_msg, active_key)
+    # Use enriched context if available, fallback to basic detection
+    if enriched and enriched.get("suggested_agent"):
+        suggested = enriched["suggested_agent"]
+    else:
+        suggested = route_to_agent(user_msg, active_key)
     if suggested != active_key:
         suggested_info = AGENTS.get(suggested, {})
         st.info(
@@ -219,14 +225,33 @@ if user_input:
     with st.chat_message("user"):
         st.markdown(user_input)
 
+    # ── Smart pipeline: cache → intent → calculator → RAG → LLM ─────
+    enriched = build_enriched_context(user_input)
+
     with st.chat_message("assistant"):
-        if has_ai:
+        # Fast path: cached response (pre-written or session)
+        if enriched.get("cached_response"):
+            fake_thinking_delay()
+            cached = enriched["cached_response"]
+            st.markdown(cached)
+            add_message("assistant", cached, active_key)
+            set_session_cache(user_input, cached)
+        elif has_ai:
             try:
-                # Build messages for API
-                system_prompt = agent.get_system_prompt(
+                # Build system prompt with enriched context
+                base_system = agent.get_system_prompt(
                     user_profile=agent._profile_to_dict(profile),
                     financial_plan=st.session_state.get("financial_plan", {}),
                 )
+
+                # Inject calculator results + RAG context into system prompt
+                system_prompt = base_system
+                if enriched.get("enriched_prompt"):
+                    system_prompt += (
+                        "\n\n--- CONTEXT (use this data in your response) ---\n"
+                        + enriched["enriched_prompt"]
+                    )
+
                 messages = [{"role": "system", "content": system_prompt}]
                 for msg in history[-20:]:
                     messages.append({"role": msg["role"], "content": msg["content"]})
@@ -307,11 +332,15 @@ if user_input:
                         """, unsafe_allow_html=True)
 
                 add_message("assistant", full_response, active_key)
+                set_session_cache(user_input, full_response)
 
-                # Check routing
-                _check_routing(user_input)
+                # Check routing with enriched context
+                _check_routing(user_input, enriched)
 
             except Exception as e:
+                import logging
+                logging.getLogger(__name__).error(f"LLM error: {e}")
+                st.warning("Oops! Something went wrong connecting to AI. Using offline mode.")
                 fallback = agent._offline_response(user_input, profile)
                 st.markdown(fallback)
                 add_message("assistant", fallback, active_key)
@@ -321,4 +350,62 @@ if user_input:
             st.markdown(fallback)
             add_message("assistant", fallback, active_key)
 
+    # ── Follow-up suggestion buttons ─────────────────────────────────
+    intent_key = enriched.get("intent", {}).get("intent", "general") if enriched else "general"
+    follow_ups = _get_follow_up_suggestions(intent_key)
+    if follow_ups:
+        st.markdown(f"""
+        <div style="color: {COLORS['text_muted']}; font-size: 0.8rem; margin-top: 8px;">
+            💡 Follow-up ideas:
+        </div>
+        """, unsafe_allow_html=True)
+        cols = st.columns(min(len(follow_ups), 3))
+        for i, q in enumerate(follow_ups):
+            with cols[i % len(cols)]:
+                if st.button(q, key=f"followup_{i}", use_container_width=True):
+                    add_message("user", q, active_key)
+                    st.rerun()
+
     st.rerun()
+
+
+def _get_follow_up_suggestions(intent: str) -> list[str]:
+    """Return context-aware follow-up suggestions based on intent."""
+    suggestions_map = {
+        "compound_interest": [
+            "What if I increase my contribution?",
+            "How does inflation affect this?",
+            "Show me Roth IRA vs taxable growth",
+        ],
+        "debt_payoff": [
+            "Compare snowball vs avalanche for me",
+            "Should I consolidate my debt?",
+            "Can I invest while paying off debt?",
+        ],
+        "debt_strategy": [
+            "Help me list all my debts",
+            "What about balance transfer cards?",
+            "How much extra should I pay monthly?",
+        ],
+        "budget": [
+            "How can I cut my expenses?",
+            "Audit my subscriptions",
+            "What's the envelope method?",
+        ],
+        "emergency_fund": [
+            "Where should I keep my emergency fund?",
+            "How do I build it faster?",
+            "What counts as an emergency?",
+        ],
+        "investing": [
+            "What's a good starter portfolio?",
+            "How do index funds work?",
+            "Roth IRA vs Traditional — which is better?",
+        ],
+        "savings_goal": [
+            "How can I save faster?",
+            "Best high-yield savings accounts?",
+            "Automate my savings plan",
+        ],
+    }
+    return suggestions_map.get(intent, [])

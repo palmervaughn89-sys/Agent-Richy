@@ -5,6 +5,13 @@ import { motion } from 'framer-motion';
 import { TopNav } from '@/components/layout';
 import { useProfileStore } from '@/hooks/useFinancialProfile';
 
+const REVEAL = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as number[] },
+};
+
 function fmt(n: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 }
@@ -39,9 +46,9 @@ export default function PlanPage() {
   const budget = useMemo(() => {
     if (income <= 0) return null;
     return {
-      needs: { label: 'Needs', amount: income * 0.5, pct: 50, color: 'bg-blue-500', items: 'Housing, groceries, insurance, utilities, transportation' },
-      wants: { label: 'Wants', amount: income * 0.3, pct: 30, color: 'bg-gold-500', items: 'Dining, entertainment, subscriptions, shopping' },
-      savings: { label: 'Savings & Debt', amount: income * 0.2, pct: 20, color: 'bg-green-500', items: 'Emergency fund, investments, debt payments' },
+      needs: { label: 'Needs', amount: income * 0.5, pct: 50, color: 'bg-accent/60', items: 'Housing, groceries, insurance, utilities, transportation' },
+      wants: { label: 'Wants', amount: income * 0.3, pct: 30, color: 'bg-amber-500', items: 'Dining, entertainment, subscriptions, shopping' },
+      savings: { label: 'Savings & Debt', amount: income * 0.2, pct: 20, color: 'bg-accent', items: 'Emergency fund, investments, debt payments' },
     };
   }, [income]);
 
@@ -78,38 +85,46 @@ export default function PlanPage() {
       <TopNav title="My Plan 🎯" />
 
       <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-20 md:pb-6 space-y-6">
+        {/* Header */}
+        <motion.div {...REVEAL}>
+          <p className="section-label">GOAL PLANNING</p>
+          <h1 className="section-title">
+            Set targets. <span className="text-muted">Hit them.</span>
+          </h1>
+        </motion.div>
+
         {/* Tabs */}
-        <div className="flex gap-2 flex-wrap">
+        <motion.div {...REVEAL} className="flex gap-2 flex-wrap">
           {TABS.map((t) => (
             <button
               key={t.key}
               onClick={() => setActiveSection(t.key)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors
                 ${activeSection === t.key
-                  ? 'bg-gold-500 text-white shadow-sm'
-                  : 'bg-navy-800 text-gray-400 border border-navy-700 hover:text-white'
+                  ? 'bg-accent text-black shadow-sm'
+                  : 'bg-card text-muted border border-line hover:text-txt'
                 }`}
             >
               {t.label}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* BUDGET SECTION */}
         {activeSection === 'budget' && (
-          <div className="space-y-4">
+          <motion.div {...REVEAL} className="space-y-4">
             {income > 0 && budget ? (
               <>
-                <div className="rounded-xl bg-navy-800 border border-navy-700 p-5">
-                  <h3 className="text-sm font-semibold text-white mb-1">50/30/20 Budget Breakdown</h3>
-                  <p className="text-xs text-gray-400 mb-4">Based on {fmt(income)}/month income</p>
+                <div className="rounded-card bg-card border border-line p-5">
+                  <h3 className="text-sm font-semibold text-txt mb-1">50/30/20 Budget Breakdown</h3>
+                  <p className="text-xs text-muted mb-4">Based on {fmt(income)}/month income</p>
 
                   {/* Bar chart */}
                   <div className="flex h-8 rounded-lg overflow-hidden mb-4">
                     {Object.values(budget).map((cat) => (
                       <div
                         key={cat.label}
-                        className={`${cat.color} flex items-center justify-center text-[10px] font-bold text-white`}
+                        className={`${cat.color} flex items-center justify-center text-[10px] font-bold text-black`}
                         style={{ width: `${cat.pct}%` }}
                       >
                         {cat.pct}%
@@ -124,29 +139,29 @@ export default function PlanPage() {
                         <div>
                           <div className="flex items-center gap-2">
                             <div className={`w-3 h-3 rounded-full ${cat.color}`} />
-                            <span className="text-sm font-medium text-white">{cat.label}</span>
+                            <span className="text-sm font-medium text-txt">{cat.label}</span>
                           </div>
-                          <p className="text-[10px] text-gray-500 ml-5">{cat.items}</p>
+                          <p className="text-[10px] text-muted ml-5">{cat.items}</p>
                         </div>
-                        <span className="text-sm font-bold text-gray-200">{fmt(cat.amount)}</span>
+                        <span className="text-sm font-bold text-off">{fmt(cat.amount)}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Surplus indicator */}
-                <div className={`rounded-xl border p-4 ${
+                <div className={`rounded-card border p-4 ${
                   surplus >= 0
-                    ? 'bg-green-900/20 border-green-800/40'
+                    ? 'bg-accent/10 border-accent/20'
                     : 'bg-red-900/20 border-red-800/40'
                 }`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-300">Monthly Surplus</span>
-                    <span className={`text-lg font-bold ${surplus >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    <span className="text-sm text-off">Monthly Surplus</span>
+                    <span className={`text-lg font-bold ${surplus >= 0 ? 'text-accent' : 'text-red-400'}`}>
                       {fmt(surplus)}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted mt-1">
                     {surplus >= 0
                       ? 'Great! You have money left after expenses.'
                       : 'Warning: You\'re spending more than you earn.'}
@@ -154,41 +169,41 @@ export default function PlanPage() {
                 </div>
               </>
             ) : (
-              <div className="rounded-xl bg-navy-800/50 border border-navy-700 border-dashed p-6 text-center">
+              <div className="rounded-card bg-card/50 border border-line border-dashed p-6 text-center">
                 <p className="text-2xl mb-2">📊</p>
-                <p className="text-sm text-gray-300">Set your income in your Profile to see a budget plan</p>
+                <p className="text-sm text-off">Set your income in your Profile to see a budget plan</p>
               </div>
             )}
-          </div>
+          </motion.div>
         )}
 
         {/* DEBT SECTION */}
         {activeSection === 'debt' && (
-          <div className="space-y-4">
+          <motion.div {...REVEAL} className="space-y-4">
             {debtPlan.length > 0 ? (
               <>
-                <div className="rounded-xl bg-navy-800 border border-navy-700 p-5">
-                  <h3 className="text-sm font-semibold text-white mb-1">💳 Debt Avalanche Strategy</h3>
-                  <p className="text-xs text-gray-400 mb-4">
+                <div className="rounded-card bg-card border border-line p-5">
+                  <h3 className="text-sm font-semibold text-txt mb-1">💳 Debt Avalanche Strategy</h3>
+                  <p className="text-xs text-muted mb-4">
                     Pay minimums on all debts, then attack the highest interest rate first.
                     Total debt: <span className="text-red-400 font-bold">{fmt(totalDebt)}</span>
                   </p>
 
                   <div className="space-y-3">
                     {debtPlan.map((d, i) => (
-                      <div key={d.name} className="rounded-lg bg-navy-700/50 border border-navy-600 p-3">
+                      <div key={d.name} className="rounded-lg bg-s1 border border-line p-3">
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2">
                             <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                              i === 0 ? 'bg-red-900/50 text-red-400' : 'bg-navy-600 text-gray-400'
+                              i === 0 ? 'bg-red-900/50 text-red-400' : 'bg-s2 text-muted'
                             }`}>
                               #{i + 1}
                             </span>
-                            <span className="text-sm font-medium text-white">{d.name}</span>
+                            <span className="text-sm font-medium text-txt">{d.name}</span>
                           </div>
-                          <span className="text-sm font-bold text-gray-200">{fmt(d.balance)}</span>
+                          <span className="text-sm font-bold text-off">{fmt(d.balance)}</span>
                         </div>
-                        <div className="flex items-center justify-between text-[10px] text-gray-500">
+                        <div className="flex items-center justify-between text-[10px] text-muted">
                           <span>APR: {d.rate}%</span>
                           {i === 0 && <span className="text-red-400 font-medium">← Focus here first!</span>}
                         </div>
@@ -197,33 +212,33 @@ export default function PlanPage() {
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-blue-900/20 border border-blue-800/40 p-4">
-                  <h4 className="text-xs font-semibold text-blue-300 mb-1">💡 Avalanche Method Tip</h4>
-                  <p className="text-xs text-blue-400/80">
+                <div className="rounded-card bg-ghost border border-line p-4">
+                  <h4 className="text-xs font-semibold text-accent mb-1">💡 Avalanche Method Tip</h4>
+                  <p className="text-xs text-off">
                     By attacking high-interest debt first, you minimize total interest paid.
                     Even an extra $50/month toward #{debtPlan[0]?.name} can save you hundreds in interest!
                   </p>
                 </div>
               </>
             ) : (
-              <div className="rounded-xl bg-green-900/20 border border-green-800/40 p-6 text-center">
+              <div className="rounded-card bg-accent/10 border border-accent/20 p-6 text-center">
                 <p className="text-2xl mb-2">🎉</p>
-                <p className="text-sm text-green-300 font-medium">No debts recorded!</p>
-                <p className="text-xs text-gray-500 mt-1">Add debts in your Profile if you have any.</p>
+                <p className="text-sm text-accent font-medium">No debts recorded!</p>
+                <p className="text-xs text-muted mt-1">Add debts in your Profile if you have any.</p>
               </div>
             )}
-          </div>
+          </motion.div>
         )}
 
         {/* GOALS SECTION */}
         {activeSection === 'goals' && (
-          <div className="space-y-4">
+          <motion.div {...REVEAL} className="space-y-4">
             {/* Overall progress */}
             {goals.length > 0 && (
-              <div className="rounded-xl bg-navy-800 border border-navy-700 p-5">
+              <div className="rounded-card bg-card border border-line p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-semibold text-white">Overall Progress</h3>
-                  <span className="text-sm font-bold text-gold-400">
+                  <h3 className="text-sm font-semibold text-txt">Overall Progress</h3>
+                  <span className="text-sm font-bold text-accent">
                     {goals.length} goal{goals.length > 1 ? 's' : ''}
                   </span>
                 </div>
@@ -234,20 +249,20 @@ export default function PlanPage() {
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2">
                           <span>{goal.emoji}</span>
-                          <span className="text-xs font-medium text-gray-200">{goal.title}</span>
+                          <span className="text-xs font-medium text-off">{goal.title}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-gray-400">{fmt(goal.current)} / {fmt(goal.target)}</span>
-                          <button onClick={() => removeGoal(goal.id)} className="text-gray-600 hover:text-red-400 text-xs">✕</button>
+                          <span className="text-xs text-muted">{fmt(goal.current)} / {fmt(goal.target)}</span>
+                          <button onClick={() => removeGoal(goal.id)} className="text-muted hover:text-red-400 text-xs">✕</button>
                         </div>
                       </div>
-                      <div className="h-2 rounded-full bg-navy-700 overflow-hidden">
+                      <div className="h-2 rounded-full bg-s2 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${pct}%` }}
                           transition={{ duration: 0.8, ease: 'easeOut' }}
                           className={`h-full rounded-full ${
-                            pct >= 75 ? 'bg-green-500' : pct >= 40 ? 'bg-gold-500' : 'bg-blue-500'
+                            pct >= 75 ? 'bg-accent' : pct >= 40 ? 'bg-amber-500' : 'bg-accent/60'
                           }`}
                         />
                       </div>
@@ -258,32 +273,32 @@ export default function PlanPage() {
             )}
 
             {/* Add Goal */}
-            <div className="rounded-xl bg-navy-800 border border-navy-700 p-4">
-              <h4 className="text-xs font-semibold text-gray-300 mb-3">+ Add New Goal</h4>
+            <div className="rounded-card bg-card border border-line p-4">
+              <h4 className="text-xs font-semibold text-off mb-3">+ Add New Goal</h4>
               <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="Goal name..."
                   value={newGoalTitle}
                   onChange={(e) => setNewGoalTitle(e.target.value)}
-                  className="flex-1 rounded-lg bg-navy-700 border border-navy-600 px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-gold-500"
+                  className="flex-1 rounded-lg bg-s2 border border-line px-3 py-2 text-sm text-txt placeholder-muted outline-none focus:ring-2 focus:ring-accent"
                 />
                 <input
                   type="number"
                   placeholder="$"
                   value={newGoalTarget}
                   onChange={(e) => setNewGoalTarget(e.target.value)}
-                  className="w-28 rounded-lg bg-navy-700 border border-navy-600 px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-gold-500"
+                  className="w-28 rounded-lg bg-s2 border border-line px-3 py-2 text-sm text-txt placeholder-muted outline-none focus:ring-2 focus:ring-accent"
                 />
                 <button
                   onClick={addGoal}
-                  className="px-4 py-2 rounded-lg bg-gold-500 hover:bg-gold-600 text-white text-sm font-semibold transition-colors"
+                  className="btn-primary !py-2 !px-4 !text-sm"
                 >
                   Add
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

@@ -4,10 +4,10 @@ import streamlit as st
 import plotly.graph_objects as go
 from styles import inject_styles
 from config import COLORS, PLOTLY_LAYOUT, PLOTLY_COLORS, AGENTS
-from utils.session import init_session_state, get_profile, can_access_premium
+from utils.session import init_session_state, get_profile
 from utils.calculations import (
     compound_growth, debt_payoff_schedule, savings_rate_pct,
-    debt_to_income, emergency_fund_months, estimate_federal_tax,
+    emergency_fund_months,
 )
 from components.metric_card import render_metric_row
 

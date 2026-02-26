@@ -55,13 +55,13 @@ export default function ChatInput({ className = '' }: ChatInputProps) {
         value={text}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder="Ask Richy anything about money..."
+        placeholder="Ask Richy about your finances..."
         rows={1}
         disabled={isLoading}
-        className="flex-1 resize-none rounded-xl border border-gray-200 dark:border-navy-600
-                   bg-white dark:bg-navy-800 px-4 py-3 text-sm
-                   placeholder-gray-400 dark:placeholder-gray-500
-                   focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent
+        className="flex-1 resize-none rounded-xl border border-line
+                   bg-s2 px-4 py-3 text-sm text-txt
+                   placeholder-txt-muted
+                   focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                    transition-shadow disabled:opacity-60"
       />
       <motion.button
@@ -69,9 +69,9 @@ export default function ChatInput({ className = '' }: ChatInputProps) {
         whileTap={{ scale: 0.95 }}
         onClick={handleSubmit}
         disabled={!text.trim() || isLoading}
-        className="flex-shrink-0 w-10 h-10 rounded-xl bg-gold-500 hover:bg-gold-600
-                   text-white flex items-center justify-center shadow-md
-                   disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent hover:brightness-110
+                   text-black flex items-center justify-center shadow-[0_0_20px_rgba(0,232,123,.18)]
+                   disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         aria-label="Send message"
       >
         {isLoading ? (

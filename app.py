@@ -13,7 +13,7 @@ from config import (
 )
 from utils.session import init_session_state, get_profile
 from components.progress_tracker import render_onboarding_progress
-from components.agent_card import render_agent_card
+# components.agent_card used inline below when needed
 
 # ── Page config ──────────────────────────────────────────────────────────
 st.set_page_config(

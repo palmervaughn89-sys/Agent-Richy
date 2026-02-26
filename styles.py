@@ -42,6 +42,8 @@ def get_global_css() -> str:
     header {{visibility: hidden;}}
     .stDeployButton {{display: none;}}
     div[data-testid="stDecoration"] {{display: none;}}
+    .viewerBadge_container__r5tak {{display: none !important;}}
+    .viewerBadge_link__qRIco {{display: none !important;}}
 
     /* ── Sidebar ───────────────────────────────────────────────── */
     section[data-testid="stSidebar"] {{

@@ -4,10 +4,12 @@ Video-based financial literacy for young learners with quizzes, progress
 tracking, and achievement badges.
 """
 
+import os
 import streamlit as st
 from styles import inject_styles
 from config import COLORS
-from utils.session import init_session_state, get_profile, can_access_premium
+from config import FREE_VIDEO_MODULES, FREE_VIDEO_LESSONS
+from utils.session import init_session_state, get_profile
 from video_data import (
     VIDEO_MODULES, MODULE_BADGES, MEGA_BADGE,
     format_duration, get_total_lessons,
@@ -179,6 +181,38 @@ for row_start in range(0, len(VIDEO_MODULES), 2):
         badge_info = MODULE_BADGES.get(mid, {})
 
         with col:
+            # Check free-tier access
+            module_locked = (not is_premium and mod_idx >= FREE_VIDEO_MODULES)
+
+            if module_locked:
+                # Locked module card
+                st.markdown(f"""
+                <div style="background: {COLORS['navy_card']}; border: 1px solid {COLORS['gold']}40;
+                            border-radius: 16px; padding: 1.25rem; margin-bottom: 0.25rem;
+                            min-height: 200px; opacity: 0.6; position: relative;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem;">
+                        <span style="font-size: 2rem;">{module['icon']}</span>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.15rem; color: {COLORS['text_primary']};">
+                                🔒 {module['title']}
+                            </div>
+                            <div style="font-size: 0.8rem; color: {COLORS['text_muted']};">
+                                Ages {module['age_range']} · {mod_total} lessons
+                            </div>
+                        </div>
+                    </div>
+                    <div style="color: {COLORS['text_secondary']}; font-size: 0.92rem;
+                                margin-bottom: 0.75rem;">{module['description']}</div>
+                    <div style="text-align: center; padding: 0.5rem; color: {COLORS['gold']};
+                                font-weight: 600; font-size: 0.9rem;">
+                        ⭐ Upgrade to Premium to unlock!
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                st.page_link("pages/6_Upgrade.py", label="⭐ Unlock All Modules",
+                             use_container_width=True)
+                continue
+
             # Module card
             st.markdown(f"""
             <div style="background: {COLORS['navy_card']}; border: 1px solid {COLORS['border']};
@@ -254,12 +288,31 @@ if active_mid:
 
         # Lesson list
         st.markdown(f"**Lessons** ({sum(1 for l in lessons if l['lesson_id'] in completed)}/{len(lessons)} complete)")
+
+        # Determine free-tier module index
+        _mod_indices = {m['module_id']: i for i, m in enumerate(VIDEO_MODULES)}
+        _current_mod_idx = _mod_indices.get(active_mid, 0)
+
         for idx, lesson in enumerate(lessons):
             lid = lesson["lesson_id"]
             is_done = lid in completed
             is_active = lid == active_lid
 
+            # Free-tier lesson limit within free modules
+            lesson_locked = (not is_premium
+                             and _current_mod_idx < FREE_VIDEO_MODULES
+                             and idx >= FREE_VIDEO_LESSONS)
+
             render_lesson_card(lesson, idx + 1, completed=is_done, active=is_active)
+
+            if lesson_locked:
+                st.markdown(f"""
+                <div style="text-align: center; padding: 0.3rem; color: {COLORS['gold']};
+                            font-size: 0.85rem; font-weight: 600;">
+                    🔒 Premium lesson — <a href="/Upgrade" style="color: {COLORS['gold']};">upgrade to unlock</a>
+                </div>
+                """, unsafe_allow_html=True)
+                continue
 
             btn_text = "✅ Completed" if is_done else ("📖 Watching..." if is_active else "▶️ Watch")
             if st.button(btn_text, key=f"les_btn_{lid}",
@@ -341,3 +394,76 @@ else:
         <a href="/Chat" style="color: {COLORS['blue']};">💬 Chat</a> page!
     </div>
     """, unsafe_allow_html=True)
+
+# ── Admin: Video Pipeline Status Dashboard ───────────────────────────────
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+with st.expander("🔧 Video Pipeline Status (Admin)", expanded=False):
+    admin_pass = st.text_input("Enter admin password:", type="password", key="admin_pw")
+    if admin_pass == os.environ.get("ADMIN_PASSWORD", "richy_admin"):
+        from utils.video_loader import get_pipeline_summary, get_all_available_videos
+
+        summary = get_pipeline_summary()
+        available = get_all_available_videos()
+
+        # Status overview
+        st.markdown(f"""
+        <div style="background: {COLORS['navy_card']}; border: 1px solid {COLORS['border']};
+                    border-radius: 14px; padding: 1.25rem; margin: 1rem 0;">
+            <h4 style="color: {COLORS['gold']}; margin: 0 0 0.75rem;">📊 Pipeline Overview</h4>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 1.6rem; font-weight: 700; color: {COLORS['green']};">
+                        {summary['local_count']}</div>
+                    <div style="font-size: 0.8rem; color: {COLORS['text_secondary']};">✅ Local Files</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.6rem; font-weight: 700; color: {COLORS['blue']};">
+                        {summary['youtube_count']}</div>
+                    <div style="font-size: 0.8rem; color: {COLORS['text_secondary']};">🔗 YouTube</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.6rem; font-weight: 700; color: {COLORS['blue_light']};">
+                        {summary['external_count']}</div>
+                    <div style="font-size: 0.8rem; color: {COLORS['text_secondary']};">🌐 External URL</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.6rem; font-weight: 700; color: {COLORS['gold']};">
+                        {summary['placeholder_count']}</div>
+                    <div style="font-size: 0.8rem; color: {COLORS['text_secondary']};">⏳ Coming Soon</div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Per-lesson table
+        st.markdown(f"**Lesson Status** ({summary['total_lessons']} total)")
+        for ls in summary["lessons"]:
+            size_str = ""
+            if ls["file_size"]:
+                mb = ls["file_size"] / (1024 * 1024)
+                size_str = f" — {mb:.1f} MB"
+            mod_str = ""
+            if ls["last_modified"]:
+                mod_str = f" — modified {ls['last_modified']}"
+            st.markdown(
+                f"{ls['icon']} **{ls['title']}** ({ls['module']})  \n"
+                f"&nbsp;&nbsp;&nbsp;&nbsp;`{ls['filename']}`{size_str}{mod_str}  \n"
+                f"&nbsp;&nbsp;&nbsp;&nbsp;_{ls['detail']}_"
+            )
+
+        # Show loose files in videos/shows/ not mapped to any lesson
+        if available:
+            st.markdown("---")
+            st.markdown("**📁 Files found in `videos/shows/`:**")
+            for fname, fpath in sorted(available.items()):
+                try:
+                    mb = os.path.getsize(fpath) / (1024 * 1024)
+                    st.markdown(f"- `{fname}` — {mb:.1f} MB")
+                except OSError:
+                    st.markdown(f"- `{fname}`")
+        else:
+            st.info("No .mp4 files found in `videos/shows/` yet. "
+                    "Drop videos there and push to deploy automatically!")
+    elif admin_pass:
+        st.error("Incorrect password.")

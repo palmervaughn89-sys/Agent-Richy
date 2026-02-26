@@ -10,5 +10,8 @@ plotly==6.1.2
 # Google Gemini fallback LLM
 google-generativeai==0.8.5
 
+# RAG knowledge retrieval
+scikit-learn==1.6.1
+
 # CogVideoX AI video generation (install separately for local GPU):
 #   pip install -r requirements-gpu.txt

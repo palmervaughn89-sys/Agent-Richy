@@ -1,6 +1,5 @@
 """My Plan — AI-generated financial plan dashboard."""
 
-import math
 import streamlit as st
 import plotly.graph_objects as go
 from styles import inject_styles
@@ -10,7 +9,7 @@ from utils.calculations import (
     debt_payoff_schedule, compound_growth, estimate_federal_tax,
     savings_rate_pct, debt_to_income, emergency_fund_months,
 )
-from components.metric_card import render_metric_card, render_metric_row
+from components.metric_card import render_metric_row
 
 st.set_page_config(page_title="My Plan — Agent Richy", page_icon="📋", layout="wide")
 inject_styles()

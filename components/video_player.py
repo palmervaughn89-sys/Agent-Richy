@@ -1,9 +1,14 @@
-"""Video player component — renders video lessons from video_data.py structure."""
+"""Video player component — renders video lessons from video_data.py structure.
+
+Uses the auto-detection pipeline from ``utils.video_loader`` to resolve the
+best available source (local file → external URL → YouTube → placeholder).
+"""
 
 import re
 import streamlit as st
 from config import COLORS
 from video_data import format_duration
+from utils.video_loader import get_video_source
 
 
 def _extract_youtube_id(url: str) -> str | None:
@@ -20,47 +25,45 @@ def _extract_youtube_id(url: str) -> str | None:
     return None
 
 
-def _is_placeholder(url: str) -> bool:
-    """Return True if the URL is still a placeholder."""
-    return not url or url.startswith("PLACEHOLDER")
-
-
 def render_video_player(lesson: dict) -> None:
     """Render the video embed for a lesson dict from video_data.py.
 
-    Handles YouTube iframes, MP4 via st.video, and placeholder fallback.
+    Resolution order (handled by ``get_video_source``):
+    1. Local MP4 in ``videos/shows/``
+    2. External URL from ``videos/video_urls.json``
+    3. YouTube or external ``video_url`` already in the lesson dict
+    4. Placeholder "Coming Soon" card
     """
-    url = lesson.get("video_url", "")
-    video_type = lesson.get("video_type", "youtube")
+    source = get_video_source(lesson)
     title = lesson.get("title", "Lesson")
     duration = format_duration(lesson.get("duration_seconds", 0))
 
-    if _is_placeholder(url):
-        # Graceful placeholder card
-        st.markdown(f"""
-        <div style="background: {COLORS['navy_card']}; border: 2px dashed {COLORS['gold']}60;
-                    border-radius: 16px; padding: 3rem 2rem; text-align: center;
-                    margin: 1rem 0;">
-            <div style="font-size: 3rem; margin-bottom: 0.75rem;">🎬</div>
-            <div style="font-size: 1.2rem; font-weight: 600; color: {COLORS['text_primary']};
-                        margin-bottom: 0.5rem;">
-                Video Coming Soon!
-            </div>
-            <div style="color: {COLORS['text_secondary']}; font-size: 0.95rem;">
-                We're creating an awesome video for <strong>{title}</strong>.<br>
-                Check back soon — it'll be worth the wait! ⏱️ {duration}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        return
+    if source["type"] == "local_file":
+        # ── Play directly from local file ────────────────────────────
+        st.video(source["source"])
 
-    if video_type == "youtube":
-        vid_id = _extract_youtube_id(url)
-        embed_url = f"https://www.youtube.com/embed/{vid_id}" if vid_id else url
+    elif source["type"] == "youtube":
+        # ── Embed YouTube video ──────────────────────────────────────
+        video_url = source["source"]
+        vid_id = _extract_youtube_id(video_url)
+        if vid_id:
+            embed_url = f"https://www.youtube.com/embed/{vid_id}"
+        elif "embed/" in video_url:
+            embed_url = video_url
+        elif "watch?v=" in video_url:
+            v_id = video_url.split("watch?v=")[1].split("&")[0]
+            embed_url = f"https://www.youtube.com/embed/{v_id}"
+        elif "youtu.be/" in video_url:
+            v_id = video_url.split("youtu.be/")[1].split("?")[0]
+            embed_url = f"https://www.youtube.com/embed/{v_id}"
+        else:
+            embed_url = video_url
+
         st.markdown(f"""
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-                    border-radius: 14px; margin: 0.5rem 0 1rem;">
-            <iframe width="100%" height="400" src="{embed_url}"
+                    border-radius: 14px; margin: 0.5rem 0 1rem;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+            <iframe width="100%" height="450" src="{embed_url}"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -69,9 +72,33 @@ def render_video_player(lesson: dict) -> None:
             </iframe>
         </div>
         """, unsafe_allow_html=True)
+
+    elif source["type"] == "external_url":
+        # ── Direct URL (non-YouTube hosted MP4 or CDN) ───────────────
+        st.video(source["source"])
+
     else:
-        # MP4 / direct file
-        st.video(url)
+        # ── Placeholder — Coming Soon ────────────────────────────────
+        cat_color = lesson.get("category_color", COLORS["gold"])
+        st.markdown(f"""
+        <div style="background: linear-gradient(135deg, {COLORS['navy_card']} 0%, {COLORS['surface']} 100%);
+                    border: 2px dashed {cat_color}60;
+                    border-radius: 16px; padding: 3rem 2rem; text-align: center;
+                    margin: 1rem 0;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎬</div>
+            <h3 style="color: {COLORS['text_primary']}; margin: 0 0 0.5rem;">
+                {title} — Coming Soon!
+            </h3>
+            <p style="color: {COLORS['text_secondary']}; margin: 0; font-size: 1rem;">
+                We're creating an awesome video just for you! Check back soon! ✨
+            </p>
+            <div style="margin-top: 1rem; display: inline-block;
+                background: {cat_color}20; color: {cat_color};
+                padding: 6px 16px; border-radius: 20px; font-size: 0.9rem;">
+                ⏱️ {duration}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 def render_lesson_card(lesson: dict, index: int, completed: bool = False,

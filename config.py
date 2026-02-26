@@ -77,6 +77,7 @@ AGENTS = {
         "specialty": "General Financial Coaching",
         "tagline": "Your smart friend who happens to be a financial planner",
         "sample_q": "Help me build a complete financial plan",
+        "avatar": "https://api.dicebear.com/7.x/personas/svg?seed=CoachRichy&backgroundColor=F59E0B",
     },
     "budget_bot": {
         "name": "Budget Bot",
@@ -85,6 +86,7 @@ AGENTS = {
         "specialty": "Budgeting & Expense Tracking",
         "tagline": "Analytical, detail-oriented — loves crunching your numbers",
         "sample_q": "Analyze my spending and build a budget",
+        "avatar": "https://api.dicebear.com/7.x/personas/svg?seed=BudgetBot&backgroundColor=2563EB",
     },
     "invest_intel": {
         "name": "Invest Intel",
@@ -93,6 +95,7 @@ AGENTS = {
         "specialty": "Investing & Portfolio Strategy",
         "tagline": "Confident, strategic, data-driven market insights",
         "sample_q": "How should I invest $500/month?",
+        "avatar": "https://api.dicebear.com/7.x/personas/svg?seed=InvestIntel&backgroundColor=10B981",
     },
     "debt_destroyer": {
         "name": "Debt Destroyer",
@@ -101,6 +104,7 @@ AGENTS = {
         "specialty": "Debt Payoff Strategies",
         "tagline": "Motivational, action-oriented debt elimination",
         "sample_q": "I have $20K in credit card debt — help!",
+        "avatar": "https://api.dicebear.com/7.x/personas/svg?seed=DebtDestroyer&backgroundColor=EF4444",
     },
     "savings_sage": {
         "name": "Savings Sage",
@@ -109,6 +113,7 @@ AGENTS = {
         "specialty": "Savings & Emergency Funds",
         "tagline": "Patient, goal-oriented savings strategist",
         "sample_q": "How do I build a 6-month emergency fund?",
+        "avatar": "https://api.dicebear.com/7.x/personas/svg?seed=SavingsSage&backgroundColor=8B5CF6",
     },
     "kid_coach": {
         "name": "Kid Coach",
@@ -117,6 +122,7 @@ AGENTS = {
         "specialty": "Youth Financial Education",
         "tagline": "Fun, educational — makes money lessons exciting",
         "sample_q": "How can I start earning money as a kid?",
+        "avatar": "https://api.dicebear.com/7.x/personas/svg?seed=KidCoach&backgroundColor=06B6D4",
     },
 }
 

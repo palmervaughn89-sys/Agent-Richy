@@ -22,10 +22,10 @@ export default function VideoLesson({ videoUrl, videoType, title, description, t
   };
 
   return (
-    <div className="rounded-xl border border-navy-700
-                    bg-navy-800 overflow-hidden shadow-sm">
+    <div className="rounded-xl border border-line
+                    bg-card overflow-hidden shadow-sm">
       {/* Video area */}
-      <div className="relative aspect-video bg-gradient-to-br from-navy-800 to-navy-900
+      <div className="relative aspect-video bg-gradient-to-br from-s1 to-s2
                       flex items-center justify-center">
         {playing && videoUrl && isYouTube ? (
           <iframe
@@ -49,7 +49,7 @@ export default function VideoLesson({ videoUrl, videoType, title, description, t
             onClick={handlePlay}
             className="flex flex-col items-center gap-2"
           >
-            <div className="w-16 h-16 rounded-full bg-gold-500/90 flex items-center justify-center
+            <div className="w-16 h-16 rounded-full bg-accent/90 flex items-center justify-center
                             shadow-lg backdrop-blur-sm">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                 <path d="M8 5v14l11-7z" />
@@ -64,7 +64,7 @@ export default function VideoLesson({ videoUrl, videoType, title, description, t
       <div className="p-4">
         <h3 className="text-sm font-semibold text-white">{title}</h3>
         {description && (
-          <p className="text-xs text-gray-400 mt-1 line-clamp-2">
+          <p className="text-xs text-muted mt-1 line-clamp-2">
             {description}
           </p>
         )}

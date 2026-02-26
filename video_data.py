@@ -22,6 +22,7 @@ VIDEO_MODULES = [
         "description": "Learn what money is, where it comes from, and why we use it!",
         "icon": "💰",
         "age_range": "5-10",
+        "show_filename": "show_001_where_did_money_come_from.mp4",
         "lessons": [
             {
                 "lesson_id": "mod1_les1",
@@ -29,6 +30,7 @@ VIDEO_MODULES = [
                 "description": "From trading seashells to dollar bills — how money was invented!",
                 "video_url": "PLACEHOLDER_URL_1",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",            # "youtube" or "mp4"
+                "video_filename": "lesson_mod1_01_the_story_of_money.mp4",
                 "duration_seconds": 120,
                 "thumbnail_emoji": "🏛️",
                 "quiz": [
@@ -52,6 +54,7 @@ VIDEO_MODULES = [
                 "description": "Learn about all the different coins and bills and what they're worth!",
                 "video_url": "PLACEHOLDER_URL_2",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod1_02_coins_and_bills.mp4",
                 "duration_seconds": 90,
                 "thumbnail_emoji": "🪙",
                 "quiz": [
@@ -69,6 +72,7 @@ VIDEO_MODULES = [
                 "description": "How do people earn money? From lemonade stands to real jobs!",
                 "video_url": "PLACEHOLDER_URL_3",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod1_03_earning_money.mp4",
                 "duration_seconds": 110,
                 "thumbnail_emoji": "🍋",
                 "quiz": [
@@ -88,6 +92,7 @@ VIDEO_MODULES = [
         "description": "Learn the difference between needs and wants, and how to save like a pro!",
         "icon": "🐷",
         "age_range": "5-10",
+        "show_filename": "show_002_the_super_saver_challenge.mp4",
         "lessons": [
             {
                 "lesson_id": "mod2_les1",
@@ -95,6 +100,7 @@ VIDEO_MODULES = [
                 "description": "Is ice cream a need or a want? Let's figure it out!",
                 "video_url": "PLACEHOLDER_URL_4",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod2_01_needs_vs_wants.mp4",
                 "duration_seconds": 100,
                 "thumbnail_emoji": "🤔",
                 "quiz": [
@@ -112,6 +118,7 @@ VIDEO_MODULES = [
                 "description": "Why putting money aside today makes tomorrow even better!",
                 "video_url": "PLACEHOLDER_URL_5",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod2_02_the_magic_of_saving.mp4",
                 "duration_seconds": 120,
                 "thumbnail_emoji": "✨",
                 "quiz": [
@@ -129,6 +136,7 @@ VIDEO_MODULES = [
                 "description": "Pick something you want and make a plan to save for it!",
                 "video_url": "PLACEHOLDER_URL_6",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod2_03_setting_a_savings_goal.mp4",
                 "duration_seconds": 100,
                 "thumbnail_emoji": "🎯",
                 "quiz": [
@@ -148,6 +156,7 @@ VIDEO_MODULES = [
         "description": "Discover how money can grow all by itself — like planting a money tree!",
         "icon": "🌱",
         "age_range": "8-12",
+        "show_filename": "show_003_the_magic_money_tree.mp4",
         "lessons": [
             {
                 "lesson_id": "mod3_les1",
@@ -155,6 +164,7 @@ VIDEO_MODULES = [
                 "description": "Where does your money go when you put it in a bank?",
                 "video_url": "PLACEHOLDER_URL_7",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod3_01_what_is_a_bank.mp4",
                 "duration_seconds": 110,
                 "thumbnail_emoji": "🏦",
                 "quiz": [
@@ -172,6 +182,7 @@ VIDEO_MODULES = [
                 "description": "How your money grows a little bit every day, just like a plant!",
                 "video_url": "PLACEHOLDER_URL_8",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod3_02_the_money_tree.mp4",
                 "duration_seconds": 130,
                 "thumbnail_emoji": "🌳",
                 "quiz": [
@@ -189,6 +200,7 @@ VIDEO_MODULES = [
                 "description": "How grown-ups use money to make even MORE money!",
                 "video_url": "PLACEHOLDER_URL_9",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod3_03_what_is_investing.mp4",
                 "duration_seconds": 140,
                 "thumbnail_emoji": "📈",
                 "quiz": [
@@ -208,6 +220,7 @@ VIDEO_MODULES = [
         "description": "Build habits that will make you great with money for your whole life!",
         "icon": "🧠",
         "age_range": "8-12",
+        "show_filename": "show_004_agent_richys_money_rules.mp4",
         "lessons": [
             {
                 "lesson_id": "mod4_les1",
@@ -215,6 +228,7 @@ VIDEO_MODULES = [
                 "description": "A simple system that makes managing money easy and fun!",
                 "video_url": "PLACEHOLDER_URL_10",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod4_01_the_three_jars.mp4",
                 "duration_seconds": 120,
                 "thumbnail_emoji": "🫙",
                 "quiz": [
@@ -232,6 +246,7 @@ VIDEO_MODULES = [
                 "description": "How to spot good deals and avoid spending traps!",
                 "video_url": "PLACEHOLDER_URL_11",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod4_02_being_a_smart_shopper.mp4",
                 "duration_seconds": 110,
                 "thumbnail_emoji": "🛒",
                 "quiz": [
@@ -249,6 +264,7 @@ VIDEO_MODULES = [
                 "description": "How using your money to help others makes the world better!",
                 "video_url": "PLACEHOLDER_URL_12",  # ← Replace with real YouTube/MP4 URL
                 "video_type": "youtube",
+                "video_filename": "lesson_mod4_03_giving_back.mp4",
                 "duration_seconds": 100,
                 "thumbnail_emoji": "❤️",
                 "quiz": [

@@ -2,69 +2,149 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+/* ── Design-system tokens ─────────────────────────────────────────── */
 :root {
-  --navy: #0A1628;
-  --navy-light: #0F2035;
-  --navy-card: #111D32;
-  --blue: #2563EB;
-  --gold: #F59E0B;
-  --green: #10B981;
-  --red: #EF4444;
-  --surface: #0F172A;
+  --bg:          #000000;
+  --s1:          #080C0A;
+  --s2:          #0C1210;
+  --card:        #101A15;
+  --card-hover:  #162420;
+  --green:       #00E87B;
+  --green-dim:   #00C968;
+  --green-dark:  #009E52;
+  --green-ghost: rgba(0,232,123,.06);
+  --green-glow:  rgba(0,232,123,.18);
+  --white:       #F2F8F5;
+  --off:         #B8C9C0;
+  --muted:       #5E736A;
+  --border:      rgba(255,255,255,.06);
+  --border-hover:rgba(0,232,123,.25);
 }
 
 body {
-  @apply bg-navy text-slate-100 font-sans antialiased;
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Outfit', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  @apply bg-navy;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-surface-alt rounded-full;
+/* ── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--s2); border-radius: 100px; }
+
+/* ── Design-system utility classes ───────────────────────────────── */
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--green);
+  margin-bottom: 12px;
 }
 
-/* Chat message markdown */
-.chat-message h3 {
-  @apply text-lg font-bold text-brand-gold mt-3 mb-1;
+.section-title {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--white);
+  font-size: clamp(32px, 4vw, 56px);
+  letter-spacing: -0.035em;
 }
-.chat-message p {
-  @apply mb-2 leading-relaxed;
+.section-title .muted { color: var(--muted); }
+
+.ds-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px 28px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
-.chat-message ul, .chat-message ol {
-  @apply ml-4 mb-2 space-y-1;
-}
-.chat-message li {
-  @apply list-disc;
-}
-.chat-message strong {
-  @apply text-white font-semibold;
-}
-.chat-message code {
-  @apply bg-surface-alt px-1.5 py-0.5 rounded text-sm text-brand-blue-light;
-}
-.chat-message table {
-  @apply w-full border-collapse my-3;
-}
-.chat-message th, .chat-message td {
-  @apply border border-surface-alt px-3 py-1.5 text-left text-sm;
-}
-.chat-message th {
-  @apply bg-surface-alt font-semibold;
+.ds-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.4);
 }
 
-/* Avatar speech bubble */
-.speech-bubble {
-  @apply relative bg-navy-card rounded-xl px-3 py-2 text-sm;
+.btn-primary {
+  background: var(--green);
+  color: #000;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 40px var(--green-glow), 0 12px 40px rgba(0,0,0,.4);
 }
-.speech-bubble::after {
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 60px var(--green-glow), 0 16px 50px rgba(0,0,0,.5);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border);
+  padding: 18px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--border-hover);
+  background: var(--green-ghost);
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--border-hover);
+  background: var(--green-ghost);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.04em;
+}
+.badge-pill::before {
   content: '';
-  @apply absolute -bottom-2 left-4 w-0 h-0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid #111D32;
+  width: 7px; height: 7px;
+  border-radius: 100%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
 }
+
+/* ── Grid background (hero only) ─────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0,232,123,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,232,123,.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* ── Chat message markdown ───────────────────────────────────────── */
+.chat-message h3 { font-size: 1.1rem; font-weight: 700; color: var(--green); margin: 12px 0 4px; }
+.chat-message p  { margin-bottom: 8px; line-height: 1.65; }
+.chat-message ul, .chat-message ol { margin-left: 16px; margin-bottom: 8px; }
+.chat-message li { list-style-type: disc; }
+.chat-message strong { color: var(--white); font-weight: 600; }
+.chat-message code  { background: var(--s2); padding: 2px 6px; border-radius: 4px; font-size: 0.875rem; color: var(--green); font-family: 'IBM Plex Mono', monospace; }
+
+/* ── Marquee ─────────────────────────────────────────────────────── */
+.marquee-track { display: flex; width: max-content; }
+.marquee-track > * { flex-shrink: 0; }

@@ -10,12 +10,12 @@ interface Props {
 export default function TopNav({ title, children }: Props) {
   return (
     <header className="flex items-center justify-between px-4 md:px-6 py-3
-                        border-b border-gray-100 dark:border-navy-700
-                        bg-white/80 dark:bg-navy-900/80 backdrop-blur-sm
+                        border-b border-line
+                        bg-bg/80 backdrop-blur-xl
                         sticky top-0 z-30">
       <div className="flex items-center gap-3">
         {title && (
-          <h2 className="text-base font-semibold text-navy-800 dark:text-white">
+          <h2 className="text-base font-semibold text-txt">
             {title}
           </h2>
         )}

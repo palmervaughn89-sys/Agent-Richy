@@ -28,7 +28,7 @@ export default function FinancialChart({ config, height = 280 }: Props) {
 
   if (!data || data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-40 text-sm text-gray-400">
+      <div className="flex items-center justify-center h-40 text-sm text-muted">
         No chart data available
       </div>
     );
@@ -158,7 +158,7 @@ export default function FinancialChart({ config, height = 280 }: Props) {
 
       default:
         return (
-          <div className="text-center text-sm text-gray-400 py-8">
+          <div className="text-center text-sm text-muted py-8">
             Unsupported chart type: {chartType}
           </div>
         );

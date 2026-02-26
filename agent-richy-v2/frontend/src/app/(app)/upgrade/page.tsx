@@ -52,60 +52,68 @@ export default function UpgradePage() {
       <TopNav title="Upgrade ⭐" />
 
       <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-20 md:pb-6">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-navy-800 dark:text-white">
-            Level Up Your Financial Game
-          </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
+        >
+          <p className="section-label">UPGRADE</p>
+          <h1 className="section-title">
+            Unlock everything. <span className="text-muted">Go Pro.</span>
+          </h1>
+          <p className="text-sm text-off mt-2">
             Unlock all agents, unlimited calculators, and premium features.
           </p>
-        </div>
+        </motion.div>
 
+        {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {PLANS.map((plan) => (
+          {PLANS.map((plan, i) => (
             <motion.div
               key={plan.name}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: i * 0.1 }}
               whileHover={{ y: -4 }}
-              className={`rounded-xl p-6 shadow-sm ${
+              className={`rounded-card p-6 ${
                 plan.highlighted
-                  ? 'bg-gradient-to-b from-gold-50 to-white dark:from-gold-900/20 dark:to-navy-800 border-2 border-gold-400 ring-2 ring-gold-200 dark:ring-gold-800'
-                  : 'bg-white dark:bg-navy-800 border border-gray-200 dark:border-navy-700'
+                  ? 'bg-ghost border-2 border-accent/40 ring-1 ring-accent/20'
+                  : 'bg-card border border-line'
               }`}
             >
               {plan.highlighted && (
-                <span className="inline-block text-[10px] font-bold uppercase tracking-wider
-                                 text-gold-600 bg-gold-100 dark:bg-gold-900/40 px-2 py-0.5
-                                 rounded-full mb-3">
+                <span className="badge-pill mb-3">
                   Most Popular
                 </span>
               )}
 
-              <h3 className="text-lg font-bold text-navy-800 dark:text-white">{plan.name}</h3>
+              <h3 className="text-lg font-bold text-txt">{plan.name}</h3>
               <div className="flex items-baseline gap-1 mt-2">
-                <span className="text-3xl font-bold text-navy-800 dark:text-white">
+                <span className="text-3xl font-bold text-txt">
                   {plan.price}
                 </span>
-                <span className="text-sm text-gray-400">{plan.period}</span>
+                <span className="text-sm text-muted">{plan.period}</span>
               </div>
 
               <ul className="mt-5 space-y-2">
                 {plan.features.map((feat) => (
-                  <li key={feat} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                    <span className="text-green-500">✓</span>
+                  <li key={feat} className="flex items-center gap-2 text-sm text-off">
+                    <span className="text-accent">✓</span>
                     {feat}
                   </li>
                 ))}
               </ul>
 
               <button
-                className={`w-full mt-6 py-2.5 rounded-lg text-sm font-semibold transition-colors
-                  ${
-                    plan.current
-                      ? 'bg-gray-100 dark:bg-navy-700 text-gray-400 cursor-default'
-                      : plan.highlighted
-                      ? 'bg-gold-500 hover:bg-gold-600 text-white shadow-md'
-                      : 'bg-navy-800 dark:bg-navy-600 hover:bg-navy-700 text-white'
-                  }`}
+                className={`w-full mt-6 ${
+                  plan.current
+                    ? 'py-2.5 rounded-lg text-sm font-semibold bg-s2 text-muted cursor-default'
+                    : plan.highlighted
+                    ? 'btn-primary'
+                    : 'btn-secondary'
+                }`}
                 disabled={plan.current}
               >
                 {plan.current ? 'Current Plan' : `Get ${plan.name}`}

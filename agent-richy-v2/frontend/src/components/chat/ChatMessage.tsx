@@ -23,13 +23,11 @@ export default function ChatMessage({ message, isLatest = false }: Props) {
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3`}
     >
-      {/* Agent badge */}
+      {/* Agent avatar */}
       {!isUser && (
         <div className="flex-shrink-0 mr-2 mt-1">
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow"
-            style={{ background: agentInfo ? `linear-gradient(135deg, ${agentInfo.color}, ${agentInfo.color}dd)` : 'linear-gradient(135deg, #f59e0b, #d97706)' }}
-          >
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent to-accent-dark
+                          flex items-center justify-center text-black text-[10px] font-extrabold">
             {agentInfo?.icon || 'R'}
           </div>
         </div>
@@ -39,15 +37,14 @@ export default function ChatMessage({ message, isLatest = false }: Props) {
         className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed
           ${
             isUser
-              ? 'bg-gold-500 text-white rounded-br-md'
-              : 'bg-white dark:bg-navy-800 text-navy-800 dark:text-gray-100 border border-gray-100 dark:border-navy-700 rounded-bl-md shadow-sm'
+              ? 'bg-accent text-black rounded-br-md font-medium'
+              : 'bg-card text-txt border border-line rounded-bl-md'
           }`}
       >
         {/* Agent label */}
         {!isUser && message.agent && (
           <span
-            className="block text-[10px] font-semibold uppercase tracking-wider mb-1"
-            style={{ color: agentInfo?.color || '#f59e0b' }}
+            className="block text-[10px] font-mono font-semibold uppercase tracking-label mb-1 text-accent"
           >
             {agentInfo?.name || message.agent.replace('_', ' ')}
           </span>
@@ -56,7 +53,7 @@ export default function ChatMessage({ message, isLatest = false }: Props) {
         {/* Message body */}
         <div className="whitespace-pre-wrap">{message.content}</div>
 
-        {/* Structured data (charts, evidence, examples) */}
+        {/* Structured data */}
         {!isUser && message.structured && (
           <ResponseRenderer data={message.structured} />
         )}
@@ -64,7 +61,7 @@ export default function ChatMessage({ message, isLatest = false }: Props) {
         {/* Timestamp */}
         <span
           className={`block text-[10px] mt-1 ${
-            isUser ? 'text-white/60' : 'text-gray-400 dark:text-gray-500'
+            isUser ? 'text-black/50' : 'text-txt-muted'
           }`}
         >
           {new Date(message.timestamp).toLocaleTimeString([], {

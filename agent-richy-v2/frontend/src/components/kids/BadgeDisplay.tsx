@@ -23,10 +23,10 @@ export default function BadgeDisplay({ badges }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-navy-800 dark:text-white">
+        <h3 className="text-sm font-semibold text-txt">
           🏆 Badges
         </h3>
-        <span className="text-xs text-gray-500 dark:text-gray-400">
+        <span className="text-xs text-muted">
           {earned}/{badges.length} earned
         </span>
       </div>
@@ -39,15 +39,15 @@ export default function BadgeDisplay({ badges }: Props) {
             className={`flex flex-col items-center gap-1 p-2 rounded-lg cursor-default
               ${
                 badge.earned
-                  ? 'bg-gold-900/20 border border-gold-700'
-                  : 'bg-navy-800 border border-navy-700 opacity-40'
+                  ? 'bg-accent/15 border border-accent/40'
+                  : 'bg-s1 border border-line opacity-40'
               }`}
             title={badge.description}
           >
             <span className={`text-2xl ${!badge.earned ? 'grayscale' : ''}`}>
               {badge.icon || badge.emoji}
             </span>
-            <span className="text-[9px] text-center font-medium text-gray-300
+            <span className="text-[9px] text-center font-medium text-off
                              line-clamp-1">
               {badge.name || badge.label}
             </span>
