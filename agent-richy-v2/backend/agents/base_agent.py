@@ -101,7 +101,8 @@ RESPONSE RULES:
 
     def send_message(self, user_input: str, chat_history: list,
                      profile, financial_plan: dict,
-                     client=None, provider: str = "openai") -> str:
+                     client=None, provider: str = "openai",
+                     extra_system_prompt: Optional[str] = None) -> str:
         """Send a message to the LLM and get a response.
 
         Args:
@@ -111,6 +112,7 @@ RESPONSE RULES:
             financial_plan: Current financial plan dict.
             client: LLM client instance (OpenAI or Gemini).
             provider: 'openai' or 'gemini'.
+            extra_system_prompt: Additional system prompt text (e.g. from skill detection).
 
         Returns:
             The assistant's response string, or a streaming response.
@@ -123,6 +125,10 @@ RESPONSE RULES:
                 user_profile=self._profile_to_dict(profile),
                 financial_plan=financial_plan,
             )
+
+            # Append skill-specific prompt if detected
+            if extra_system_prompt:
+                system_prompt = f"{system_prompt}\n\n{extra_system_prompt}"
 
             if provider == "gemini":
                 return self._send_gemini(client, system_prompt, user_input,

@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from agents import get_agent, route_to_agent
 from core.intent_detection import build_enriched_context, detect_intent
 from core.response_cache import set_session_cache
+from core.skill_prompts import build_skill_context
 from services.response_formatter import format_response
 from models.structured_response import StructuredResponse
 from models.chat import ChatRequest
@@ -82,6 +83,11 @@ async def chat(request: ChatRequest):
     if context.get("enriched_prompt"):
         enriched_message = f"{message}\n\n{context['enriched_prompt']}"
 
+    # ── Skill prompt injection ───────────────────────────────────────
+    skill_context = build_skill_context(request.skill, request.optimizer_expenses)
+    if skill_context:
+        logger.info(f"[skill-detection] Injecting '{request.skill}' prompt for session {session_id}")
+
     # Create a simple profile object the agents can use
     from models.user_profile import UserProfile
     profile = UserProfile(**{
@@ -98,6 +104,7 @@ async def chat(request: ChatRequest):
             financial_plan={},
             client=_get_llm_client(),
             provider=_get_provider(),
+            extra_system_prompt=skill_context or None,
         )
 
         # Handle streaming response from OpenAI
@@ -172,6 +179,11 @@ async def chat_stream(request: ChatRequest):
     if context.get("enriched_prompt"):
         enriched_message = f"{message}\n\n{context['enriched_prompt']}"
 
+    # ── Skill prompt injection ───────────────────────────────────────
+    skill_context = build_skill_context(request.skill, request.optimizer_expenses)
+    if skill_context:
+        logger.info(f"[skill-detection] Injecting '{request.skill}' prompt for stream session {session_id}")
+
     from models.user_profile import UserProfile
     profile = UserProfile(**{
         k: v for k, v in profile_dict.items()
@@ -187,6 +199,7 @@ async def chat_stream(request: ChatRequest):
                 financial_plan={},
                 client=_get_llm_client(),
                 provider=_get_provider(),
+                extra_system_prompt=skill_context or None,
             )
 
             full_text = ""

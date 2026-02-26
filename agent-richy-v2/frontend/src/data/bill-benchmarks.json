@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "description": "Average monthly bill benchmarks for Agent Richy's cost comparison analysis",
+    "note": "Based on US national averages as of early 2026. All values are monthly in USD.",
+    "lastUpdated": "2026-02-01"
+  },
+  "internet": { "average": 75, "good": 50, "excellent": 40, "negotiation_possible": true, "tip": "Call retention department. Mention competitor prices. Best time: when your contract is expiring." },
+  "cell_phone": { "average": 85, "good": 50, "excellent": 35, "negotiation_possible": true, "tip": "MVNOs like Mint Mobile, Visible, and Cricket offer the same networks for 50-70% less." },
+  "car_insurance": { "average": 180, "good": 130, "excellent": 100, "negotiation_possible": true, "tip": "Shop annually. Bundle home+auto. Ask about safe driver, low mileage, and payment-in-full discounts." },
+  "electric": { "average": 137, "good": 100, "excellent": 75, "negotiation_possible": false, "tip": "Switch to LED bulbs, use a smart thermostat, and check if your provider offers off-peak rates." },
+  "water": { "average": 45, "good": 35, "excellent": 25, "negotiation_possible": false, "tip": "Fix leaks immediately. A running toilet can waste $100+/month." },
+  "renters_insurance": { "average": 25, "good": 18, "excellent": 12, "negotiation_possible": true, "tip": "Bundle with auto insurance. Raise deductible to $1000. Install a deadbolt for discounts." },
+  "gym": { "average": 40, "good": 25, "excellent": 15, "negotiation_possible": true, "tip": "Negotiate in late January (post-resolution rush) or August. Ask about corporate rates even if freelance." }
+}

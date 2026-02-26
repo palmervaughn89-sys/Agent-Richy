@@ -7,6 +7,10 @@ export interface ChatRequest {
   agent?: string;
   session_id?: string;
   context?: Record<string, unknown>;
+  /** Detected skill to inject additional system prompt (keyword-matched). */
+  skill?: "coupon" | "optimizer" | null;
+  /** Accumulated optimizer expenses for context continuity. */
+  optimizer_expenses?: string;
 }
 
 export interface ChartConfig {

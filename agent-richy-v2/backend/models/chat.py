@@ -9,6 +9,8 @@ class ChatRequest(BaseModel):
     agent: Optional[str] = "coach_richy"
     session_id: Optional[str] = "default"
     context: Optional[dict] = None
+    skill: Optional[str] = None  # "coupon" | "optimizer" | None
+    optimizer_expenses: Optional[str] = None  # expense summary for context continuity
 
 
 class ChatMessage(BaseModel):

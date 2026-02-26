@@ -22,7 +22,7 @@ const PLANS = [
     price: '$9.99',
     period: '/month',
     features: [
-      'All 6 specialist agents',
+      'All capabilities unlocked',
       'Unlimited calculators',
       'Full Kids Zone + quizzes',
       'Portfolio builder',
@@ -64,7 +64,7 @@ export default function UpgradePage() {
             Unlock everything. <span className="text-muted">Go Pro.</span>
           </h1>
           <p className="text-sm text-off mt-2">
-            Unlock all agents, unlimited calculators, and premium features.
+            Unlock all capabilities, unlimited calculators, and premium features.
           </p>
         </motion.div>
 

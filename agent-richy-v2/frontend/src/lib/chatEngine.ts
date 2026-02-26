@@ -114,7 +114,7 @@ const CACHED_RESPONSES: CachedResponse[] = [
     keywords: ['hello', 'hi', 'hey', 'sup', 'start'],
     agentKey: 'coach_richy',
     emotion: 'friendly',
-    message: `## 👋 Hey there! I'm Coach Richy!\n\nWelcome to your personal AI financial coaching team! 🎉\n\nI'm here with my squad of specialist agents to help you master your money:\n\n- 💰 **Coach Richy** (me!) — General financial guidance\n- 📊 **Budget Bot** — Budgeting & expenses\n- 📈 **Invest Intel** — Investing & wealth building\n- 💪 **Debt Destroyer** — Debt elimination\n- 🏦 **Savings Sage** — Savings & emergency funds\n- 🎮 **Kid Coach** — Financial education for kids\n\n**Here's what I can help with:**\n- 📋 Build a personalized budget\n- 💳 Create a debt payoff strategy\n- 📈 Get started with investing\n- 🛟 Build your emergency fund\n- 🧮 Run financial calculations\n\nWhat would you like to work on today? 🎯`,
+    message: `## 👋 Hey there! I'm Richy!\n\nWelcome — I'm your all-in-one AI financial coach! 🎉\n\nHere's what I can help you with:\n\n- 🏷️ **Find Coupons & Deals** — Real-time codes for any store\n- 📊 **Budget & Cash Flow** — Build a plan that fits your life\n- 🔄 **Subscription Audit** — Kill zombie charges\n- 📞 **Bill Negotiation** — Scripts to lower your bills\n- 📈 **Investing & Wealth** — Grow your money smarter\n- 💪 **Debt Payoff Plans** — Snowball, avalanche, or custom\n- 🧾 **Tax Strategy** — Deductions, brackets, and planning\n- ⭐ **Kids Zone** — Fun financial education for young earners\n\nJust tell me what's on your mind — no forms, no menus. I'll take it from there. 🎯`,
   },
 ];
 

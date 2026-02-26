@@ -1,29 +1,35 @@
 /* ── Chat state management + API calls ───────────────────────────────── */
 
 import { create } from 'zustand';
-import type { ChatMessage, StructuredResponse, AgentKey } from '@/lib/types';
+import type { ChatMessage, StructuredResponse } from '@/lib/types';
 import { streamChatMessage } from '@/lib/api';
+import { detectSkill } from '@/lib/skillDetection';
+import type { DetectedSkill } from '@/lib/skillDetection';
 
 interface ChatStore {
   messages: ChatMessage[];
-  activeAgent: AgentKey;
   isLoading: boolean;
   streamingContent: string;
+  /** Currently active skill (persists across messages until cleared). */
+  activeSkill: DetectedSkill;
+  /** Optimizer expense summary carried across messages. */
+  optimizerExpenses: string;
 
-  setActiveAgent: (agent: AgentKey) => void;
   sendMessage: (text: string, sessionId?: string) => Promise<void>;
   clearMessages: () => void;
+  setOptimizerExpenses: (summary: string) => void;
 }
 
 let messageCounter = 0;
 
 export const useChatStore = create<ChatStore>((set, get) => ({
   messages: [],
-  activeAgent: 'coach_richy',
   isLoading: false,
   streamingContent: '',
+  activeSkill: null,
+  optimizerExpenses: '',
 
-  setActiveAgent: (agent) => set({ activeAgent: agent }),
+  setOptimizerExpenses: (summary) => set({ optimizerExpenses: summary }),
 
   sendMessage: async (text: string, sessionId = 'default') => {
     const userMsg: ChatMessage = {
@@ -33,17 +39,31 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       timestamp: Date.now(),
     };
 
+    // ── Skill detection ──────────────────────────────────────────
+    const detected = detectSkill(text);
+    const { activeSkill, optimizerExpenses } = get();
+    const skill = detected ?? activeSkill; // persist until cleared
+
+    if (detected) {
+      console.log(`[skill-detection] Triggered: ${detected}`);
+    }
+
     set((state) => ({
       messages: [...state.messages, userMsg],
       isLoading: true,
       streamingContent: '',
+      activeSkill: skill,
     }));
-
-    const { activeAgent } = get();
 
     try {
       await streamChatMessage(
-        { message: text, agent: activeAgent, session_id: sessionId },
+        {
+          message: text,
+          agent: 'coach_richy',
+          session_id: sessionId,
+          skill,
+          optimizer_expenses: skill === 'optimizer' ? optimizerExpenses : undefined,
+        },
         // onToken
         (token) => {
           set((state) => ({
@@ -74,7 +94,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
             id: `msg_${++messageCounter}`,
             role: 'assistant',
             content: 'Sorry, something went wrong. Please try again.',
-            agent: activeAgent,
+            agent: 'coach_richy',
             timestamp: Date.now(),
           };
 
@@ -90,5 +110,5 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     }
   },
 
-  clearMessages: () => set({ messages: [], streamingContent: '' }),
+  clearMessages: () => set({ messages: [], streamingContent: '', activeSkill: null, optimizerExpenses: '' }),
 }));

@@ -1,0 +1,8 @@
+[
+  { "category": "Video Streaming", "services": ["Netflix", "Hulu", "Disney+", "HBO Max", "Peacock", "Paramount+", "Apple TV+", "Amazon Prime Video"], "maxRecommended": 2, "advice": "Most households only actively watch 2-3 services. Consider rotating: subscribe for one month, binge what you want, cancel, switch to another." },
+  { "category": "Music Streaming", "services": ["Spotify", "Apple Music", "YouTube Music", "Amazon Music", "Tidal", "Pandora"], "maxRecommended": 1, "advice": "These all have essentially the same catalog. Pick one. If you have YouTube Premium, YouTube Music is included." },
+  { "category": "Cloud Storage", "services": ["iCloud+", "Google One", "Dropbox", "OneDrive", "Box"], "maxRecommended": 1, "advice": "Consolidate to one provider. Google Drive gives 15GB free. Most people don't need paid storage at all." },
+  { "category": "News/Reading", "services": ["NYT", "WSJ", "Washington Post", "The Athletic", "Substack subscriptions", "Medium"], "maxRecommended": 2, "advice": "Check if your library card gives free access to news apps. Many libraries include NYT, WSJ digital access." },
+  { "category": "Food Delivery", "services": ["DoorDash DashPass", "Uber Eats Pass", "Grubhub+", "Instacart+"], "maxRecommended": 1, "advice": "These membership fees add up fast on top of delivery fees and markups. One is enough — or just call restaurants directly." },
+  { "category": "Fitness Apps", "services": ["Peloton", "Apple Fitness+", "Nike Training Club", "Fitbod", "Strava"], "maxRecommended": 1, "advice": "YouTube has thousands of free workout videos. If you need structure, one paid app is sufficient." }
+]

@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "description": "Subscription service reference database for Agent Richy's spending analysis",
+    "note": "Prices are approximate as of early 2026. Should be periodically updated to reflect current pricing.",
+    "lastUpdated": "2026-02-01"
+  },
+  "streaming": [
+    { "name": "Netflix", "plans": [{"tier": "Standard with Ads", "price": 6.99}, {"tier": "Standard", "price": 15.49}, {"tier": "Premium", "price": 22.99}], "annualDiscount": false, "freeAlternatives": ["Tubi", "Pluto TV", "Crackle"] },
+    { "name": "Hulu", "plans": [{"tier": "With Ads", "price": 9.99}, {"tier": "No Ads", "price": 18.99}], "annualDiscount": true, "annualPrice": 95.88, "bundles": ["Disney Bundle Duo $9.99/mo", "Disney Bundle Trio $15.99/mo"] },
+    { "name": "Disney+", "plans": [{"tier": "With Ads", "price": 9.99}, {"tier": "No Ads", "price": 15.99}, {"tier": "Premium", "price": 15.99}], "annualDiscount": true, "annualPrice": 109.99 },
+    { "name": "HBO Max", "plans": [{"tier": "With Ads", "price": 9.99}, {"tier": "Ad-Free", "price": 16.99}, {"tier": "Ultimate", "price": 20.99}], "annualDiscount": true },
+    { "name": "Peacock", "plans": [{"tier": "Plus", "price": 7.99}, {"tier": "Plus Premium", "price": 13.99}], "annualDiscount": true },
+    { "name": "Paramount+", "plans": [{"tier": "Essential", "price": 7.99}, {"tier": "With Showtime", "price": 12.99}], "annualDiscount": true },
+    { "name": "Apple TV+", "plans": [{"tier": "Standard", "price": 9.99}], "annualDiscount": true, "annualPrice": 99.00 },
+    { "name": "Amazon Prime Video", "plans": [{"tier": "Included with Prime", "price": 14.99}], "annualDiscount": true, "annualPrice": 139.00, "note": "Includes shipping benefits" }
+  ],
+  "music": [
+    { "name": "Spotify", "plans": [{"tier": "Individual", "price": 11.99}, {"tier": "Duo", "price": 16.99}, {"tier": "Family", "price": 19.99}], "freeAlternatives": ["Spotify Free", "YouTube Music Free", "Pandora Free"] },
+    { "name": "Apple Music", "plans": [{"tier": "Individual", "price": 10.99}, {"tier": "Family", "price": 16.99}] },
+    { "name": "YouTube Premium", "plans": [{"tier": "Individual", "price": 13.99}, {"tier": "Family", "price": 22.99}], "note": "Includes YouTube Music" }
+  ],
+  "cloud_storage": [
+    { "name": "iCloud+", "plans": [{"tier": "50GB", "price": 0.99}, {"tier": "200GB", "price": 2.99}, {"tier": "2TB", "price": 9.99}] },
+    { "name": "Google One", "plans": [{"tier": "100GB", "price": 1.99}, {"tier": "2TB", "price": 9.99}], "annualDiscount": true },
+    { "name": "Dropbox", "plans": [{"tier": "Plus", "price": 11.99}, {"tier": "Professional", "price": 19.99}], "freeAlternatives": ["Google Drive 15GB free", "iCloud 5GB free"] }
+  ],
+  "fitness": [
+    { "name": "Planet Fitness", "plans": [{"tier": "Classic", "price": 15.00}, {"tier": "PF Black", "price": 29.99}] },
+    { "name": "Peloton", "plans": [{"tier": "App", "price": 12.99}, {"tier": "App+", "price": 24.00}], "freeAlternatives": ["YouTube fitness channels", "Nike Training Club"] }
+  ],
+  "productivity": [
+    { "name": "Microsoft 365", "plans": [{"tier": "Personal", "price": 6.99}, {"tier": "Family", "price": 9.99}], "annualDiscount": true, "freeAlternatives": ["Google Docs/Sheets/Slides", "LibreOffice"] },
+    { "name": "Adobe Creative Cloud", "plans": [{"tier": "Photography", "price": 9.99}, {"tier": "All Apps", "price": 54.99}], "annualDiscount": true, "freeAlternatives": ["GIMP", "Canva Free", "DaVinci Resolve"] }
+  ]
+}

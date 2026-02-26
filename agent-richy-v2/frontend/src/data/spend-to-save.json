@@ -1,0 +1,12 @@
+[
+  { "item": "Smart Thermostat", "cost": 130, "monthlySavings": 12, "roiMonths": 10.8, "category": "utilities", "description": "Programs itself based on your schedule. Average home saves $140/year on heating and cooling." },
+  { "item": "LED Bulb Kit (20 pack)", "cost": 25, "monthlySavings": 6, "roiMonths": 4.2, "category": "utilities", "description": "Uses 75% less energy than incandescent. Lasts 15+ years. One of the highest ROI home upgrades." },
+  { "item": "Quality Coffee Maker", "cost": 60, "monthlySavings": 100, "roiMonths": 0.6, "category": "food", "description": "If you buy a $5 coffee daily, that's $150/month. Even a $60 coffee maker + beans at home saves $100+/month." },
+  { "item": "Water Filter Pitcher", "cost": 25, "monthlySavings": 30, "roiMonths": 0.8, "category": "food", "description": "Replaces bottled water habit. $25 pitcher + $6/month filters vs $30-50/month on bottles." },
+  { "item": "Reusable Lunch Kit", "cost": 40, "monthlySavings": 120, "roiMonths": 0.3, "category": "food", "description": "Eating out for lunch averages $15/day ($300/month). Meal prepping cuts this to $5/day ($100/month)." },
+  { "item": "Smart Power Strip", "cost": 30, "monthlySavings": 8, "roiMonths": 3.75, "category": "utilities", "description": "Eliminates phantom power draw from devices on standby. Average home wastes $100/year on vampire energy." },
+  { "item": "Weatherstripping Kit", "cost": 15, "monthlySavings": 10, "roiMonths": 1.5, "category": "utilities", "description": "Seals gaps around doors and windows. Prevents 10-15% of heating/cooling loss." },
+  { "item": "Bidet Attachment", "cost": 35, "monthlySavings": 8, "roiMonths": 4.4, "category": "household", "description": "Reduces toilet paper usage by 75-80%. Average American spends $100+/year on toilet paper." },
+  { "item": "Safety Razor", "cost": 30, "monthlySavings": 12, "roiMonths": 2.5, "category": "personal", "description": "Replacement blades cost $0.10-0.25 vs $3-5 for cartridges. Same shave quality, fraction of the cost." },
+  { "item": "Library Card", "cost": 0, "monthlySavings": 15, "roiMonths": 0, "category": "entertainment", "description": "Free. Replaces Kindle Unlimited, Audible, and some streaming. Most libraries now have digital apps (Libby)." }
+]

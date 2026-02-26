@@ -281,7 +281,7 @@ export default function DashboardPage() {
                 { label: 'Chat with Richy', icon: MessageSquare, href: '/chat', color: 'bg-ghost text-accent border-line' },
                 { label: 'Run Budget Analysis', icon: BarChart3, href: '/calculators', color: 'bg-ghost text-accent border-line' },
                 { label: 'Check Tax Calendar', icon: Calendar, href: '/plan', color: 'bg-ghost text-amber-400 border-line' },
-                { label: 'Find Savings', icon: Search, href: '/chat?agent=savings_sage', color: 'bg-ghost text-accent border-line' },
+                { label: 'Find Savings', icon: Search, href: '/chat', color: 'bg-ghost text-accent border-line' },
               ].map((action) => (
                 <Link key={action.label} href={action.href}>
                   <div className={`flex items-center gap-3 rounded-card border p-4 hover:border-line-hover hover:scale-[1.02] transition-all cursor-pointer ${action.color}`}>

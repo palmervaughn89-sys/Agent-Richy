@@ -2,10 +2,11 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
   ChevronRight,
+  ChevronDown,
   Wallet,
   BarChart3,
   TrendingUp,
@@ -33,7 +34,8 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 
 /* ── Marquee items ────────────────────────────────────────────────── */
 const MARQUEE_ITEMS = [
-  '6 Specialist Agents',
+  '8 Core Capabilities',
+  'All-in-One Finance AI',
   '$847 Avg. Annual Savings',
   '24/7 Always Available',
   '100% Free to Start',
@@ -43,27 +45,112 @@ const MARQUEE_ITEMS = [
 
 /* ── Why Agent Richy rows ─────────────────────────────────────────── */
 const WHY_ROWS = [
-  { num: '01', title: 'Actively Saves You Money', desc: 'Richy doesn\'t just advise — it finds real dollars you\'re leaving on the table.' },
-  { num: '02', title: '6 Specialist AI Agents', desc: 'Budget Coach, Spending Optimizer, Tax Strategist, Gas & Transit, Wealth Advisor, Financial Educator.' },
-  { num: '03', title: 'Real Numbers Not Generic Tips', desc: 'Every insight is calculated against your actual income, expenses, and goals.' },
-  { num: '04', title: 'Builds Wealth Over Time', desc: 'Compound your savings with investing guidance, debt strategies, and long-term planning.' },
+  { num: '01', title: 'One Agent, Zero Hand-Offs', desc: 'Other apps make you jump between budgeting tools, coupon sites, and financial calculators. Richy handles everything in one conversation. Ask about coupons at 9am, analyze your budget at noon, plan your taxes at 8pm \u2014 same agent, full context.' },
+  { num: '02', title: 'Finds Money You Didn\u2019t Know You Were Losing', desc: 'The average American wastes $133/month on forgotten subscriptions alone. Richy audits every recurring charge, benchmarks your bills against market rates, and generates word-for-word negotiation scripts. He\u2019s found users an average of $847 in annual savings.' },
+  { num: '03', title: 'Deals That Actually Work', desc: 'Ask Richy for coupons to any store and he searches, validates, and confidence-scores every code before showing it to you. No expired codes. No fake promos. Every deal is rated Verified, Likely Valid, or Unverified \u2014 so you know what you\u2019re getting.' },
+  { num: '04', title: 'Gets Smarter About YOUR Money', desc: 'Richy remembers your financial picture across conversations. He knows your bills, your goals, your spending patterns. The more you use him, the more specific and valuable his recommendations become. Like a financial advisor that costs $0/hour.' },
 ];
 
 /* ── How It Works ─────────────────────────────────────────────────── */
 const STEPS = [
-  { letter: 'T', title: 'Tell', desc: 'Share your income, expenses, and goals. No judgment — just data.', label: 'STEP 01' },
-  { letter: 'A', title: 'Analyze', desc: 'Richy\'s specialist agents crunch the numbers and find real savings.', label: 'STEP 02' },
-  { letter: 'A', title: 'Act', desc: 'Follow specific, actionable steps. Track your progress over time.', label: 'STEP 03' },
+  { letter: 'T', title: 'Tell Richy What\u2019s Up', desc: 'No forms. No spreadsheets. Just tell Richy about your money in plain English. What you earn, what you spend, what\u2019s stressing you out. He picks up context and asks smart follow-ups.', label: 'STEP 01' },
+  { letter: 'A', title: 'Get Real Analysis', desc: 'Richy crunches your numbers and finds the gaps \u2014 zombie subscriptions, bills you\u2019re overpaying, deals you\u2019re missing, and money moves that actually fit your life.', label: 'STEP 02' },
+  { letter: 'W', title: 'Watch Your Money Grow', desc: 'Follow Richy\u2019s prioritized action plan. Negotiate bills with his scripts. Grab coupons he finds. Hit savings goals he sets. Every dollar saved is tracked and celebrated.', label: 'STEP 03' },
 ];
 
-/* ── Meet The Agents ──────────────────────────────────────────────── */
-const AGENTS_DATA = [
-  { letter: 'B', name: 'Budget Coach', desc: 'Creates realistic spending plans based on your actual income.' },
-  { letter: 'S', name: 'Spending Optimizer', desc: 'Finds subscriptions and recurring charges you\'re overpaying.' },
-  { letter: 'T', name: 'Tax Strategist', desc: 'Estimates taxes, finds deductions, and optimizes your withholding.' },
-  { letter: 'G', name: 'Gas & Transit', desc: 'Cuts transportation costs with route and reward optimization.' },
-  { letter: 'W', name: 'Wealth Advisor', desc: 'Builds investment portfolios aligned with your risk tolerance.' },
-  { letter: 'F', name: 'Financial Educator', desc: 'Makes money concepts fun and accessible for all ages.' },
+/* ── Deep Dive categories ─────────────────────────────────────────── */
+const DEEP_DIVE_CATEGORIES = [
+  {
+    emoji: '💰',
+    name: 'Saving Money',
+    queries: [
+      'I\u2019m spending too much on food delivery. Help me cut back.',
+      'Audit all my subscriptions and tell me what to cancel.',
+      'I\u2019m paying $95/month for internet. Am I getting ripped off?',
+      'Generate a script to negotiate my Verizon bill down.',
+      'What\u2019s one thing I can buy today that\u2019ll save me money every month?',
+    ],
+  },
+  {
+    emoji: '🏷️',
+    name: 'Coupons & Deals',
+    queries: [
+      'Find me coupons for Target',
+      'Any deals on DoorDash right now?',
+      'I\u2019m going to Home Depot this weekend. Got any codes?',
+      'What are the best restaurant deals near me?',
+      'Is there a cheaper alternative to my Adobe subscription?',
+    ],
+  },
+  {
+    emoji: '📊',
+    name: 'Budgeting',
+    queries: [
+      'Build me a budget based on my $4,500 take-home pay',
+      'What\u2019s my financial health score?',
+      'I have $800 in unexpected expenses next month. Help me plan.',
+      'What if I got a $500/month raise \u2014 where should that money go?',
+      'Show me where my money actually goes each month.',
+    ],
+  },
+  {
+    emoji: '📈',
+    name: 'Building Wealth',
+    queries: [
+      'Explain index funds like I\u2019m 16',
+      'I have $5,000 saved. What\u2019s the smartest thing to do with it?',
+      'Show me my Lifestyle Portfolio based on where I shop',
+      'What\u2019s the difference between a Roth and Traditional IRA?',
+      'If I invest $200/month starting now, what do I have at 60?',
+    ],
+  },
+  {
+    emoji: '💡',
+    name: 'Smart Decisions',
+    queries: [
+      'Should I rent or buy in Atlanta on my salary?',
+      'Is it worth paying off my car loan early?',
+      'Company A offers $85k with great benefits. Company B offers $100k with minimal benefits. Help me compare.',
+      'I have 3 credit cards. Which should I pay off first?',
+    ],
+  },
+  {
+    emoji: '🧒',
+    name: 'Kids & Family',
+    queries: [
+      'Teach my 8-year-old about saving money',
+      'Create a savings challenge for my teenager',
+      'My kid wants to understand what the stock market is',
+      'Help me set up an allowance system',
+    ],
+  },
+];
+
+/* ── Capabilities ─────────────────────────────────────────────────── */
+const HERO_CAPABILITIES = [
+  {
+    bgLetter: 'C',
+    label: 'DEAL FINDER',
+    title: 'Smart Coupons',
+    desc: 'Ask for coupons to any store, restaurant, or service. Richy searches in real-time, validates codes, and shows you the best deals with confidence ratings.',
+    stats: ['Verified Codes', 'Real-Time Search', 'Any Store'],
+  },
+  {
+    bgLetter: 'S',
+    label: 'SPEND HELPER',
+    title: 'Spend Helper',
+    desc: 'Tell Richy what you pay for each month. He\'ll find zombie subscriptions, negotiate your bills, and build a savings roadmap sorted by impact.',
+    stats: ['Bill Negotiation', 'Subscription Audit', 'Savings Roadmap'],
+  },
+];
+
+const SMALL_CAPABILITIES = [
+  { icon: '▤', title: 'Budget & Cash Flow', desc: 'Personalized budgets, health scores, and cash flow projections with your real numbers.' },
+  { icon: '△', title: 'Tax Strategy', desc: 'Deduction finder, bracket optimizer, and quarterly payment calculator. File smarter.' },
+  { icon: '◎', title: 'Wealth Education', desc: 'Investment concepts in plain English. Compound interest, index funds, retirement math.' },
+  { icon: '⚡', title: 'Smart Cost Cutting', desc: 'Gas optimization, meal planning, insurance shopping, energy audits. Every dollar counts.' },
+  { icon: '◇', title: 'Decision Simulator', desc: 'Run the math on real choices: rent vs buy, pay off debt vs invest, job offer comparison.' },
+  { icon: '★', title: 'Kids Zone', desc: 'Age-appropriate money lessons, savings challenges, and interactive quizzes for young earners.' },
 ];
 
 /* ── Footer links ─────────────────────────────────────────────────── */
@@ -116,8 +203,8 @@ export default function LandingPage() {
             </FadeUp>
             <FadeUp delay={0.12}>
               <p className="mt-6 text-[15px] sm:text-base text-txt-off max-w-xl leading-[1.7]">
-                Agent Richy is your AI financial coach — 6 specialist agents that analyze
-                your spending, cut your costs, optimize your taxes, and build your wealth. For free.
+                Agent Richy is your all-in-one AI financial coach — he analyzes
+                your spending, finds deals, cuts your bills, optimizes your taxes, and builds your wealth. For free.
               </p>
             </FadeUp>
             <FadeUp delay={0.18}>
@@ -198,33 +285,72 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── MEET THE AGENTS ───────────────────────────────────────────── */}
+      {/* ── WHAT RICHY CAN DO ─────────────────────────────────────────── */}
       <section className="bg-bg border-b border-line">
         <div className="max-w-6xl mx-auto px-6 py-24 lg:py-32">
           <FadeUp>
-            <p className="section-label">MEET THE AGENTS</p>
-            <h2 className="section-title">
-              Six specialists. One mission.<br />
-              <span className="muted">Your financial freedom.</span>
-            </h2>
+            <p className="section-label">CAPABILITIES</p>
+            <h1 className="section-title">
+              One agent. <span className="text-accent">Every angle.</span>
+            </h1>
+            <p className="text-txt-off text-lg max-w-2xl mx-auto text-center mb-16">
+              Richy doesn&apos;t hand you off to specialists. He handles budgets, finds deals,
+              cuts bills, teaches your kids about money, and simulates your biggest financial
+              decisions — all in one conversation.
+            </p>
           </FadeUp>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-16">
-            {AGENTS_DATA.map((agent, i) => (
-              <FadeUp key={agent.name} delay={i * 0.06}>
-                <div className="ds-card h-full">
-                  <span className="absolute top-3 right-4 text-[80px] font-extrabold text-accent/[.07] leading-none select-none pointer-events-none">{agent.letter}</span>
-                  <div className="w-10 h-10 rounded-xl bg-ghost border border-line-hover
-                                  flex items-center justify-center text-accent font-bold text-sm mb-4 relative z-10">
-                    {agent.letter}
+
+          {/* Top row — 2 hero capability cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+            {HERO_CAPABILITIES.map((cap, i) => (
+              <FadeUp key={cap.title} delay={i * 0.08}>
+                <div className="bg-card border border-line rounded-card p-8 relative overflow-hidden h-full">
+                  <span className="absolute top-2 right-4 text-[120px] font-black text-accent/[0.04] leading-none select-none pointer-events-none">
+                    {cap.bgLetter}
+                  </span>
+                  <p className="font-mono text-accent text-xs uppercase tracking-label mb-3 relative z-10">
+                    {cap.label}
+                  </p>
+                  <h3 className="text-xl font-bold text-txt mb-3 tracking-tight relative z-10">
+                    {cap.title}
+                  </h3>
+                  <p className="text-sm text-txt-off leading-[1.7] mb-5 relative z-10">
+                    {cap.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-2 relative z-10">
+                    {cap.stats.map((stat) => (
+                      <span
+                        key={stat}
+                        className="text-xs font-mono text-accent/80 bg-ghost border border-line px-2.5 py-1 rounded-full"
+                      >
+                        {stat}
+                      </span>
+                    ))}
                   </div>
-                  <h3 className="text-base font-bold text-txt mb-1 tracking-tight relative z-10">{agent.name}</h3>
-                  <p className="text-sm text-txt-off leading-[1.7] relative z-10">{agent.desc}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+
+          {/* Bottom row — 6 smaller capability cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SMALL_CAPABILITIES.map((cap, i) => (
+              <FadeUp key={cap.title} delay={i * 0.06}>
+                <div className="bg-card border border-line rounded-card p-6
+                                hover:border-line-hover hover:-translate-y-[3px]
+                                transition-all duration-300 h-full">
+                  <span className="text-3xl mb-3 block">{cap.icon}</span>
+                  <h3 className="text-txt text-lg font-semibold mb-1 tracking-tight">{cap.title}</h3>
+                  <p className="text-txt-off text-sm leading-relaxed">{cap.desc}</p>
                 </div>
               </FadeUp>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ── DEEP DIVE ─────────────────────────────────────────────────── */}
+      <DeepDiveSection />
 
       {/* ── LIVE PREVIEW ──────────────────────────────────────────────── */}
       <section className="bg-s1 border-b border-line">
@@ -313,6 +439,86 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+/* ── Deep Dive accordion section ──────────────────────────────────── */
+function DeepDiveSection() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  const toggle = (i: number) => setOpen(open === i ? null : i);
+
+  return (
+    <section className="bg-s1 border-b border-line">
+      <div className="max-w-4xl mx-auto px-6 py-24 lg:py-32">
+        <FadeUp>
+          <p className="section-label">DEEP DIVE</p>
+          <h1 className="section-title">
+            What people ask Richy. <span className="muted">Every day.</span>
+          </h1>
+        </FadeUp>
+
+        <div className="mt-16 space-y-3">
+          {DEEP_DIVE_CATEGORIES.map((cat, i) => {
+            const isOpen = open === i;
+            return (
+              <FadeUp key={cat.name} delay={i * 0.04}>
+                <div>
+                  {/* Header */}
+                  <button
+                    onClick={() => toggle(i)}
+                    className={`w-full flex items-center justify-between bg-card border rounded-card px-5 py-4
+                               cursor-pointer transition-colors
+                               ${isOpen
+                                 ? 'border-line-hover rounded-b-none'
+                                 : 'border-line hover:border-line-hover'}`}
+                  >
+                    <span className="flex items-center gap-3 text-txt font-medium text-sm">
+                      <span className="text-lg">{cat.emoji}</span>
+                      {cat.name}
+                    </span>
+                    <motion.span
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-txt-muted"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.span>
+                  </button>
+
+                  {/* Expanded content */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        key={`panel-${i}`}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="bg-s1 rounded-b-card border-x border-b border-line px-5 py-4">
+                          {cat.queries.map((q, qi) => (
+                            <p
+                              key={qi}
+                              className={`text-txt-off text-sm py-2.5 ${
+                                qi < cat.queries.length - 1 ? 'border-b border-line' : ''
+                              }`}
+                            >
+                              &ldquo;{q}&rdquo;
+                            </p>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </FadeUp>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 

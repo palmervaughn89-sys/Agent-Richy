@@ -4,12 +4,12 @@ import '@/styles/globals.css';
 export const metadata: Metadata = {
   title: 'Agent Richy — Your AI Financial Coach | Free Personalized Money Advice',
   description:
-    'Agent Richy is your AI financial coach. 6 specialist agents help you budget, invest, eliminate debt, optimize taxes, and build real wealth — completely free.',
+    'Agent Richy is your all-in-one AI financial coach. He helps you budget, find deals, negotiate bills, invest, eliminate debt, and build real wealth — completely free.',
   icons: { icon: '/favicon.svg' },
   openGraph: {
     title: 'Agent Richy — Your AI Financial Coach',
     description:
-      '6 specialist AI agents analyze your spending, cut your costs, optimize your taxes, and build your wealth. For free.',
+      'One AI coach that analyzes your spending, finds deals, cuts your bills, optimizes your taxes, and builds your wealth. For free.',
     url: 'https://agent-richy-pwgx.vercel.app',
     siteName: 'Agent Richy',
     type: 'website',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Agent Richy — Your AI Financial Coach',
     description:
-      '6 specialist AI agents that help you build real wealth. Free forever.',
+      'Your all-in-one AI financial coach. Budgets, coupons, bill negotiation, investing, and more. Free forever.',
   },
 };
 

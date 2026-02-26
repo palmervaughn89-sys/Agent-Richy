@@ -6,6 +6,7 @@ import type { ChatMessage as ChatMessageType } from '@/lib/types';
 import { AGENTS } from '@/lib/constants';
 import type { AgentKey } from '@/lib/types';
 import ResponseRenderer from './ResponseRenderer';
+import StructuredBlockRenderer from './StructuredBlockRenderer';
 
 interface Props {
   message: ChatMessageType;
@@ -51,7 +52,11 @@ export default function ChatMessage({ message, isLatest = false }: Props) {
         )}
 
         {/* Message body */}
-        <div className="whitespace-pre-wrap">{message.content}</div>
+        {isUser ? (
+          <div className="whitespace-pre-wrap">{message.content}</div>
+        ) : (
+          <StructuredBlockRenderer content={message.content} />
+        )}
 
         {/* Structured data */}
         {!isUser && message.structured && (
