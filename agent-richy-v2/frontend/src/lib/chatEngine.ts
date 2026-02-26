@@ -1,5 +1,7 @@
 /* ── Chat engine — agent routing, offline fallback, emotion detection ── */
 
+import fs from 'fs';
+import path from 'path';
 import type { StructuredResponse } from '@/lib/types';
 
 // ── Agent definitions ───────────────────────────────────────────────────
@@ -196,8 +198,48 @@ export function buildStructuredResponse(
 
 // ── Get system prompt for an agent ──────────────────────────────────────
 
-export function getAgentSystemPrompt(agentKey: string): string {
-  return AGENT_DEFS[agentKey]?.systemPrompt ?? AGENT_DEFS.coach_richy.systemPrompt;
+/** Cache loaded prompt files so we only read from disk once per cold start. */
+const promptCache = new Map<string, string>();
+
+function loadPromptFile(filename: string): string | null {
+  if (promptCache.has(filename)) return promptCache.get(filename)!;
+  try {
+    const filePath = path.join(process.cwd(), 'src', 'prompts', filename);
+    const content = fs.readFileSync(filePath, 'utf-8');
+    promptCache.set(filename, content);
+    return content;
+  } catch {
+    return null;
+  }
+}
+
+const SKILL_PROMPT_FILES: Record<string, string> = {
+  coupon: 'coupon-finder.md',
+  optimizer: 'spending-optimizer.md',
+};
+
+/**
+ * Build the full system prompt.
+ * Base = richy-unified.md (falls back to inline AGENT_DEFS prompt).
+ * If a skill is active, append the skill-specific prompt.
+ */
+export function getAgentSystemPrompt(
+  agentKey: string,
+  skill?: 'coupon' | 'optimizer' | null,
+): string {
+  // Load unified base prompt
+  const unified = loadPromptFile('richy-unified.md');
+  const base = unified ?? AGENT_DEFS[agentKey]?.systemPrompt ?? AGENT_DEFS.coach_richy.systemPrompt;
+
+  if (!skill) return base;
+
+  const skillFile = SKILL_PROMPT_FILES[skill];
+  if (!skillFile) return base;
+
+  const skillPrompt = loadPromptFile(skillFile);
+  if (!skillPrompt) return base;
+
+  return `${base}\n\n---\n\n${skillPrompt}`;
 }
 
 export function getAgentName(agentKey: string): string {

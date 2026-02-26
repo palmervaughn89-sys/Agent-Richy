@@ -9,7 +9,7 @@ import {
 } from '@/lib/chatEngine';
 
 export async function POST(request: NextRequest) {
-  const { message, agent, session_id } = await request.json();
+  const { message, agent, session_id, skill } = await request.json();
 
   const agentKey = agent || routeToAgent(message);
 
@@ -21,37 +21,35 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 2. Try OpenAI if configured
-  const apiKey = process.env.OPENAI_API_KEY;
+  // 2. Try Anthropic Claude if configured
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (apiKey) {
     try {
-      const systemPrompt = getAgentSystemPrompt(agentKey);
+      const systemPrompt = getAgentSystemPrompt(agentKey, skill);
 
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || 'gpt-4o',
-          temperature: 0.7,
-          max_tokens: 1000,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: message },
-          ],
+          model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: message }],
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        const text = data.choices?.[0]?.message?.content || '';
+        const text = data.content?.[0]?.text || '';
         const emotion = determineEmotion(text, agentKey);
         return NextResponse.json(buildStructuredResponse(text, agentKey, emotion));
       }
     } catch (e) {
-      console.error('OpenAI error:', e);
+      console.error('Anthropic error:', e);
     }
   }
 
