@@ -1,6 +1,6 @@
 /* ── Skill detection — keyword-based trigger matching ────────────────── */
 
-export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | null;
+export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | "grocery_plan" | "allocation_map" | null;
 
 const COUPON_TRIGGERS = [
   "coupon",
@@ -193,6 +193,24 @@ const RECEIPT_TRIGGERS = [
   "shopping analysis",
 ];
 
+const GROCERY_TRIGGERS = [
+  'grocery list', 'groceries', 'shopping list', 'meal plan',
+  'grocery shopping', 'what to buy', 'food shopping', 'weekly shop',
+  'cheapest groceries', 'grocery deals', 'shopping plan',
+  'help me shop', 'optimize my groceries', 'grocery run',
+  'store for groceries', 'where to buy food',
+];
+
+const ALLOCATION_TRIGGERS = [
+  'allocation', 'portfolio allocation', 'how to invest',
+  'investment plan', 'allocate my money', 'investment allocation',
+  'build a portfolio', 'etf recommendation', 'etf allocation',
+  'retirement allocation', '401k allocation', 'ira allocation',
+  'asset allocation', 'stock bond split', 'investment breakdown',
+  'where to put my money', 'organize my investments',
+  'investment worksheet', 'monthly investment plan',
+];
+
 const INVESTMENT_INTEL_TRIGGERS = [
   "top rated stocks",
   "best rated stocks",
@@ -236,6 +254,8 @@ export function detectSkill(message: string): DetectedSkill {
   if (BILL_PREDICT_TRIGGERS.some((t) => lower.includes(t))) return "bill_predict";
   if (LOCAL_DEAL_TRIGGERS.some((t) => lower.includes(t))) return "local_deals";
   if (GOAL_SIM_TRIGGERS.some((t) => lower.includes(t))) return "goal_sim";
+  if (GROCERY_TRIGGERS.some((t) => lower.includes(t))) return "grocery_plan";
+  if (ALLOCATION_TRIGGERS.some((t) => lower.includes(t))) return "allocation_map";
   if (OPTIMIZER_TRIGGERS.some((t) => lower.includes(t))) return "optimizer";
   if (MARKET_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "market_intel";
   return null;

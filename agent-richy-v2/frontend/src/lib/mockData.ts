@@ -7,6 +7,8 @@ import type { Coupon } from "@/types/coupon";
 import type { SavingsReport } from "@/types/spending";
 import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
 import type { ConsensusLeaderboard, ConsensusRating, SectorConsensus, InvestmentTheme } from "@/types/investment";
+import type { OptimizedGroceryPlan } from "@/lib/groceryPlanner";
+import type { AllocationPlan } from "@/lib/allocationMapper";
 
 /* ── 1. Coupon results ────────────────────────────────────────────── */
 
@@ -1666,6 +1668,185 @@ ${JSON.stringify({ type: "investment_theme", theme: mockInvestmentTheme })}
 
 This is a "picks and shovels" play — instead of trying to guess which AI application wins, you invest in the infrastructure everyone needs. Goldman, Morgan Stanley, ARK, and JP Morgan all have high-conviction theses here. The risk level is moderate because while demand is undeniable, valuations on some of these names are stretched. Want me to explore another theme like clean energy or GLP-1 healthcare?`;
 
+/* ── 20. Grocery Plan ─────────────────────────────────────────────── */
+
+export const mockGroceryPlan: OptimizedGroceryPlan = {
+  totalItems: 15,
+  estimatedTotalAtUsualStore: 127.43,
+  optimizedTotal: 89.67,
+  totalSavings: 37.76,
+  savingsPercentage: 29.6,
+  storeTrips: [
+    {
+      store: "kroger",
+      storeName: "Kroger",
+      items: [
+        { item: { name: "Chicken Breast", quantity: 3, unit: "lb", category: "meat_seafood", brandFlexible: true, estimatedPrice: 11.97, usualStore: "Publix" }, priceAtThisStore: 7.47, priceAtUsualStore: 11.97, savings: 4.50, onSale: true, couponAvailable: true, couponCode: "CHICKEN3", couponSavings: 1.50, substituteAvailable: false },
+        { item: { name: "Whole Milk", quantity: 1, unit: "gallon", category: "dairy_eggs", brand: "Horizon Organic", brandFlexible: true, estimatedPrice: 6.49, usualStore: "Publix" }, priceAtThisStore: 4.99, priceAtUsualStore: 6.49, savings: 1.50, onSale: false, couponAvailable: false, substituteAvailable: true, substituteName: "Kroger Organic Milk", substitutePrice: 3.99, substituteSavings: 2.50 },
+        { item: { name: "Cheddar Cheese", quantity: 1, unit: "lb", category: "dairy_eggs", brandFlexible: true, estimatedPrice: 6.99, usualStore: "Publix" }, priceAtThisStore: 4.99, priceAtUsualStore: 6.99, savings: 2.00, onSale: true, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Bread (Whole Wheat)", quantity: 1, unit: "count", category: "bakery", brandFlexible: true, estimatedPrice: 4.29, usualStore: "Publix" }, priceAtThisStore: 2.99, priceAtUsualStore: 4.29, savings: 1.30, onSale: false, couponAvailable: false, substituteAvailable: true, substituteName: "Kroger Whole Wheat Bread", substitutePrice: 1.99, substituteSavings: 2.30 },
+        { item: { name: "Pasta (Penne)", quantity: 2, unit: "count", category: "pantry_staples", brand: "Barilla", brandFlexible: true, estimatedPrice: 3.78, usualStore: "Publix" }, priceAtThisStore: 2.50, priceAtUsualStore: 3.78, savings: 1.28, onSale: false, couponAvailable: true, couponCode: "PASTA1OFF", couponSavings: 1.00, substituteAvailable: false },
+        { item: { name: "Pasta Sauce", quantity: 2, unit: "count", category: "pantry_staples", brand: "Rao's", brandFlexible: false, estimatedPrice: 9.98, usualStore: "Publix" }, priceAtThisStore: 8.98, priceAtUsualStore: 9.98, savings: 1.00, onSale: false, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Greek Yogurt", quantity: 4, unit: "count", category: "dairy_eggs", brand: "Chobani", brandFlexible: true, estimatedPrice: 5.96, usualStore: "Publix" }, priceAtThisStore: 4.76, priceAtUsualStore: 5.96, savings: 1.20, onSale: false, couponAvailable: false, substituteAvailable: true, substituteName: "Kroger Greek Yogurt", substitutePrice: 3.16, substituteSavings: 2.80 },
+        { item: { name: "Olive Oil", quantity: 1, unit: "count", category: "pantry_staples", brandFlexible: true, estimatedPrice: 8.99, usualStore: "Publix" }, priceAtThisStore: 6.99, priceAtUsualStore: 8.99, savings: 2.00, onSale: false, couponAvailable: false, substituteAvailable: false },
+      ],
+      subtotal: 43.67,
+      couponsApplied: 2,
+      couponSavings: 2.50,
+    },
+    {
+      store: "aldi",
+      storeName: "Aldi",
+      items: [
+        { item: { name: "Bananas", quantity: 1, unit: "bunch", category: "produce", brandFlexible: true, estimatedPrice: 1.29, usualStore: "Publix" }, priceAtThisStore: 0.59, priceAtUsualStore: 1.29, savings: 0.70, onSale: false, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Broccoli", quantity: 2, unit: "count", category: "produce", brandFlexible: true, estimatedPrice: 4.58, usualStore: "Publix" }, priceAtThisStore: 2.98, priceAtUsualStore: 4.58, savings: 1.60, onSale: false, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Rice (Long Grain)", quantity: 1, unit: "lb", category: "pantry_staples", brandFlexible: true, estimatedPrice: 3.49, usualStore: "Publix" }, priceAtThisStore: 1.89, priceAtUsualStore: 3.49, savings: 1.60, onSale: false, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Eggs (Large)", quantity: 1, unit: "dozen", category: "dairy_eggs", brandFlexible: true, estimatedPrice: 4.99, usualStore: "Publix" }, priceAtThisStore: 2.89, priceAtUsualStore: 4.99, savings: 2.10, onSale: false, couponAvailable: true, couponCode: "EGGS2OFF", couponSavings: 2.00, substituteAvailable: false },
+        { item: { name: "Frozen Mixed Vegetables", quantity: 2, unit: "count", category: "frozen", brandFlexible: true, estimatedPrice: 5.98, usualStore: "Publix" }, priceAtThisStore: 3.38, priceAtUsualStore: 5.98, savings: 2.60, onSale: true, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Butter (Unsalted)", quantity: 1, unit: "count", category: "dairy_eggs", brandFlexible: true, estimatedPrice: 5.49, usualStore: "Publix" }, priceAtThisStore: 3.49, priceAtUsualStore: 5.49, savings: 2.00, onSale: false, couponAvailable: false, substituteAvailable: false },
+        { item: { name: "Orange Juice", quantity: 1, unit: "count", category: "beverages", brand: "Tropicana", brandFlexible: true, estimatedPrice: 4.99, usualStore: "Publix" }, priceAtThisStore: 2.99, priceAtUsualStore: 4.99, savings: 2.00, onSale: false, couponAvailable: false, substituteAvailable: true, substituteName: "Aldi Nature's Nectar OJ", substitutePrice: 1.99, substituteSavings: 3.00 },
+      ],
+      subtotal: 18.21,
+      couponsApplied: 1,
+      couponSavings: 2.00,
+    },
+  ],
+  singleStoreBest: {
+    store: "Kroger",
+    total: 98.12,
+    vsOptimized: 8.45,
+    convenienceTax: 8.45,
+  },
+  couponsFound: [
+    { item: "Chicken Breast", store: "Kroger", code: "CHICKEN3", savings: 1.50, expiresAt: "2026-03-15" },
+    { item: "Pasta (Penne)", store: "Kroger", code: "PASTA1OFF", savings: 1.00, expiresAt: "2026-03-20" },
+    { item: "Eggs (Large)", store: "Aldi", code: "EGGS2OFF", savings: 2.00, expiresAt: "2026-03-10" },
+  ],
+  substitutions: [
+    { original: "Horizon Organic Milk", originalPrice: 4.99, substitute: "Kroger Organic Milk", substitutePrice: 3.99, savings: 1.00, note: "Same USDA Organic certification. Kroger brand is sourced from the same regional dairies." },
+    { original: "Whole Wheat Bread", originalPrice: 2.99, substitute: "Kroger Whole Wheat Bread", substitutePrice: 1.99, savings: 1.00, note: "Store brand with identical ingredients list. Baked fresh daily in-store." },
+    { original: "Chobani Greek Yogurt (4-pack)", originalPrice: 4.76, substitute: "Kroger Greek Yogurt (4-pack)", substitutePrice: 3.16, savings: 1.60, note: "Same protein content (15g). Blind taste tests show most people can't tell the difference." },
+    { original: "Tropicana Orange Juice", originalPrice: 2.99, substitute: "Aldi Nature's Nectar OJ", substitutePrice: 1.99, savings: 1.00, note: "Not from concentrate, same 100% juice. $1 cheaper per carton." },
+  ],
+  tips: [
+    "Kroger and Aldi are 2.3 miles apart on Peachtree Rd — hit both in one trip to save the full $37.76 without wasting gas.",
+    "Chicken is on sale at Kroger this week. Buy 5 lbs instead of 3, portion and freeze the extra — you'll save $3/lb vs next week's regular price.",
+    "Stack the CHICKEN3 manufacturer coupon with Kroger's digital coupon in the app for an extra $0.50 off (total coupon savings: $2.00 on chicken alone).",
+  ],
+};
+
+export const mockGroceryPlanMessage = `I optimized your 15-item grocery list across Kroger and Aldi. Here's your plan:
+
+\`\`\`json
+${JSON.stringify({ type: "grocery_plan", plan: mockGroceryPlan })}
+\`\`\`
+
+You're currently spending $127.43 at Publix for these items. By splitting between Kroger (8 items) and Aldi (7 items), you'll pay $89.67 — that's **$37.76 saved (29.6%)**. I also found 3 coupons and 4 store brand swaps. The single-store option at Kroger is $98.12 if you'd rather skip the second stop. Want me to add anything to the list?`;
+
+/* ── 21. Allocation Plan ──────────────────────────────────────────── */
+
+export const mockAllocationPlan: AllocationPlan = {
+  generatedAt: "2026-02-27T14:00:00Z",
+  basedOn: "Your preferences: age 30, moderate risk tolerance, long-term horizon, $500/month budget",
+  disclaimer: "This is an organizational tool to help structure your investment thinking. It is not financial advice. Discuss any changes with a licensed financial advisor before making investment decisions.",
+  assetAllocation: {
+    stocks: { percentage: 80, reason: "At age 30, a common approach is (110 - age) = 80% stocks. Your moderate risk tolerance and long timeline support this." },
+    bonds: { percentage: 15, reason: "15% bonds provides stability without significantly dragging long-term growth. Cushions against stock volatility." },
+    cash: { percentage: 5, reason: "5% cash reserve for rebalancing opportunities and peace of mind. Keep 3-6 months expenses separately in a HYSA." },
+  },
+  sectorAllocation: [
+    {
+      sector: "US Total Market",
+      percentage: 50,
+      reason: "Broad US market exposure captures large, mid, and small cap growth. The backbone of most portfolios.",
+      exampleETFs: [
+        { ticker: "VTI", name: "Vanguard Total Stock Market ETF", expenseRatio: 0.03 },
+        { ticker: "ITOT", name: "iShares Core S&P Total US Stock Market ETF", expenseRatio: 0.03 },
+      ],
+      analystConsensus: "Goldman Sachs and Fidelity both recommend maintaining full US equity allocation for long-term investors.",
+    },
+    {
+      sector: "International Developed",
+      percentage: 20,
+      reason: "Diversification across developed markets (Europe, Japan, Australia) reduces single-country risk.",
+      exampleETFs: [
+        { ticker: "VXUS", name: "Vanguard Total International Stock ETF", expenseRatio: 0.07 },
+        { ticker: "IXUS", name: "iShares Core MSCI Total International Stock ETF", expenseRatio: 0.07 },
+      ],
+      analystConsensus: "Morningstar rates international developed equities as undervalued relative to US — potential for mean reversion.",
+    },
+    {
+      sector: "Technology",
+      percentage: 10,
+      reason: "Modest tilt toward tech based on your expressed interest. Adds growth potential without over-concentrating.",
+      exampleETFs: [
+        { ticker: "VGT", name: "Vanguard Information Technology ETF", expenseRatio: 0.10 },
+        { ticker: "QQQ", name: "Invesco QQQ Trust", expenseRatio: 0.20 },
+      ],
+      analystConsensus: "JP Morgan and Goldman Sachs rate technology overweight heading into 2026, driven by AI infrastructure spending.",
+    },
+  ],
+  bondAllocation: [
+    {
+      type: "US Aggregate Bond",
+      percentage: 70,
+      reason: "Core bond holding — diversified mix of treasuries, corporates, and mortgage-backed securities.",
+      exampleETFs: [
+        { ticker: "BND", name: "Vanguard Total Bond Market ETF", expenseRatio: 0.03, yield: 4.2 },
+        { ticker: "AGG", name: "iShares Core US Aggregate Bond ETF", expenseRatio: 0.03, yield: 4.1 },
+      ],
+    },
+    {
+      type: "Treasury Inflation-Protected",
+      percentage: 30,
+      reason: "TIPS protect purchasing power if inflation runs hotter than expected. Insurance policy for your bond allocation.",
+      exampleETFs: [
+        { ticker: "SCHP", name: "Schwab US TIPS ETF", expenseRatio: 0.04, yield: 2.3 },
+      ],
+    },
+  ],
+  monthlyPlan: [
+    {
+      account: "Roth IRA",
+      monthlyAmount: 583,
+      allocation: [
+        { ticker: "VTI", name: "Vanguard Total Stock Market ETF", percentage: 60, dollarAmount: 349.80 },
+        { ticker: "VXUS", name: "Vanguard Total International Stock ETF", percentage: 25, dollarAmount: 145.75 },
+        { ticker: "BND", name: "Vanguard Total Bond Market ETF", percentage: 15, dollarAmount: 87.45 },
+      ],
+      taxBenefit: "Tax-free growth and tax-free withdrawals in retirement. Contributions made with after-tax dollars. Max $7,000/year ($583/month) in 2026.",
+    },
+  ],
+  rebalancingFrequency: "semi_annual",
+  rebalancingMethod: "Check allocations every 6 months. If any asset class drifts more than 5% from target, rebalance by directing new contributions to the underweight asset. Avoid selling to rebalance in taxable accounts (tax drag).",
+  educationalNotes: [
+    {
+      topic: "Why Compound Interest Matters at 30",
+      explanation: "At age 30, you have roughly 35 years until traditional retirement. $500/month invested at a 7% historical average return grows to approximately $853,000 by age 65. Starting just 5 years later would reduce that to about $580,000 — a $273,000 difference from 5 years of delay. Time is your single greatest asset.",
+      source: "Historical S&P 500 average annual return (1926-2025), adjusted for inflation",
+    },
+    {
+      topic: "Expense Ratios: The Silent Wealth Killer",
+      explanation: "A 0.03% expense ratio (VTI) vs a 0.75% expense ratio (typical actively managed fund) doesn't sound like much. But on $500/month over 35 years, the difference is approximately $180,000 in fees eaten by the expensive fund. Always check the expense ratio — it's the one investment cost you can control.",
+      source: "Morningstar fee impact calculator",
+    },
+    {
+      topic: "Why Roth IRA First",
+      explanation: "At your income level and age, a Roth IRA is typically the highest-impact account. You pay taxes now (at likely your lowest lifetime rate) and never pay taxes on the growth. If your $500/month grows to $853,000, you withdraw every penny tax-free. In a traditional IRA, you'd owe taxes on all of it at withdrawal.",
+    },
+  ],
+  exportFormats: ["clipboard", "notes"],
+};
+
+export const mockAllocationPlanMessage = `Based on your profile (age 30, moderate risk, $500/month), here's a structured investment allocation framework:
+
+\`\`\`json
+${JSON.stringify({ type: "allocation_plan", plan: mockAllocationPlan })}
+\`\`\`
+
+This puts 80% in stocks, 15% in bonds, and 5% cash — a common starting point for someone your age with a long timeline. Your entire $500/month goes into a Roth IRA split across VTI (60%), VXUS (25%), and BND (15%) — all with expense ratios under 0.10%. Rebalance every 6 months by adjusting new contributions. Want me to adjust the allocation or add a 401k to the plan?`;
+
+
 export const DEMO_MESSAGES: Record<string, { label: string; content: string }> = {
   coupons: { label: "🏷️ Coupons", content: mockCouponResults },
   savings: { label: "📊 Savings Report", content: mockSavingsReport },
@@ -1685,4 +1866,6 @@ export const DEMO_MESSAGES: Record<string, { label: string; content: string }> =
   stockview: { label: "📊 Stock Consensus", content: mockStockConsensusMessage },
   sectorview: { label: "🏭 Sector View", content: mockSectorConsensusMessage },
   theme: { label: "🎯 Invest Theme", content: mockInvestmentThemeMessage },
+  grocery: { label: "🛒 Grocery Plan", content: mockGroceryPlanMessage },
+  allocation: { label: "📐 Allocation Plan", content: mockAllocationPlanMessage },
 };

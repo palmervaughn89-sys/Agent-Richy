@@ -22,11 +22,15 @@ import ConsensusLeaderboardCard from "./ConsensusLeaderboardCard";
 import StockConsensusCard from "./StockConsensusCard";
 import SectorConsensusCard from "./SectorConsensusCard";
 import InvestmentThemeCard from "./InvestmentThemeCard";
+import GroceryPlanCard from "./GroceryPlanCard";
+import AllocationPlanCard from "./AllocationPlanCard";
 import { useChatStore } from "@/hooks/useChat";
 import type { MarketIntelligenceReport, AnalystInsight, SectorOutlook } from "@/types/market";
 import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
 import type { GoalSimulationResult, BillPrediction, LocalDealReport, AnalyzedReceipt } from "@/types/tools";
 import type { ConsensusLeaderboard, ConsensusRating, SectorConsensus, InvestmentTheme } from "@/types/investment";
+import type { OptimizedGroceryPlan } from "@/lib/groceryPlanner";
+import type { AllocationPlan } from "@/lib/allocationMapper";
 
 /* ── Type guards for each structured block ─────────────────────────── */
 
@@ -133,6 +137,16 @@ interface InvestmentThemeBlock {
   theme: InvestmentTheme;
 }
 
+interface GroceryPlanBlock {
+  type: "grocery_plan";
+  plan: OptimizedGroceryPlan;
+}
+
+interface AllocationPlanBlock {
+  type: "allocation_plan";
+  plan: AllocationPlan;
+}
+
 type StructuredBlock =
   | CouponResultsBlock
   | ExpenseInputBlock
@@ -152,7 +166,9 @@ type StructuredBlock =
   | ConsensusLeaderboardBlock
   | StockConsensusBlock
   | SectorConsensusBlock
-  | InvestmentThemeBlock;
+  | InvestmentThemeBlock
+  | GroceryPlanBlock
+  | AllocationPlanBlock;
 
 const KNOWN_TYPES = new Set([
   "coupon_results",
@@ -174,6 +190,8 @@ const KNOWN_TYPES = new Set([
   "stock_consensus",
   "sector_consensus",
   "investment_theme",
+  "grocery_plan",
+  "allocation_plan",
 ]);
 
 /* ── Segment: either plain text or a parsed structured block ───────── */
@@ -395,6 +413,12 @@ export default function StructuredBlockRenderer({ content }: StructuredBlockRend
 
           case "investment_theme":
             return <InvestmentThemeCard key={i} theme={data.theme} />;
+
+          case "grocery_plan":
+            return <GroceryPlanCard key={i} plan={data.plan} />;
+
+          case "allocation_plan":
+            return <AllocationPlanCard key={i} plan={data.plan} />;
 
           default:
             return null;

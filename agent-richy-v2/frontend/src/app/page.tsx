@@ -34,7 +34,7 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 
 /* ── Marquee items ────────────────────────────────────────────────── */
 const MARQUEE_ITEMS = [
-  '15 Core Capabilities',
+  '17 Core Capabilities',
   'All-in-One Finance AI',
   '$847 Avg. Annual Savings',
   '24/7 Always Available',
@@ -100,8 +100,19 @@ const DEEP_DIVE_CATEGORIES = [
       'Explain index funds like I\u2019m 16',
       'I have $5,000 saved. What\u2019s the smartest thing to do with it?',
       'Show me my Lifestyle Portfolio based on where I shop',
-      'What\u2019s the difference between a Roth and Traditional IRA?',
-      'If I invest $200/month starting now, what do I have at 60?',
+      'Help me build an investment allocation plan',
+      'I have $500/month to invest \u2014 how should I split it?',
+      'Map out my 401k allocation',
+    ],
+  },
+  {
+    emoji: '🛒',
+    name: 'Grocery & Shopping',
+    queries: [
+      'Here\u2019s my grocery list for the week \u2014 find me the best prices',
+      'Where should I buy groceries to save the most?',
+      'I need chicken, rice, broccoli, and pasta \u2014 cheapest option?',
+      'Optimize my weekly grocery run',
     ],
   },
   {
@@ -216,6 +227,8 @@ const SMALL_CAPABILITIES = [
   { icon: '📍', title: 'Local Deal Radar', desc: 'Find the best deals near you, cross-referenced with what you actually buy. Historic lows flagged.' },
   { icon: '🧾', title: 'Receipt Analyzer', desc: 'Break down any purchase by category. Find items you overpaid for and where to get them cheaper.' },
   { icon: '📊', title: 'Analyst Consensus', desc: 'See what Goldman, JP Morgan, Morningstar, and other major firms think about any stock or sector. Consensus scores, price targets, bull & bear cases.' },
+  { icon: '🛒', title: 'Grocery Planner', desc: 'Turn any grocery list into an optimized shopping plan. Compare prices across stores, stack coupons, and get clean exportable lists.' },
+  { icon: '📐', title: 'Allocation Mapper', desc: 'Organize your investment thinking into a structured plan with ETFs, expense ratios, and monthly schedules across accounts.' },
 ];
 
 /* ── Footer links ─────────────────────────────────────────────────── */
