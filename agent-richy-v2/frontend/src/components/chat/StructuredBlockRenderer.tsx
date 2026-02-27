@@ -23,15 +23,25 @@ import StockConsensusCard from "./StockConsensusCard";
 import SectorConsensusCard from "./SectorConsensusCard";
 import InvestmentThemeCard from "./InvestmentThemeCard";
 import GroceryPlanCard from "./GroceryPlanCard";
-import AllocationPlanCard from "./AllocationPlanCard";
-import { useChatStore } from "@/hooks/useChat";
+import AllocationPlanCard from "./AllocationPlanCard";import ProactiveAlertCard from './ProactiveAlertCard';
+import WeeklyDigestCard from './WeeklyDigestCard';
+import FinancialHealthDashboard from './FinancialHealthDashboard';
+import WealthProjectionCard from './WealthProjectionCard';
+import FinancialTwinCard from './FinancialTwinCard';
+import WealthRaceCard from './WealthRaceCard';
+import AdvisorMatchCard from './AdvisorMatchCard';
+import LifeEventSelector from './LifeEventSelector';import { useChatStore } from "@/hooks/useChat";
 import type { MarketIntelligenceReport, AnalystInsight, SectorOutlook } from "@/types/market";
 import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
 import type { GoalSimulationResult, BillPrediction, LocalDealReport, AnalyzedReceipt } from "@/types/tools";
 import type { ConsensusLeaderboard, ConsensusRating, SectorConsensus, InvestmentTheme } from "@/types/investment";
 import type { OptimizedGroceryPlan } from "@/lib/groceryPlanner";
-import type { AllocationPlan } from "@/lib/allocationMapper";
-
+import type { AllocationPlan } from "@/lib/allocationMapper";import type { ProactiveAlert, WeeklyDigest } from '@/lib/predictiveEngine';
+import type { FinancialDNA } from '@/lib/financialDNA';
+import type { WealthProjection } from '@/lib/wealthTrajectory';
+import type { TwinSimulation } from '@/lib/financialTwin';
+import type { WealthRaceProfile, WealthRaceLeaderboard } from '@/lib/wealthRace';
+import type { AdvisorMatch } from '@/lib/advisorMarketplace';
 /* ── Type guards for each structured block ─────────────────────────── */
 
 interface CouponResultsBlock {
@@ -147,6 +157,46 @@ interface AllocationPlanBlock {
   plan: AllocationPlan;
 }
 
+interface ProactiveAlertBlock {
+  type: "proactive_alert";
+  alert: ProactiveAlert;
+}
+
+interface WeeklyDigestBlock {
+  type: "weekly_digest";
+  digest: WeeklyDigest;
+}
+
+interface FinancialHealthBlock {
+  type: "financial_health";
+  dna: FinancialDNA;
+}
+
+interface WealthProjectionBlock {
+  type: "wealth_projection";
+  projection: WealthProjection;
+}
+
+interface FinancialTwinBlock {
+  type: "financial_twin";
+  simulation: TwinSimulation;
+}
+
+interface WealthRaceBlock {
+  type: "wealth_race";
+  leaderboard: WealthRaceLeaderboard;
+  profile: WealthRaceProfile;
+}
+
+interface AdvisorMatchBlock {
+  type: "advisor_match";
+  matches: AdvisorMatch[];
+}
+
+interface LifeEventSelectorBlock {
+  type: "life_event_selector";
+}
+
 type StructuredBlock =
   | CouponResultsBlock
   | ExpenseInputBlock
@@ -168,7 +218,15 @@ type StructuredBlock =
   | SectorConsensusBlock
   | InvestmentThemeBlock
   | GroceryPlanBlock
-  | AllocationPlanBlock;
+  | AllocationPlanBlock
+  | ProactiveAlertBlock
+  | WeeklyDigestBlock
+  | FinancialHealthBlock
+  | WealthProjectionBlock
+  | FinancialTwinBlock
+  | WealthRaceBlock
+  | AdvisorMatchBlock
+  | LifeEventSelectorBlock;
 
 const KNOWN_TYPES = new Set([
   "coupon_results",
@@ -192,6 +250,14 @@ const KNOWN_TYPES = new Set([
   "investment_theme",
   "grocery_plan",
   "allocation_plan",
+  "proactive_alert",
+  "weekly_digest",
+  "financial_health",
+  "wealth_projection",
+  "financial_twin",
+  "wealth_race",
+  "advisor_match",
+  "life_event_selector",
 ]);
 
 /* ── Segment: either plain text or a parsed structured block ───────── */
@@ -419,6 +485,36 @@ export default function StructuredBlockRenderer({ content }: StructuredBlockRend
 
           case "allocation_plan":
             return <AllocationPlanCard key={i} plan={data.plan} />;
+
+          case "proactive_alert":
+            return <ProactiveAlertCard key={i} alert={data.alert} />;
+
+          case "weekly_digest":
+            return <WeeklyDigestCard key={i} digest={data.digest} />;
+
+          case "financial_health":
+            return <FinancialHealthDashboard key={i} dna={data.dna} />;
+
+          case "wealth_projection":
+            return <WealthProjectionCard key={i} projection={data.projection} />;
+
+          case "financial_twin":
+            return <FinancialTwinCard key={i} simulation={data.simulation} />;
+
+          case "wealth_race":
+            return <WealthRaceCard key={i} leaderboard={data.leaderboard} profile={data.profile} />;
+
+          case "advisor_match":
+            return (
+              <div key={i} className="space-y-4">
+                {data.matches.map((match, j) => (
+                  <AdvisorMatchCard key={j} match={match} />
+                ))}
+              </div>
+            );
+
+          case "life_event_selector":
+            return <LifeEventSelector key={i} onSelect={(evt) => sendMessage(`Simulate: ${evt}`)} />;
 
           default:
             return null;

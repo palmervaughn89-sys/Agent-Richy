@@ -34,7 +34,7 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 
 /* ── Marquee items ────────────────────────────────────────────────── */
 const MARQUEE_ITEMS = [
-  '17 Core Capabilities',
+  '23 Core Capabilities',
   'All-in-One Finance AI',
   '$847 Avg. Annual Savings',
   '24/7 Always Available',
@@ -188,6 +188,70 @@ const DEEP_DIVE_CATEGORIES = [
       'Help me set up an allowance system',
     ],
   },
+  {
+    emoji: '🧬',
+    name: 'Financial DNA',
+    queries: [
+      'How am I doing financially?',
+      'What\'s my financial health score?',
+      'Give me a money checkup',
+      'What do you know about my finances so far?',
+    ],
+  },
+  {
+    emoji: '🔔',
+    name: 'Proactive Alerts',
+    queries: [
+      'Any alerts I should know about?',
+      'What should I be watching for this month?',
+      'Give me my weekly digest',
+      'Anything coming up I need to prepare for?',
+    ],
+  },
+  {
+    emoji: '🚀',
+    name: 'Wealth Trajectory',
+    queries: [
+      'Project my financial future',
+      'When can I retire?',
+      'Where am I headed financially in 10 years?',
+      'Show me how small changes compound over time',
+      'How does my net worth compare to others my age?',
+    ],
+  },
+  {
+    emoji: '🪞',
+    name: 'Financial Twin',
+    queries: [
+      'What if I bought a house next year?',
+      'Simulate what happens if I have a baby',
+      'What would happen if I quit my job and started a business?',
+      'If I moved to Austin, how would my finances change?',
+      'Run a simulation: what if I got a $15K raise?',
+    ],
+  },
+  {
+    emoji: '🏆',
+    name: 'Wealth Race',
+    queries: [
+      'How do I compare to others my age?',
+      'Show me my achievements and badges',
+      'What percentile am I in for savings?',
+      'Am I ahead or behind financially?',
+      'What would it take to reach the next level?',
+    ],
+  },
+  {
+    emoji: '🤝',
+    name: 'Advisor Marketplace',
+    queries: [
+      'Find me a financial advisor',
+      'I need professional help with estate planning',
+      'Should I talk to a CFP?',
+      'Connect me with a wealth manager',
+      'This is getting too complex — can I talk to someone?',
+    ],
+  },
 ];
 
 /* ── Capabilities ─────────────────────────────────────────────────── */
@@ -229,6 +293,12 @@ const SMALL_CAPABILITIES = [
   { icon: '📊', title: 'Analyst Consensus', desc: 'See what Goldman, JP Morgan, Morningstar, and other major firms think about any stock or sector. Consensus scores, price targets, bull & bear cases.' },
   { icon: '🛒', title: 'Grocery Planner', desc: 'Turn any grocery list into an optimized shopping plan. Compare prices across stores, stack coupons, and get clean exportable lists.' },
   { icon: '📐', title: 'Allocation Mapper', desc: 'Organize your investment thinking into a structured plan with ETFs, expense ratios, and monthly schedules across accounts.' },
+  { icon: '🧬', title: 'Financial DNA', desc: 'Richy builds a persistent model of your financial life — income, spending patterns, goals, debts — and uses it to power every recommendation.' },
+  { icon: '🔔', title: 'Proactive Alerts', desc: 'Get ahead of problems: insurance renewals, price hikes, cash flow crunches, and savings windows — Richy warns you before they hit.' },
+  { icon: '🚀', title: 'Wealth Trajectory', desc: 'See where your money is headed over 10, 20, 30 years. Three scenarios, retirement projections, and compound impact of small changes.' },
+  { icon: '🪞', title: 'Financial Twin', desc: 'Create a digital twin of your financial life. Simulate job changes, moves, home purchases, babies, and more — see the ripple effects before you commit.' },
+  { icon: '🏆', title: 'Wealth Race', desc: 'See how you rank against your age group anonymously. Earn achievements, build streaks, and track what it takes to reach the next percentile.' },
+  { icon: '🤝', title: 'Advisor Marketplace', desc: 'Get matched with vetted, licensed financial advisors. Pre-built client briefs, specialty filtering, and verified credentials via BrokerCheck.' },
 ];
 
 /* ── Footer links ─────────────────────────────────────────────────── */

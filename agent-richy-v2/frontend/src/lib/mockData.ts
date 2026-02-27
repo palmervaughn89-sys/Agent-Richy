@@ -9,6 +9,9 @@ import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@
 import type { ConsensusLeaderboard, ConsensusRating, SectorConsensus, InvestmentTheme } from "@/types/investment";
 import type { OptimizedGroceryPlan } from "@/lib/groceryPlanner";
 import type { AllocationPlan } from "@/lib/allocationMapper";
+import type { TwinSimulation } from "@/lib/financialTwin";
+import type { WealthRaceProfile, WealthRaceLeaderboard } from "@/lib/wealthRace";
+import type { AdvisorMatch } from "@/lib/advisorMarketplace";
 
 /* ── 1. Coupon results ────────────────────────────────────────────── */
 
@@ -1846,6 +1849,751 @@ ${JSON.stringify({ type: "allocation_plan", plan: mockAllocationPlan })}
 
 This puts 80% in stocks, 15% in bonds, and 5% cash — a common starting point for someone your age with a long timeline. Your entire $500/month goes into a Roth IRA split across VTI (60%), VXUS (25%), and BND (15%) — all with expense ratios under 0.10%. Rebalance every 6 months by adjusting new contributions. Want me to adjust the allocation or add a 401k to the plan?`;
 
+/* ── Financial DNA mock ──────────────────────────────────────────────── */
+
+import type { FinancialDNA } from "./financialDNA";
+import type { ProactiveAlert, WeeklyDigest } from "./predictiveEngine";
+import type { WealthProjection } from "./wealthTrajectory";
+
+export const mockFinancialDNA: FinancialDNA = {
+  userId: "demo_user_28",
+  createdAt: "2025-11-15T08:00:00Z",
+  lastUpdated: "2026-02-27T14:32:00Z",
+  interactionCount: 47,
+
+  identity: {
+    age: 28,
+    householdSize: 1,
+    location: { zipCode: "30318", city: "Atlanta", state: "GA", costOfLivingIndex: 102 },
+    employmentType: "full_time",
+    industry: "Marketing",
+    lifeStage: "early_career",
+    financialLiteracyLevel: "intermediate",
+  },
+
+  cashFlow: {
+    monthlyIncome: 4500,
+    incomeStability: "stable",
+    incomeSources: [
+      { source: "Marketing Manager — BrandCo", amount: 4500, frequency: "biweekly", reliable: true },
+    ],
+    monthlyExpenses: 3850,
+    monthlySurplus: 650,
+    surplusTrend: "growing",
+    cashFlowScore: 64,
+  },
+
+  spendingFingerprint: {
+    topCategories: [
+      { category: "Rent", monthlyAmount: 1450, percentOfIncome: 32.2, trend: "stable" },
+      { category: "Food & Dining", monthlyAmount: 620, percentOfIncome: 13.8, trend: "decreasing" },
+      { category: "Transportation", monthlyAmount: 385, percentOfIncome: 8.6, trend: "stable" },
+      { category: "Entertainment", monthlyAmount: 210, percentOfIncome: 4.7, trend: "increasing" },
+      { category: "Subscriptions", monthlyAmount: 127, percentOfIncome: 2.8, trend: "stable" },
+    ],
+
+    impulseSpendingScore: 58,
+    planningScore: 52,
+    priceConsciousness: 61,
+    brandLoyalty: 44,
+
+    spendingWeaknesses: [
+      {
+        category: "Food Delivery",
+        description: "Orders DoorDash 3-4x/week when stressed or tired after work",
+        estimatedMonthlyCost: 280,
+        suggestedIntervention: "Meal prep Sundays — batch cook 4 dinners to cover weeknight temptation windows",
+      },
+      {
+        category: "Entertainment",
+        description: "Impulse concert/event tickets — averages one unplanned $80+ purchase per month",
+        estimatedMonthlyCost: 95,
+        suggestedIntervention: "Create a $100/month 'fun fund' — guilt-free spending with a cap",
+      },
+    ],
+
+    spendingStrengths: [
+      { category: "Groceries", description: "Consistently shops at Aldi and Costco, keeping grocery costs 18% below Atlanta average" },
+      { category: "Transportation", description: "Uses MARTA for commuting instead of driving — saves ~$220/month vs car commute" },
+    ],
+
+    activeSubscriptions: [
+      { name: "Spotify Premium", amount: 11.99, valueScore: 85, lastMentioned: "2026-02-20" },
+      { name: "Netflix", amount: 15.49, valueScore: 72, lastMentioned: "2026-02-10" },
+      { name: "Peacock", amount: 7.99, valueScore: 18, lastMentioned: "2025-12-05" },
+      { name: "ChatGPT Plus", amount: 20.00, valueScore: 90, lastMentioned: "2026-02-26" },
+      { name: "Planet Fitness", amount: 25.00, valueScore: 65, lastMentioned: "2026-01-28" },
+      { name: "iCloud+", amount: 2.99, valueScore: 80, lastMentioned: "2026-01-15" },
+      { name: "Adobe Creative Cloud", amount: 22.99, valueScore: 40, lastMentioned: "2025-11-30" },
+      { name: "YouTube Premium", amount: 13.99, valueScore: 55, lastMentioned: "2026-02-18" },
+    ],
+    totalSubscriptionCost: 120.44,
+
+    primaryStores: [
+      { store: "Aldi", frequency: "weekly", avgSpend: 62 },
+      { store: "Costco", frequency: "monthly", avgSpend: 145 },
+      { store: "Target", frequency: "biweekly", avgSpend: 48 },
+    ],
+    prefersBrands: false,
+    opensToSubstitutions: true,
+    usesCoupons: true,
+    hasMemberships: ["Costco", "Amazon Prime"],
+  },
+
+  debtProfile: {
+    totalDebt: 18400,
+    debtToIncomeRatio: 0.34,
+    debts: [
+      {
+        type: "Student Loan",
+        name: "Federal Student Loan",
+        balance: 12800,
+        interestRate: 5.5,
+        minimumPayment: 165,
+        actualPayment: 200,
+        payoffDate: "2031-06-01",
+      },
+      {
+        type: "Credit Card",
+        name: "Chase Sapphire",
+        balance: 3200,
+        interestRate: 21.99,
+        minimumPayment: 96,
+        actualPayment: 150,
+        payoffDate: "2028-03-01",
+      },
+      {
+        type: "Auto Loan",
+        name: "Honda Civic 2022",
+        balance: 2400,
+        interestRate: 4.9,
+        minimumPayment: 280,
+        actualPayment: 280,
+        payoffDate: "2026-11-01",
+      },
+    ],
+    debtStrategy: "avalanche",
+    debtScore: 45,
+    monthlyDebtPayments: 630,
+  },
+
+  wealthProfile: {
+    emergencyFund: {
+      balance: 2700,
+      monthsCovered: 0.7,
+      adequate: false,
+    },
+    totalSavings: 4200,
+    totalInvestments: 8500,
+    netWorth: -5700,
+    savingsRate: 14.4,
+    investmentStyle: "passive_index",
+    riskTolerance: "moderate",
+    retirementAccounts: [
+      { type: "401k", balance: 6800, monthlyContribution: 225, employerMatch: 338 },
+      { type: "Roth IRA", balance: 1700, monthlyContribution: 100, employerMatch: 0 },
+    ],
+    retirementReadiness: 28,
+    investmentInterests: ["tech", "index funds", "real estate"],
+    followedStocks: ["VTI", "AAPL", "VOO"],
+    wealthScore: 38,
+  },
+
+  goals: {
+    active: [
+      {
+        id: "goal_ef",
+        name: "Emergency Fund",
+        type: "emergency_fund",
+        targetAmount: 6000,
+        currentProgress: 2700,
+        monthlyContribution: 150,
+        projectedCompletionDate: "2027-12-01",
+        onTrack: true,
+      },
+      {
+        id: "goal_vacation",
+        name: "Japan Vacation",
+        type: "savings",
+        targetAmount: 3000,
+        currentProgress: 1200,
+        monthlyContribution: 100,
+        projectedCompletionDate: "2027-08-01",
+        onTrack: true,
+      },
+    ],
+    completed: [
+      { name: "Pay off Best Buy card", completedDate: "2025-09-15", amount: 840 },
+    ],
+    mentioned: ["first home down payment", "new laptop", "investing more aggressively"],
+  },
+
+  behavior: {
+    avgMessagesPerSession: 8,
+    preferredTopics: ["budgeting", "deals", "spending optimization"],
+    avoidedTopics: ["insurance", "estate planning"],
+    responseStyle: "detailed",
+    actsOnRecommendations: true,
+    followThroughRate: 65,
+    moneyAnxietyLevel: "moderate",
+    motivatedBy: "security",
+    topicsLearned: ["compound interest", "index funds", "50/30/20 rule", "debt avalanche"],
+    topicsToRevisit: ["tax-loss harvesting", "HSA triple tax advantage"],
+  },
+
+  predictions: {
+    nextLikelyQuestion: "How should I handle my tax refund this year?",
+    upcomingFinancialEvents: [
+      { event: "Auto insurance renewal", date: "2026-04-15", action: "Shop rates 30 days before renewal" },
+      { event: "Car loan final payment", date: "2026-11-01", action: "Redirect $280/mo to investments" },
+    ],
+    riskAlerts: [
+      { risk: "Credit card balance growing if minimum-only months occur", severity: "medium", recommendation: "Maintain $150+ payments on Chase Sapphire" },
+      { risk: "Emergency fund below 1 month coverage", severity: "high", recommendation: "Prioritize building to $3,850 (1 month) before accelerating other goals" },
+    ],
+    opportunities: [
+      { opportunity: "Capture full 401k employer match — currently leaving $113/mo on the table", potentialValue: 1356, timeframe: "annual" },
+      { opportunity: "Cancel Peacock ($7.99/mo) — unused for 84 days", potentialValue: 96, timeframe: "annual" },
+    ],
+  },
+
+  scores: {
+    overallFinancialHealth: 62,
+    spendingEfficiency: 58,
+    debtManagement: 45,
+    savingsAndInvesting: 71,
+    financialKnowledge: 55,
+    trajectory: "improving",
+    percentileAmongUsers: 54,
+  },
+};
+
+/* ── Proactive Alert mock ────────────────────────────────────────────── */
+
+export const mockProactiveAlert: ProactiveAlert = {
+  id: "alert_insurance_renewal_1709049600",
+  type: "renewal_reminder",
+  priority: "high",
+  title: "Auto insurance renewal in 47 days",
+  message:
+    "Your auto insurance renews on April 15. You haven't compared rates since you signed up 14 months ago. Drivers who shop around save an average of $387/year — and your clean record works in your favor.",
+  reasoning:
+    "Your auto insurance renews in 47 days and you haven't shopped rates in 14 months. Richy tracks renewal dates and flags shopping windows 45-60 days before renewal so you have time to compare without rushing.",
+  suggestedAction:
+    "Want me to format your current coverage details so you can send them to Progressive, GEICO, and State Farm for competing quotes in under 5 minutes?",
+  estimatedValue: 387,
+  relevantDate: "2026-04-15",
+  expiresAt: "2026-04-15",
+  actionButton: { label: "Prepare rate-shopping template", action: "generate_insurance_comparison" },
+  dismissable: true,
+};
+
+/* ── Weekly Digest mock ──────────────────────────────────────────────── */
+
+export const mockWeeklyDigest: WeeklyDigest = {
+  userId: "demo_user_28",
+  weekOf: "2026-02-20",
+  healthScoreChange: 3,
+  savingsThisWeek: 237,
+  spendingThisWeek: 1847,
+  goalsProgress: [
+    { name: "Emergency Fund", progress: 45, change: 3 },
+    { name: "Japan Vacation", progress: 40, change: 2 },
+  ],
+  activeAlerts: [
+    mockProactiveAlert,
+    {
+      id: "alert_sub_peacock_1709049601",
+      type: "subscription_check",
+      priority: "medium",
+      title: "Still using Peacock?",
+      message:
+        "You haven't mentioned Peacock ($7.99/mo) in over 84 days. That's $31.96 potentially wasted so far. Want to keep it or cut it?",
+      reasoning:
+        "Peacock subscription was last mentioned on December 5, 2025 — 84 days ago. At $7.99/month, that's $95.88/year for a service that may not be getting use.",
+      suggestedAction: "Cancel and save $95.88/year",
+      estimatedValue: 96,
+      actionButton: { label: "Cancel subscription", action: "cancel_subscription_peacock" },
+      dismissable: true,
+    },
+  ],
+  winsThisWeek: [
+    "Negotiated internet down $25/month — that's $300/year saved 🎉",
+    "Hit 50% on emergency fund goal — halfway to financially secure!",
+  ],
+  upcomingBills: [
+    { name: "Rent", amount: 1450, date: "2026-03-01" },
+    { name: "Honda Civic", amount: 280, date: "2026-03-05" },
+    { name: "Spotify Premium", amount: 11.99, date: "2026-03-03" },
+    { name: "Planet Fitness", amount: 25, date: "2026-03-01" },
+  ],
+  upcomingOpportunities: [
+    "Car loan payoff in 8 months — plan where that $280/mo goes next",
+    "Tax refund season — consider directing refund straight to emergency fund",
+  ],
+  totalSavedSinceJoining: 1423,
+  totalSavedThisMonth: 487,
+  streakDays: 12,
+};
+
+/* ── Wealth Projection mock ──────────────────────────────────────────── */
+
+const currentPathAssumptions = [
+  "Current savings rate of 14.4% maintained",
+  "7% real return on investments",
+  "3% annual salary growth",
+  "No changes to spending or debt payments",
+];
+
+const optimizedAssumptions = [
+  "Implements all Richy spending optimizations (+$347/mo)",
+  "Cancels unused subscriptions ($31/mo saved)",
+  "Redirects car payment to investments after payoff ($280/mo)",
+  "Captures full employer 401k match (+$113/mo)",
+  "7% real return on investments",
+];
+
+const aggressiveAssumptions = [
+  "50% savings rate achieved",
+  "All discretionary spending capped at $200/mo",
+  "Side income from freelance marketing ($800/mo)",
+  "7% real return on investments, 90/10 stock/bond split",
+  "All debt paid off within 18 months",
+];
+
+function buildProjections(): WealthProjection["projections"] {
+  // Current path: surplus $650/mo, investments grow at 7%
+  // Optimized: surplus $997/mo (+$347)
+  // Aggressive: surplus $1,950/mo
+  const years = [1, 3, 5, 10, 15, 20, 25, 30];
+  const currentSurplus = 650;
+  const optimizedSurplus = 997;
+  const aggressiveSurplus = 1950;
+  const startingNetWorth = -5700;
+  const startingInvestments = 8500;
+  const r = 0.07; // real return
+
+  return years.map((y) => {
+    const currentInvested = startingInvestments * Math.pow(1 + r, y) + currentSurplus * 12 * ((Math.pow(1 + r, y) - 1) / r);
+    const optimizedInvested = startingInvestments * Math.pow(1 + r, y) + optimizedSurplus * 12 * ((Math.pow(1 + r, y) - 1) / r);
+    const aggressiveInvested = startingInvestments * Math.pow(1 + r, y) + aggressiveSurplus * 12 * ((Math.pow(1 + r, y) - 1) / r);
+
+    const currentNW = startingNetWorth + currentSurplus * 12 * y + (currentInvested - startingInvestments - currentSurplus * 12 * y);
+    const optimizedNW = startingNetWorth + optimizedSurplus * 12 * y + (optimizedInvested - startingInvestments - optimizedSurplus * 12 * y);
+    const aggressiveNW = startingNetWorth + aggressiveSurplus * 12 * y + (aggressiveInvested - startingInvestments - aggressiveSurplus * 12 * y);
+
+    return {
+      years: y,
+      scenarios: [
+        {
+          name: "current_path" as const,
+          netWorth: Math.round(currentNW),
+          totalSaved: Math.round(currentSurplus * 12 * y),
+          totalInvested: Math.round(currentInvested),
+          investmentGrowth: Math.round(currentInvested - startingInvestments - currentSurplus * 12 * y),
+          totalDebtRemaining: Math.max(0, 18400 - 630 * 12 * Math.min(y, 5)),
+          passiveIncome: Math.round(currentInvested * 0.02 / 12),
+          financialIndependenceProgress: Math.min(100, Math.round((currentInvested * 0.04 / 12 / 3850) * 100)),
+          monthlySurplus: currentSurplus + Math.round(y > 1 ? y * 50 : 0),
+          assumptions: currentPathAssumptions,
+        },
+        {
+          name: "optimized" as const,
+          netWorth: Math.round(optimizedNW),
+          totalSaved: Math.round(optimizedSurplus * 12 * y),
+          totalInvested: Math.round(optimizedInvested),
+          investmentGrowth: Math.round(optimizedInvested - startingInvestments - optimizedSurplus * 12 * y),
+          totalDebtRemaining: Math.max(0, 18400 - 900 * 12 * Math.min(y, 3)),
+          passiveIncome: Math.round(optimizedInvested * 0.02 / 12),
+          financialIndependenceProgress: Math.min(100, Math.round((optimizedInvested * 0.04 / 12 / 3850) * 100)),
+          monthlySurplus: optimizedSurplus + Math.round(y > 1 ? y * 75 : 0),
+          assumptions: optimizedAssumptions,
+        },
+        {
+          name: "aggressive" as const,
+          netWorth: Math.round(aggressiveNW),
+          totalSaved: Math.round(aggressiveSurplus * 12 * y),
+          totalInvested: Math.round(aggressiveInvested),
+          investmentGrowth: Math.round(aggressiveInvested - startingInvestments - aggressiveSurplus * 12 * y),
+          totalDebtRemaining: Math.max(0, 18400 - 1500 * 12 * Math.min(y, 1.5)),
+          passiveIncome: Math.round(aggressiveInvested * 0.02 / 12),
+          financialIndependenceProgress: Math.min(100, Math.round((aggressiveInvested * 0.04 / 12 / 3850) * 100)),
+          monthlySurplus: aggressiveSurplus + Math.round(y > 1 ? y * 120 : 0),
+          assumptions: aggressiveAssumptions,
+        },
+      ],
+    };
+  });
+}
+
+export const mockWealthProjection: WealthProjection = {
+  userId: "demo_user_28",
+  generatedAt: "2026-02-27T14:32:00Z",
+  basedOn: "Your current financial DNA as of Feb 2026",
+  currentNetWorth: -5700,
+  currentMonthlySurplus: 650,
+  currentSavingsRate: 14.4,
+  projections: buildProjections(),
+
+  milestones: [
+    { name: "Debt free", currentPathDate: "2031-06-01", optimizedPathDate: "2029-04-01", timeSavedByOptimizing: 26 },
+    { name: "3-month emergency fund", currentPathDate: "2028-09-01", optimizedPathDate: "2027-06-01", timeSavedByOptimizing: 15 },
+    { name: "$100K net worth", currentPathDate: "2034-02-01", optimizedPathDate: "2031-08-01", timeSavedByOptimizing: 30 },
+    { name: "Financial independence", currentPathDate: "2058-01-01", optimizedPathDate: "2051-01-01", timeSavedByOptimizing: 84 },
+  ],
+
+  retirementProjection: {
+    currentPathRetirementAge: 67,
+    optimizedPathRetirementAge: 60,
+    retirementSavingsAtCurrentPath: 487000,
+    retirementSavingsOptimized: 903000,
+    monthlyRetirementIncome: 3008,
+    socialSecurityEstimate: 2100,
+    gap: -742,
+  },
+
+  topActions: [
+    { action: "Capture full 401k employer match", monthlyImpact: 113, tenYearImpact: 19600, retirementImpact: 142000 },
+    { action: "Redirect car payment after payoff", monthlyImpact: 280, tenYearImpact: 48500, retirementImpact: 298000 },
+    { action: "Cut food delivery to 1x/week", monthlyImpact: 180, tenYearImpact: 31200, retirementImpact: 191000 },
+    { action: "Cancel unused subscriptions", monthlyImpact: 31, tenYearImpact: 5370, retirementImpact: 33000 },
+    { action: "Negotiate internet + phone bills", monthlyImpact: 45, tenYearImpact: 7800, retirementImpact: 47800 },
+  ],
+
+  peerComparison: [
+    { metric: "Net Worth", userValue: -5700, peerMedian: 7500, percentile: 32 },
+    { metric: "Savings Rate", userValue: 14.4, peerMedian: 10, percentile: 68 },
+    { metric: "Retirement Savings", userValue: 8500, peerMedian: 18000, percentile: 35 },
+    { metric: "Debt-to-Income", userValue: 34, peerMedian: 36, percentile: 55 },
+  ],
+};
+
+/* ── Message wrappers for mock rendering ─────────────────────────────── */
+
+export const mockFinancialHealthMessage = `Here's your complete financial health dashboard based on everything I know about your finances:
+
+\`\`\`json
+${JSON.stringify({ type: "financial_health", dna: mockFinancialDNA })}
+\`\`\`
+
+Your overall financial health score is **62/100** — solidly in the "building momentum" range. Your savings rate of 14.4% is above the national median for your age group (10%), which is a real strength. The biggest drag on your score is your debt management at 45 — that Chase Sapphire at 21.99% APR is expensive. Want me to run a debt payoff simulation to see how fast we can knock that out?`;
+
+export const mockProactiveAlertMessage = `I noticed something you should know about:
+
+\`\`\`json
+${JSON.stringify({ type: "proactive_alert", alert: mockProactiveAlert })}
+\`\`\`
+
+Your auto insurance renews April 15 and you haven't shopped rates since you signed up. With your clean driving record, you're in a strong position to negotiate. Most drivers save $300-400/year just by getting competing quotes. Want me to prep your coverage details in a format you can send to 3 competitors in under 5 minutes?`;
+
+export const mockWeeklyDigestMessage = `Here's your weekly financial digest:
+
+\`\`\`json
+${JSON.stringify({ type: "weekly_digest", digest: mockWeeklyDigest })}
+\`\`\`
+
+Solid week — your health score is up 3 points to 62, and you hit two wins: the internet negotiation alone saves you $300/year. You're 12 days into your engagement streak too. The two things to keep an eye on: that insurance renewal coming up and the Peacock subscription you're not using. Want to dig into either of those?`;
+
+export const mockWealthProjectionMessage = `Here's your 30-year wealth projection based on your current financial DNA:
+
+\`\`\`json
+${JSON.stringify({ type: "wealth_projection", projection: mockWealthProjection })}
+\`\`\`
+
+The difference between your current path and the optimized path is **$347/month**. Over 30 years invested at historical market returns, that's **$416,000**. That's not a typo. Three hundred and forty-seven dollars a month becomes four hundred sixteen thousand dollars.
+
+The optimized path has you retiring at **60 instead of 67** — that's 7 years of freedom. And we're not talking about extreme frugality — it's capturing your employer match, redirecting your car payment after it's paid off, and cutting DoorDash to once a week. Want me to break down the specific actions?`;
+
+/* ── 25. Financial Twin simulation ───────────────────────────────── */
+
+export const mockFinancialTwin: TwinSimulation = {
+  id: "sim_austin_job",
+  name: "What if I move to Austin and take the new job?",
+  createdAt: "2026-02-27T12:00:00Z",
+  events: [
+    {
+      id: "evt_move_austin",
+      type: "move_city",
+      name: "Move to Austin, TX",
+      description: "Relocating from Atlanta, GA to Austin, TX for new role",
+      oneTimeCost: 8500,
+      monthlyExpenseChange: 350,
+      startDate: "2026-06-01",
+      affectsInsurance: true,
+      affectsTaxBracket: true,
+      affectsHousing: true,
+      affectsTransportation: false,
+      userConfidence: "considering",
+    },
+    {
+      id: "evt_new_job",
+      type: "job_change",
+      name: "Senior role at tech company",
+      description: "New position: $75K → $95K base salary, plus better equity package",
+      monthlyIncomeChange: 1667,
+      startDate: "2026-06-01",
+      affectsInsurance: true,
+      affectsTaxBracket: true,
+      affectsHousing: false,
+      affectsTransportation: false,
+      userConfidence: "considering",
+    },
+  ],
+  baselineSnapshot: {
+    monthlyIncome: 6250,
+    monthlyExpenses: 4200,
+    totalDebt: 28000,
+    totalSavings: 12400,
+    netWorth: -15600,
+    location: "Atlanta, GA",
+    costOfLivingIndex: 97,
+  },
+  timeline: [
+    { year: 2026, month: 6, date: "2026-06-01", monthlyIncome: 7917, monthlyExpenses: 4550, monthlySurplus: 3367, totalDebt: 26000, totalSavings: 5900, totalInvestments: 8200, netWorth: -11900, eventsThisYear: ["Move to Austin", "Start new job"], financialStressIndex: 55, disposableIncomePerDay: 112, canAffordEmergency: false },
+    { year: 2027, month: 1, date: "2027-01-01", monthlyIncome: 7917, monthlyExpenses: 4550, monthlySurplus: 3367, totalDebt: 18500, totalSavings: 16200, totalInvestments: 15100, netWorth: 12800, eventsThisYear: [], financialStressIndex: 40, disposableIncomePerDay: 112, canAffordEmergency: true },
+    { year: 2028, month: 1, date: "2028-01-01", monthlyIncome: 8200, monthlyExpenses: 4600, monthlySurplus: 3600, totalDebt: 8200, totalSavings: 28500, totalInvestments: 26400, netWorth: 46700, eventsThisYear: [], financialStressIndex: 28, disposableIncomePerDay: 120, canAffordEmergency: true },
+    { year: 2030, month: 1, date: "2030-01-01", monthlyIncome: 8800, monthlyExpenses: 4800, monthlySurplus: 4000, totalDebt: 0, totalSavings: 42000, totalInvestments: 52300, netWorth: 94300, eventsThisYear: ["Debt-free milestone"], financialStressIndex: 18, disposableIncomePerDay: 133, canAffordEmergency: true },
+    { year: 2032, month: 1, date: "2032-01-01", monthlyIncome: 9500, monthlyExpenses: 5000, monthlySurplus: 4500, totalDebt: 0, totalSavings: 55000, totalInvestments: 89700, netWorth: 144700, eventsThisYear: [], financialStressIndex: 12, disposableIncomePerDay: 150, canAffordEmergency: true },
+    { year: 2036, month: 1, date: "2036-01-01", monthlyIncome: 10800, monthlyExpenses: 5400, monthlySurplus: 5400, totalDebt: 0, totalSavings: 72000, totalInvestments: 187600, netWorth: 259600, eventsThisYear: [], financialStressIndex: 8, disposableIncomePerDay: 180, canAffordEmergency: true },
+    { year: 2041, month: 1, date: "2041-01-01", monthlyIncome: 12500, monthlyExpenses: 5800, monthlySurplus: 6700, totalDebt: 0, totalSavings: 95000, totalInvestments: 378400, netWorth: 473400, eventsThisYear: [], financialStressIndex: 5, disposableIncomePerDay: 223, canAffordEmergency: true },
+    { year: 2046, month: 1, date: "2046-01-01", monthlyIncome: 14200, monthlyExpenses: 6300, monthlySurplus: 7900, totalDebt: 0, totalSavings: 120000, totalInvestments: 652800, netWorth: 772800, eventsThisYear: [], financialStressIndex: 3, disposableIncomePerDay: 263, canAffordEmergency: true },
+  ],
+  vsBaseline: {
+    netWorthDifference5yr: 52000,
+    netWorthDifference10yr: 127000,
+    netWorthDifference20yr: 312000,
+    retirementAgeDifference: -36,
+    totalLifetimeEarningsDifference: 480000,
+    stressIndexComparison: -30,
+    verdict: "Moving to Austin puts you $127K ahead in 10 years due to no state income tax + higher salary. Even accounting for higher housing costs, you come out significantly ahead.",
+  },
+  risks: [
+    {
+      description: "Austin housing costs are 18% higher than Atlanta. If rates rise further, rent could eat into your surplus.",
+      probability: 0.4,
+      financialImpact: -14400,
+      mitigation: "Lock in a 12-month lease on arrival, then reassess. Consider house-hacking with a roommate for the first year.",
+    },
+    {
+      description: "Leaving your Atlanta professional network could slow career progression if the new role doesn't work out.",
+      probability: 0.2,
+      financialImpact: -30000,
+      mitigation: "Negotiate a 6-month review clause. Keep Atlanta network warm with monthly check-ins.",
+    },
+    {
+      description: "Texas has no state income tax but property taxes are 1.8% vs Georgia's 0.9%. If you buy, this matters.",
+      probability: 0.6,
+      financialImpact: -3600,
+      mitigation: "Factor property tax into any home purchase analysis. Richy will model this in a separate simulation when you're ready.",
+    },
+  ],
+  summary: "This is a net positive move. The $20K salary bump plus zero state income tax creates a compounding advantage that overwhelms the higher cost of living within 18 months. By year 10, you're $127K ahead of staying in Atlanta.",
+  recommendation: "The simulation shows this move is financially advantageous in all but the worst-case scenario. The key is managing the transition costs — keep moving expenses under $10K and don't lifestyle-inflate in the first year.",
+  keyInsight: "No state income tax saves you $3,800/year on the new salary alone. Over 20 years invested, that's $152,000. The tax advantage is the real story here, not just the raise.",
+};
+
+export const mockFinancialTwinMessage = `Here's your Financial Twin simulation for moving to Austin and taking the new job:
+
+\`\`\`json
+${JSON.stringify({ type: "financial_twin", simulation: mockFinancialTwin })}
+\`\`\`
+
+The simulation shows you'd be **$127,000 ahead in 10 years** compared to staying in Atlanta. The combination of no state income tax and the $20K raise creates a compounding advantage that overwhelms the higher housing costs within 18 months. Want me to drill into any of the risks or run a follow-up simulation?`;
+
+/* ── 26. Wealth Race profile + leaderboard ──────────────────────── */
+
+export const mockWealthRaceProfile: WealthRaceProfile = {
+  anonymousId: "racer_28f_ga_7291",
+  ageGroup: "25-34",
+  region: "Southeast",
+  householdType: "single",
+  overallScore: 62,
+  savingsScore: 58,
+  debtScore: 45,
+  investingScore: 71,
+  spendingScore: 67,
+  knowledgeScore: 78,
+  savingsRate: 14.2,
+  debtPaydownRate: 420,
+  netWorthGrowthRate: 1850,
+  streaks: {
+    currentEngagementStreak: 14,
+    longestStreak: 21,
+    currentSavingsStreak: 3,
+  },
+  achievements: [
+    { id: "first_chat", name: "First Steps", description: "Had your first conversation with Richy", earnedAt: "2026-01-15", icon: "👋", rarity: "common" },
+    { id: "full_profile", name: "Open Book", description: "Completed the full spending intake", earnedAt: "2026-01-16", icon: "📖", rarity: "uncommon" },
+    { id: "first_save", name: "First Blood", description: "Identified your first savings opportunity", earnedAt: "2026-01-18", icon: "💰", rarity: "common" },
+    { id: "save_100", name: "Triple Digits", description: "Saved $100 through Richy's recommendations", earnedAt: "2026-02-01", icon: "💵", rarity: "common" },
+    { id: "streak_7", name: "Week Warrior", description: "7-day engagement streak", earnedAt: "2026-01-22", icon: "🔥", rarity: "common" },
+    { id: "first_coupon", name: "Deal Hunter", description: "Used a Richy coupon", earnedAt: "2026-01-20", icon: "🏷️", rarity: "common" },
+  ],
+};
+
+export const mockWealthRaceLeaderboard: WealthRaceLeaderboard = {
+  category: "Overall",
+  ageGroup: "25-34",
+  region: "Southeast",
+  userRank: 1843,
+  userPercentile: 65,
+  totalParticipants: 5267,
+  topPerformers: [
+    { rank: 1, anonymousLabel: "Saver #1,001", score: 97, isCurrentUser: false },
+    { rank: 2, anonymousLabel: "Saver #3,874", score: 95, isCurrentUser: false },
+    { rank: 3, anonymousLabel: "Saver #892", score: 94, isCurrentUser: false },
+    { rank: 4, anonymousLabel: "Saver #2,106", score: 93, isCurrentUser: false },
+    { rank: 5, anonymousLabel: "Saver #4,291", score: 92, isCurrentUser: false },
+    { rank: 1843, anonymousLabel: "You", score: 62, isCurrentUser: true },
+  ],
+  distribution: [
+    { scoreRange: "90-100", count: 263, percentage: 5, userInThisRange: false },
+    { scoreRange: "80-89", count: 527, percentage: 10, userInThisRange: false },
+    { scoreRange: "70-79", count: 1053, percentage: 20, userInThisRange: false },
+    { scoreRange: "60-69", count: 1580, percentage: 30, userInThisRange: true },
+    { scoreRange: "50-59", count: 1053, percentage: 20, userInThisRange: false },
+    { scoreRange: "40-49", count: 527, percentage: 10, userInThisRange: false },
+    { scoreRange: "0-39", count: 264, percentage: 5, userInThisRange: false },
+  ],
+  toNextPercentile: {
+    currentPercentile: 65,
+    nextPercentile: 75,
+    whatItTakes: "Save $47 more per month to reach the top 25%. That's cutting one food delivery order per week.",
+  },
+};
+
+export const mockWealthRaceMessage = `Here's how you stack up against your peers:
+
+\`\`\`json
+${JSON.stringify({ type: "wealth_race", leaderboard: mockWealthRaceLeaderboard, profile: mockWealthRaceProfile })}
+\`\`\`
+
+You're in the **top 35%** of 25-34 year olds in the Southeast — and trending up. Your 14-day streak is building real momentum. The gap to the top 25% is just **$47/month more in savings**. That's one less DoorDash order per week. Want me to find that $47?`;
+
+/* ── 27. Advisor Match ──────────────────────────────────────────── */
+
+export const mockAdvisorMatches: AdvisorMatch[] = [
+  {
+    advisor: {
+      id: "adv_sarah_chen",
+      name: "Sarah Chen, CFP®",
+      title: "CFP",
+      firm: "Clarity Financial Planning",
+      certifications: ["CFP", "Series_65"],
+      yearsExperience: 6,
+      registeredWith: ["SEC"],
+      brokecheckLink: "https://brokercheck.finra.org/individual/example1",
+      specialties: ["debt_management", "budgeting", "retirement_planning"],
+      clientTypes: ["young_professional", "debt_focused"],
+      minimumAssets: 0,
+      feeStructure: "hourly",
+      feeDetails: "$150/hour, no minimums",
+      meetingFormat: ["video", "phone"],
+      servicesNationwide: true,
+      bio: "I specialize in helping millennials and Gen Z get control of their finances. No judgment, just a plan.",
+      philosophy: "I believe everyone deserves a financial plan, not just the wealthy. Start where you are, use what you have, do what you can.",
+      typicalClient: "I typically work with 25-35 year olds who are earning well but feel behind on savings and overwhelmed by student loans.",
+      rating: 4.8,
+      reviewCount: 23,
+      responseTime: "Usually responds within 4 hours",
+      acceptingNewClients: true,
+      verified: true,
+      premiumListing: false,
+    },
+    matchScore: 92,
+    matchReasons: [
+      "Specializes in debt payoff strategy — matches your primary concern",
+      "Works with young professionals at your income level",
+      "Fee-only pricing means no conflicts of interest",
+      "No asset minimum — accessible regardless of current net worth",
+      "4.8 stars from 23 Richy users in similar situations",
+    ],
+    clientBrief: {
+      ageRange: "25-30",
+      financialGoals: ["Pay off student loans", "Build emergency fund", "Start investing"],
+      primaryConcerns: ["$28K in student debt", "No clear payoff strategy", "Feels behind on retirement savings"],
+      estimatedNetWorth: "-$15K to $0",
+      estimatedIncome: "$70K-$80K",
+      debtSituation: "Moderate student loan debt (~$28K) across 3 loans",
+      investmentExperience: "Beginner — contributing to 401k but not optimized",
+      whatTheyNeedHelpWith: ["Debt payoff strategy", "Budget optimization", "401k allocation review"],
+      richyRecommendation: "This client would benefit from a comprehensive debt payoff plan and 401k optimization. They have good income but need structure and accountability.",
+    },
+    whyThisAdvisor: "Sarah specializes in young professionals with student debt. Fee-only Model, no conflicts of interest. 4.8 stars from 23 Richy users.",
+    estimatedCost: "~$150/hour, typically 2-3 sessions for a debt payoff plan ($300-$450 total)",
+    nextStep: "Schedule a free 15-minute intro call",
+  },
+  {
+    advisor: {
+      id: "adv_michael_torres",
+      name: "Michael Torres, CFA",
+      title: "CFA",
+      firm: "Pinnacle Wealth Advisors",
+      certifications: ["CFA", "CFP", "Series_66"],
+      yearsExperience: 14,
+      registeredWith: ["SEC", "FINRA"],
+      brokecheckLink: "https://brokercheck.finra.org/individual/example2",
+      specialties: ["investment_management", "retirement_planning", "tax_planning"],
+      clientTypes: ["young_professional", "family", "pre_retirement"],
+      minimumAssets: 50000,
+      feeStructure: "fee_only",
+      feeDetails: "1% of AUM, waived for first year under $100K",
+      meetingFormat: ["in_person", "video"],
+      location: { city: "Atlanta", state: "GA" },
+      servicesNationwide: true,
+      bio: "Former institutional portfolio manager turned personal advisor. I bring Wall Street rigor to Main Street portfolios.",
+      philosophy: "Invest systematically, minimize fees and taxes, and let compound growth do the heavy lifting. No market timing, no hot tips.",
+      typicalClient: "I work with professionals and families who have $50K-$2M in investable assets and want a long-term partner.",
+      rating: 4.6,
+      reviewCount: 47,
+      responseTime: "Usually responds within 24 hours",
+      acceptingNewClients: true,
+      verified: true,
+      premiumListing: true,
+    },
+    matchScore: 85,
+    matchReasons: [
+      "Strong investment management expertise — can optimize your portfolio",
+      "Tax planning specialty helps with your growing income",
+      "Local to Atlanta for in-person meetings if preferred",
+      "AUM fee waived for first year under $100K — accessible entry point",
+      "14 years experience with CFA credential (rigorous investment focus)",
+    ],
+    clientBrief: {
+      ageRange: "25-30",
+      financialGoals: ["Pay off student loans", "Build emergency fund", "Start investing"],
+      primaryConcerns: ["$28K in student debt", "No clear payoff strategy", "Feels behind on retirement savings"],
+      estimatedNetWorth: "-$15K to $0",
+      estimatedIncome: "$70K-$80K",
+      debtSituation: "Moderate student loan debt (~$28K) across 3 loans",
+      investmentExperience: "Beginner — contributing to 401k but not optimized",
+      whatTheyNeedHelpWith: ["Investment strategy", "Retirement planning", "Tax optimization"],
+      richyRecommendation: "This client is approaching the investable asset threshold. A long-term advisor relationship now will pay dividends as their income and assets grow.",
+    },
+    whyThisAdvisor: "Michael brings institutional-grade portfolio management and tax planning. AUM fee is waived for the first year, making it accessible at your current asset level.",
+    estimatedCost: "1% of AUM (year 1 waived under $100K). ~$500-$1,000/year as your portfolio grows.",
+    nextStep: "Schedule a free 30-minute portfolio review",
+  },
+];
+
+export const mockAdvisorMatchMessage = `Based on your financial profile, I've matched you with two advisors who specialize in exactly what you need:
+
+\`\`\`json
+${JSON.stringify({ type: "advisor_match", matches: mockAdvisorMatches })}
+\`\`\`
+
+Both advisors are verified and have strong ratings from Richy users in similar situations. Sarah is great if you want focused, session-based help on debt strategy. Michael is ideal if you want a long-term investment partner as your assets grow. Want me to prepare anything specific for the intro call?`;
+
+/* ── 28. Life event selector (popular events) ───────────────────── */
+
+export const mockLifeEvents = [
+  { type: "buy_home" as const, label: "Buy a Home", emoji: "🏠", popular: true },
+  { type: "baby" as const, label: "Have a Baby", emoji: "👶", popular: true },
+  { type: "job_change" as const, label: "Change Jobs", emoji: "💼", popular: true },
+  { type: "move_city" as const, label: "Move to a New City", emoji: "🚚", popular: true },
+  { type: "start_business" as const, label: "Start a Business", emoji: "🚀", popular: true },
+];
+
 
 export const DEMO_MESSAGES: Record<string, { label: string; content: string }> = {
   coupons: { label: "🏷️ Coupons", content: mockCouponResults },
@@ -1868,4 +2616,11 @@ export const DEMO_MESSAGES: Record<string, { label: string; content: string }> =
   theme: { label: "🎯 Invest Theme", content: mockInvestmentThemeMessage },
   grocery: { label: "🛒 Grocery Plan", content: mockGroceryPlanMessage },
   allocation: { label: "📐 Allocation Plan", content: mockAllocationPlanMessage },
+  health: { label: "🧬 Financial Health", content: mockFinancialHealthMessage },
+  alert: { label: "🔔 Proactive Alert", content: mockProactiveAlertMessage },
+  digest: { label: "📋 Weekly Digest", content: mockWeeklyDigestMessage },
+  trajectory: { label: "🚀 Wealth Trajectory", content: mockWealthProjectionMessage },
+  twin: { label: "🪞 Financial Twin", content: mockFinancialTwinMessage },
+  race: { label: "🏆 Wealth Race", content: mockWealthRaceMessage },
+  advisor: { label: "🤝 Advisor Match", content: mockAdvisorMatchMessage },
 };

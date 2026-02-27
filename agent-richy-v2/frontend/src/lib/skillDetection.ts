@@ -1,6 +1,6 @@
 /* ── Skill detection — keyword-based trigger matching ────────────────── */
 
-export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | "grocery_plan" | "allocation_map" | null;
+export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | "grocery_plan" | "allocation_map" | "proactive" | "trajectory" | "financial_twin" | "wealth_race" | "advisor_match" | null;
 
 const COUPON_TRIGGERS = [
   "coupon",
@@ -211,6 +211,44 @@ const ALLOCATION_TRIGGERS = [
   'investment worksheet', 'monthly investment plan',
 ];
 
+const PROACTIVE_TRIGGERS = [
+  'any alerts', 'what should i know', 'anything coming up',
+  'financial checkup', 'weekly report', 'how am i doing',
+  'my financial health', 'health score', 'money checkup',
+  'whats my score', 'financial score', 'digest',
+];
+
+const TRAJECTORY_TRIGGERS = [
+  'financial future', 'retirement', 'when can i retire',
+  'long term', 'wealth projection', 'net worth projection',
+  'where am i headed', 'financial trajectory', 'project my savings',
+  'compound growth', 'future net worth', '10 years from now',
+  'financial independence', 'fire', 'early retirement',
+];
+
+const TWIN_TRIGGERS = [
+  'what if', 'what would happen if', 'simulate', 'financial twin',
+  'life simulation', 'if i moved', 'if i quit', 'if i had a baby',
+  'if i bought a house', 'if i changed jobs', 'if i started a business',
+  'if i got a raise', 'if i retired', 'run a simulation',
+  'model this scenario', 'show me the impact',
+];
+
+const RACE_TRIGGERS = [
+  'how do i compare', 'my rank', 'my ranking', 'wealth race',
+  'percentile', 'how am i doing vs', 'compare me', 'leaderboard',
+  'achievements', 'my achievements', 'badges', 'my streak',
+  'am i doing well', 'am i behind', 'am i ahead',
+];
+
+const ADVISOR_TRIGGERS = [
+  'financial advisor', 'find an advisor', 'need an advisor',
+  'professional advice', 'talk to someone', 'licensed advisor',
+  'cfp', 'wealth manager', 'financial planner', 'need help from a pro',
+  'too complex', 'connect me with', 'advisor marketplace',
+  'human advisor', 'real advisor',
+];
+
 const INVESTMENT_INTEL_TRIGGERS = [
   "top rated stocks",
   "best rated stocks",
@@ -250,6 +288,11 @@ export function detectSkill(message: string): DetectedSkill {
   if (SUBSCRIPTION_VALUE_TRIGGERS.some((t) => lower.includes(t))) return "subscription_value";
   if (PRICE_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "price_intel";
   if (RECEIPT_TRIGGERS.some((t) => lower.includes(t))) return "receipt_analyze";
+  if (PROACTIVE_TRIGGERS.some((t) => lower.includes(t))) return "proactive";
+  if (TRAJECTORY_TRIGGERS.some((t) => lower.includes(t))) return "trajectory";
+  if (TWIN_TRIGGERS.some((t) => lower.includes(t))) return "financial_twin";
+  if (RACE_TRIGGERS.some((t) => lower.includes(t))) return "wealth_race";
+  if (ADVISOR_TRIGGERS.some((t) => lower.includes(t))) return "advisor_match";
   if (INVESTMENT_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "investment_intel";
   if (BILL_PREDICT_TRIGGERS.some((t) => lower.includes(t))) return "bill_predict";
   if (LOCAL_DEAL_TRIGGERS.some((t) => lower.includes(t))) return "local_deals";

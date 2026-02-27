@@ -21,6 +21,11 @@ const QUICK_ACTIONS = [
   'Negotiate a bill',
   'Top rated stocks',
   'Grocery planner',
+  'How am I doing?',
+  'My financial future',
+  'What if...',
+  'My rank',
+  'Find an advisor',
 ];
 
 export default function ChatPanel() {
