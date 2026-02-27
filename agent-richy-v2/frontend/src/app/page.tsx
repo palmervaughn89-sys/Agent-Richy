@@ -34,7 +34,7 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 
 /* ── Marquee items ────────────────────────────────────────────────── */
 const MARQUEE_ITEMS = [
-  '23 Core Capabilities',
+  '27 Core Capabilities',
   'All-in-One Finance AI',
   '$847 Avg. Annual Savings',
   '24/7 Always Available',
@@ -250,6 +250,46 @@ const DEEP_DIVE_CATEGORIES = [
       'Should I talk to a CFP?',
       'Connect me with a wealth manager',
       'This is getting too complex — can I talk to someone?',
+    ],
+  },
+  {
+    emoji: '🗺️',
+    name: 'Money Map',
+    queries: [
+      'Show me where all my money goes',
+      'Visualize my financial life',
+      'Where are my money leaks?',
+      'Am I leaving money on the table?',
+    ],
+  },
+  {
+    emoji: '🌊',
+    name: 'Ripple Tracker',
+    queries: [
+      'I just cancelled a subscription — show me the ripple effect',
+      'What\u2019s my invisible raise so far?',
+      'How much have all my changes saved me?',
+      'Is saving $8/month even worth it?',
+    ],
+  },
+  {
+    emoji: '🌡️',
+    name: 'Economic Intelligence',
+    queries: [
+      'How is the economy affecting my wallet?',
+      'What\u2019s inflation costing me personally?',
+      'Are prices going up or down on groceries?',
+      'Should I refinance my mortgage at current rates?',
+    ],
+  },
+  {
+    emoji: '⏰',
+    name: 'Purchase Timing',
+    queries: [
+      'Should I buy a new laptop now or wait?',
+      'When is the best time to buy a car?',
+      'Will TV prices drop soon?',
+      'Is now a good time to buy furniture?',
     ],
   },
 ];

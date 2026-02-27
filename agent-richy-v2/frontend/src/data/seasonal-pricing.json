@@ -1,0 +1,227 @@
+{
+  "source": "Consumer Reports, NerdWallet, RetailMeNot historical data, BLS seasonal CPI patterns",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+  "categories": [
+    {
+      "category": "TVs & Displays",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "lowest", "reason": "Super Bowl sales + CES new model announcements make old stock cheap", "buyRating": 5 },
+        { "month": 2, "monthName": "February", "typicalPricing": "below_avg", "reason": "Post-Super Bowl clearance continues", "buyRating": 4 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Normal pricing resumes", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady prices", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Memorial Day sales", "buyRating": 4 },
+        { "month": 6, "monthName": "June", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "Prime Day and competing sales", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "average", "reason": "Back to school focus elsewhere", "buyRating": 3 },
+        { "month": 9, "monthName": "September", "typicalPricing": "above_avg", "reason": "New models arriving, limited discounts", "buyRating": 2 },
+        { "month": 10, "monthName": "October", "typicalPricing": "above_avg", "reason": "Pre-holiday pricing holding firm", "buyRating": 2 },
+        { "month": 11, "monthName": "November", "typicalPricing": "lowest", "reason": "Black Friday — deepest discounts of the year", "buyRating": 5 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Holiday sales continue but inventory thins", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "January (Super Bowl) or November (Black Friday)",
+      "worstTimeToBuy": "September-October (new models, no sales)",
+      "annualPriceVariation": 25
+    },
+    {
+      "category": "Laptops & Computers",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "below_avg", "reason": "New Year clearance", "buyRating": 4 },
+        { "month": 2, "monthName": "February", "typicalPricing": "average", "reason": "Presidents Day sales", "buyRating": 3 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Memorial Day + graduation sales", "buyRating": 4 },
+        { "month": 6, "monthName": "June", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "Prime Day and back-to-school kickoff", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "lowest", "reason": "Peak back-to-school sales — best laptop deals of the year", "buyRating": 5 },
+        { "month": 9, "monthName": "September", "typicalPricing": "below_avg", "reason": "Back-to-school clearance", "buyRating": 4 },
+        { "month": 10, "monthName": "October", "typicalPricing": "above_avg", "reason": "Holding for holiday pricing", "buyRating": 2 },
+        { "month": 11, "monthName": "November", "typicalPricing": "lowest", "reason": "Black Friday / Cyber Monday", "buyRating": 5 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Holiday deals", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "August (back-to-school) or November (Black Friday)",
+      "worstTimeToBuy": "October or April (no sales cycle)",
+      "annualPriceVariation": 20
+    },
+    {
+      "category": "Smartphones",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "below_avg", "reason": "Holiday returns and clearance", "buyRating": 4 },
+        { "month": 2, "monthName": "February", "typicalPricing": "below_avg", "reason": "Samsung launches new Galaxy, old models drop", "buyRating": 4 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 6, "monthName": "June", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "Prime Day deals", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "above_avg", "reason": "Pre-iPhone launch, carriers hold prices", "buyRating": 2 },
+        { "month": 9, "monthName": "September", "typicalPricing": "peak", "reason": "New iPhone launches at full price", "buyRating": 1 },
+        { "month": 10, "monthName": "October", "typicalPricing": "below_avg", "reason": "Previous gen iPhones and Androids discounted", "buyRating": 4 },
+        { "month": 11, "monthName": "November", "typicalPricing": "lowest", "reason": "Black Friday carrier deals, BOGO offers", "buyRating": 5 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Holiday deals continue", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "November (Black Friday) or October (previous gen discounts after new launch)",
+      "worstTimeToBuy": "September (new model launch at full MSRP)",
+      "annualPriceVariation": 30
+    },
+    {
+      "category": "Major Appliances",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "below_avg", "reason": "New Year clearance, new models coming", "buyRating": 4 },
+        { "month": 2, "monthName": "February", "typicalPricing": "below_avg", "reason": "Presidents Day sales — one of the best appliance sales", "buyRating": 5 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Memorial Day sales — major appliance sale event", "buyRating": 5 },
+        { "month": 6, "monthName": "June", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "4th of July sales", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 9, "monthName": "September", "typicalPricing": "lowest", "reason": "New models arrive, last year's models heavily discounted", "buyRating": 5 },
+        { "month": 10, "monthName": "October", "typicalPricing": "below_avg", "reason": "Clearance continues", "buyRating": 4 },
+        { "month": 11, "monthName": "November", "typicalPricing": "lowest", "reason": "Black Friday", "buyRating": 5 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Year-end clearance", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "September (model turnover), February (Presidents Day), or November (Black Friday)",
+      "worstTimeToBuy": "March-April (no sales cycle)",
+      "annualPriceVariation": 20
+    },
+    {
+      "category": "Furniture & Mattresses",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "lowest", "reason": "White sales and New Year clearance — best mattress deals", "buyRating": 5 },
+        { "month": 2, "monthName": "February", "typicalPricing": "lowest", "reason": "Presidents Day — biggest furniture sale of the year", "buyRating": 5 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Memorial Day sales", "buyRating": 4 },
+        { "month": 6, "monthName": "June", "typicalPricing": "below_avg", "reason": "Summer clearance beginning", "buyRating": 4 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "4th of July and summer clearance", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "below_avg", "reason": "Back-to-college dorm furniture deals", "buyRating": 4 },
+        { "month": 9, "monthName": "September", "typicalPricing": "above_avg", "reason": "New collections arriving", "buyRating": 2 },
+        { "month": 10, "monthName": "October", "typicalPricing": "above_avg", "reason": "Holiday inventory holding", "buyRating": 2 },
+        { "month": 11, "monthName": "November", "typicalPricing": "below_avg", "reason": "Black Friday", "buyRating": 4 },
+        { "month": 12, "monthName": "December", "typicalPricing": "average", "reason": "Some holiday sales but less aggressive", "buyRating": 3 }
+      ],
+      "bestTimeToBuy": "January-February (Presidents Day + white sales) or May (Memorial Day)",
+      "worstTimeToBuy": "September-October (new collections, no incentive to discount)",
+      "annualPriceVariation": 25
+    },
+    {
+      "category": "Clothing & Apparel",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "lowest", "reason": "Winter clearance 50-70% off", "buyRating": 5 },
+        { "month": 2, "monthName": "February", "typicalPricing": "below_avg", "reason": "Continued winter clearance", "buyRating": 4 },
+        { "month": 3, "monthName": "March", "typicalPricing": "above_avg", "reason": "New spring collections at full price", "buyRating": 2 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "average", "reason": "Memorial Day sales mixed", "buyRating": 3 },
+        { "month": 6, "monthName": "June", "typicalPricing": "below_avg", "reason": "End of spring clearance", "buyRating": 4 },
+        { "month": 7, "monthName": "July", "typicalPricing": "lowest", "reason": "Summer clearance 40-60% off", "buyRating": 5 },
+        { "month": 8, "monthName": "August", "typicalPricing": "below_avg", "reason": "Back-to-school sales", "buyRating": 4 },
+        { "month": 9, "monthName": "September", "typicalPricing": "above_avg", "reason": "New fall collections at full price", "buyRating": 2 },
+        { "month": 10, "monthName": "October", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 11, "monthName": "November", "typicalPricing": "below_avg", "reason": "Black Friday deals", "buyRating": 4 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Holiday sales", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "January (winter clearance) and July (summer clearance) — buy opposite season",
+      "worstTimeToBuy": "March and September (new season launches at full price)",
+      "annualPriceVariation": 40
+    },
+    {
+      "category": "Groceries & Food",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "below_avg", "reason": "Post-holiday health food sales, meat clearance from holiday overstock", "buyRating": 4 },
+        { "month": 2, "monthName": "February", "typicalPricing": "average", "reason": "Canned goods and frozen food sales (National Canned Food Month)", "buyRating": 3 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Frozen food month promotions", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Grilling season = meat sales, seasonal produce gets cheap", "buyRating": 4 },
+        { "month": 6, "monthName": "June", "typicalPricing": "below_avg", "reason": "Peak summer produce is cheapest — buy berries, stone fruit, corn", "buyRating": 4 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "Summer produce abundance continues, 4th of July BBQ sales", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "below_avg", "reason": "Late summer harvest — vegetables at lowest prices", "buyRating": 4 },
+        { "month": 9, "monthName": "September", "typicalPricing": "average", "reason": "Transitioning seasons", "buyRating": 3 },
+        { "month": 10, "monthName": "October", "typicalPricing": "average", "reason": "Fall harvest, baking supplies go on sale", "buyRating": 3 },
+        { "month": 11, "monthName": "November", "typicalPricing": "below_avg", "reason": "Turkey and holiday baking supplies deeply discounted", "buyRating": 4 },
+        { "month": 12, "monthName": "December", "typicalPricing": "above_avg", "reason": "Holiday premium pricing on many items", "buyRating": 2 }
+      ],
+      "bestTimeToBuy": "Buy produce in season (May-August). Stock up on baking supplies in November. Meat deals in January and May.",
+      "worstTimeToBuy": "December (holiday markups) and February-March (produce out of season)",
+      "annualPriceVariation": 15
+    },
+    {
+      "category": "Cars (New)",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "below_avg", "reason": "Dealers clearing prior year inventory", "buyRating": 4 },
+        { "month": 2, "monthName": "February", "typicalPricing": "below_avg", "reason": "Presidents Day sales events", "buyRating": 4 },
+        { "month": 3, "monthName": "March", "typicalPricing": "average", "reason": "Tax refund season drives demand up", "buyRating": 3 },
+        { "month": 4, "monthName": "April", "typicalPricing": "above_avg", "reason": "Spring demand peak", "buyRating": 2 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Memorial Day sales events", "buyRating": 4 },
+        { "month": 6, "monthName": "June", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 7, "monthName": "July", "typicalPricing": "below_avg", "reason": "4th of July sales and mid-year clearance", "buyRating": 4 },
+        { "month": 8, "monthName": "August", "typicalPricing": "below_avg", "reason": "New model year arriving, dealers discount current year", "buyRating": 4 },
+        { "month": 9, "monthName": "September", "typicalPricing": "lowest", "reason": "New models on lot, prior year MUST go — biggest discounts", "buyRating": 5 },
+        { "month": 10, "monthName": "October", "typicalPricing": "lowest", "reason": "Clearance of remaining prior-year inventory", "buyRating": 5 },
+        { "month": 11, "monthName": "November", "typicalPricing": "below_avg", "reason": "Black Friday events", "buyRating": 4 },
+        { "month": 12, "monthName": "December", "typicalPricing": "lowest", "reason": "Year-end quotas — dealers will cut deals to hit annual targets. Best time: last week of December.", "buyRating": 5 }
+      ],
+      "bestTimeToBuy": "September-October (model year turnover) or last week of December (dealer quotas)",
+      "worstTimeToBuy": "March-April (tax refund season = high demand, low negotiating power)",
+      "annualPriceVariation": 12
+    },
+    {
+      "category": "Gym Memberships",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "peak", "reason": "New Year's resolution demand — gyms charge top dollar", "buyRating": 1 },
+        { "month": 2, "monthName": "February", "typicalPricing": "above_avg", "reason": "Still riding resolution wave", "buyRating": 2 },
+        { "month": 3, "monthName": "March", "typicalPricing": "below_avg", "reason": "Resolution crowd fading, gyms start discounting", "buyRating": 4 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "below_avg", "reason": "Summer body promotions", "buyRating": 4 },
+        { "month": 6, "monthName": "June", "typicalPricing": "lowest", "reason": "People exercising outdoors — gyms desperate for members", "buyRating": 5 },
+        { "month": 7, "monthName": "July", "typicalPricing": "lowest", "reason": "Peak summer — lowest gym attendance = best negotiating power", "buyRating": 5 },
+        { "month": 8, "monthName": "August", "typicalPricing": "lowest", "reason": "Still summer, still low attendance", "buyRating": 5 },
+        { "month": 9, "monthName": "September", "typicalPricing": "below_avg", "reason": "Back to routine but gyms still offering deals", "buyRating": 4 },
+        { "month": 10, "monthName": "October", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 11, "monthName": "November", "typicalPricing": "below_avg", "reason": "Pre-New Year promotions starting", "buyRating": 4 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Gyms offering holiday deals to lock in Jan members early", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "June-August (gyms are empty, you have maximum negotiating power)",
+      "worstTimeToBuy": "January (never sign up in January — you'll pay 20-30% more)",
+      "annualPriceVariation": 30
+    },
+    {
+      "category": "Flights & Airfare",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "lowest", "reason": "Post-holiday travel slump — cheapest domestic fares", "buyRating": 5 },
+        { "month": 2, "monthName": "February", "typicalPricing": "below_avg", "reason": "Low demand continues (except Valentine's week)", "buyRating": 4 },
+        { "month": 3, "monthName": "March", "typicalPricing": "above_avg", "reason": "Spring break demand spike", "buyRating": 2 },
+        { "month": 4, "monthName": "April", "typicalPricing": "average", "reason": "Shoulder season", "buyRating": 3 },
+        { "month": 5, "monthName": "May", "typicalPricing": "above_avg", "reason": "Summer travel booking ramp-up", "buyRating": 2 },
+        { "month": 6, "monthName": "June", "typicalPricing": "peak", "reason": "Peak summer travel season", "buyRating": 1 },
+        { "month": 7, "monthName": "July", "typicalPricing": "peak", "reason": "Peak summer continues", "buyRating": 1 },
+        { "month": 8, "monthName": "August", "typicalPricing": "above_avg", "reason": "Late summer, starting to cool", "buyRating": 2 },
+        { "month": 9, "monthName": "September", "typicalPricing": "lowest", "reason": "Post-summer slump — excellent deals", "buyRating": 5 },
+        { "month": 10, "monthName": "October", "typicalPricing": "below_avg", "reason": "Shoulder season, good deals", "buyRating": 4 },
+        { "month": 11, "monthName": "November", "typicalPricing": "average", "reason": "Thanksgiving week expensive, rest of month cheap", "buyRating": 3 },
+        { "month": 12, "monthName": "December", "typicalPricing": "peak", "reason": "Holiday travel peak. Book months in advance.", "buyRating": 1 }
+      ],
+      "bestTimeToBuy": "Book in January/September for cheapest fares. Fly Tue-Thu for lowest prices.",
+      "worstTimeToBuy": "June-July and last 2 weeks of December",
+      "annualPriceVariation": 45
+    },
+    {
+      "category": "Home Insurance",
+      "monthlyPattern": [
+        { "month": 1, "monthName": "January", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 2, "monthName": "February", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 3, "monthName": "March", "typicalPricing": "below_avg", "reason": "Before storm season — carriers more willing to quote", "buyRating": 4 },
+        { "month": 4, "monthName": "April", "typicalPricing": "below_avg", "reason": "Still pre-storm season sweet spot", "buyRating": 4 },
+        { "month": 5, "monthName": "May", "typicalPricing": "average", "reason": "Storm season beginning", "buyRating": 3 },
+        { "month": 6, "monthName": "June", "typicalPricing": "above_avg", "reason": "Hurricane season — carriers tighten underwriting", "buyRating": 2 },
+        { "month": 7, "monthName": "July", "typicalPricing": "above_avg", "reason": "Peak storm season", "buyRating": 2 },
+        { "month": 8, "monthName": "August", "typicalPricing": "peak", "reason": "Peak hurricane season — worst time to shop insurance", "buyRating": 1 },
+        { "month": 9, "monthName": "September", "typicalPricing": "above_avg", "reason": "Late hurricane season", "buyRating": 2 },
+        { "month": 10, "monthName": "October", "typicalPricing": "average", "reason": "Post-peak", "buyRating": 3 },
+        { "month": 11, "monthName": "November", "typicalPricing": "average", "reason": "Steady", "buyRating": 3 },
+        { "month": 12, "monthName": "December", "typicalPricing": "below_avg", "reason": "Carriers pushing year-end new policies for annual targets", "buyRating": 4 }
+      ],
+      "bestTimeToBuy": "March-April (pre-storm season) or December (carrier year-end targets)",
+      "worstTimeToBuy": "August (peak hurricane season — carriers are stingy)",
+      "annualPriceVariation": 15
+    }
+  ]
+}

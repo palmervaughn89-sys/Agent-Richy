@@ -1,6 +1,6 @@
 /* ── Skill detection — keyword-based trigger matching ────────────────── */
 
-export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | "grocery_plan" | "allocation_map" | "proactive" | "trajectory" | "financial_twin" | "wealth_race" | "advisor_match" | null;
+export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | "grocery_plan" | "allocation_map" | "proactive" | "trajectory" | "financial_twin" | "wealth_race" | "advisor_match" | "money_map" | "ripple_tracker" | "economic_intel" | "purchase_timing" | null;
 
 const COUPON_TRIGGERS = [
   "coupon",
@@ -249,6 +249,40 @@ const ADVISOR_TRIGGERS = [
   'human advisor', 'real advisor',
 ];
 
+const MONEY_MAP_TRIGGERS = [
+  'money map', 'where does my money go', 'show me my flows',
+  'financial overview', 'spending overview', 'cash flow map',
+  'visualize my money', 'money flow', 'income vs expenses',
+  'where is my money going', 'spending map', 'flow diagram',
+  'show me everything', 'financial picture', 'the big picture',
+];
+
+const RIPPLE_TRIGGERS = [
+  'ripple', 'ripple effect', 'invisible raise', 'my raise',
+  'how much have i saved', 'total savings', 'what have i saved',
+  'compound impact', 'lifetime impact', 'show me the impact',
+  'i cancelled', 'i switched', 'i negotiated', 'i saved',
+  'what difference does', 'does it matter', 'is it worth it',
+  'small savings', 'every dollar',
+];
+
+const ECONOMIC_TRIGGERS = [
+  'economy', 'inflation', 'recession', 'interest rates',
+  'economic', 'cpi', 'consumer spending', 'unemployment',
+  'gas prices', 'housing market', 'fed rate', 'mortgage rate',
+  'economic outlook', 'market conditions', 'cost of living increase',
+  'prices going up', 'everything is expensive', 'economic impact',
+  'how is the economy', 'financial news',
+];
+
+const PURCHASE_TIMING_TRIGGERS = [
+  'should i buy', 'when to buy', 'is now a good time to buy',
+  'best time to buy', 'should i wait', 'will prices drop',
+  'will it go on sale', 'when is the best deal', 'buy now or wait',
+  'is this a good price', 'price going up', 'price going down',
+  'hold off on buying', 'when should i buy', 'purchase timing',
+];
+
 const INVESTMENT_INTEL_TRIGGERS = [
   "top rated stocks",
   "best rated stocks",
@@ -288,6 +322,10 @@ export function detectSkill(message: string): DetectedSkill {
   if (SUBSCRIPTION_VALUE_TRIGGERS.some((t) => lower.includes(t))) return "subscription_value";
   if (PRICE_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "price_intel";
   if (RECEIPT_TRIGGERS.some((t) => lower.includes(t))) return "receipt_analyze";
+  if (PURCHASE_TIMING_TRIGGERS.some((t) => lower.includes(t))) return "purchase_timing";
+  if (MONEY_MAP_TRIGGERS.some((t) => lower.includes(t))) return "money_map";
+  if (RIPPLE_TRIGGERS.some((t) => lower.includes(t))) return "ripple_tracker";
+  if (ECONOMIC_TRIGGERS.some((t) => lower.includes(t))) return "economic_intel";
   if (PROACTIVE_TRIGGERS.some((t) => lower.includes(t))) return "proactive";
   if (TRAJECTORY_TRIGGERS.some((t) => lower.includes(t))) return "trajectory";
   if (TWIN_TRIGGERS.some((t) => lower.includes(t))) return "financial_twin";

@@ -12,6 +12,8 @@ import type { AllocationPlan } from "@/lib/allocationMapper";
 import type { TwinSimulation } from "@/lib/financialTwin";
 import type { WealthRaceProfile, WealthRaceLeaderboard } from "@/lib/wealthRace";
 import type { AdvisorMatch } from "@/lib/advisorMarketplace";
+import type { MoneyMapData, RippleEffect, RippleTrackerData } from "@/types/moneyMap";
+import type { PersonalEconomicImpact, DealPrediction, PurchaseTimingAdvice } from "@/types/economicIntel";
 
 /* ── 1. Coupon results ────────────────────────────────────────────── */
 
@@ -2594,6 +2596,411 @@ export const mockLifeEvents = [
   { type: "start_business" as const, label: "Start a Business", emoji: "🚀", popular: true },
 ];
 
+/* ── 29. Money Map ──────────────────────────────────────────────── */
+
+export const mockMoneyMap: MoneyMapData = {
+  userId: "user_demo",
+  generatedAt: "2026-02-27T12:00:00Z",
+  period: "February 2026",
+  totalInflow: 4500,
+  totalOutflow: 3820,
+  netFlow: 680,
+  inflows: [
+    { id: "in_salary", name: "Salary", category: "income_salary", direction: "inflow", monthlyAmount: 4200, percentOfIncome: 93.3, streamWidth: 93, color: "#00E87B", healthStatus: "healthy", benchmark: 0, vsAverage: 0, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+    { id: "in_freelance", name: "Freelance", category: "income_freelance", direction: "inflow", monthlyAmount: 300, percentOfIncome: 6.7, streamWidth: 7, color: "#00E87B", healthStatus: "healthy", benchmark: 0, vsAverage: 0, trend: "increasing", optimizationAvailable: false, potentialSavings: 0 },
+  ],
+  outflows: [
+    { id: "out_rent", name: "Rent", category: "housing", direction: "outflow", monthlyAmount: 1350, percentOfIncome: 30, streamWidth: 30, color: "#F59E0B", healthStatus: "caution", benchmark: 1200, vsAverage: 12.5, trend: "stable", optimizationAvailable: false, potentialSavings: 0, optimizationNote: "Your rent is 12% above the median for your area. Consider negotiating at renewal.", subFlows: [{ name: "Rent", amount: 1300, percentage: 96.3 }, { name: "Renter's Insurance", amount: 50, percentage: 3.7 }] },
+    { id: "out_food_grocery", name: "Groceries", category: "food_groceries", direction: "outflow", monthlyAmount: 480, percentOfIncome: 10.7, streamWidth: 11, color: "#00E87B", healthStatus: "healthy", benchmark: 520, vsAverage: -7.7, trend: "stable", optimizationAvailable: true, potentialSavings: 35, optimizationNote: "Using a grocery planner could save $35/mo by shopping at Aldi for staples." },
+    { id: "out_food_dining", name: "Dining Out", category: "food_dining", direction: "outflow", monthlyAmount: 320, percentOfIncome: 7.1, streamWidth: 7, color: "#F97316", healthStatus: "warning", benchmark: 200, vsAverage: 60, trend: "increasing", optimizationAvailable: true, potentialSavings: 80, optimizationNote: "You're spending 60% more than peers on dining. Cutting 2 meals/week out saves $80/mo." },
+    { id: "out_transport", name: "Transportation", category: "transportation", direction: "outflow", monthlyAmount: 380, percentOfIncome: 8.4, streamWidth: 8, color: "#00E87B", healthStatus: "healthy", benchmark: 410, vsAverage: -7.3, trend: "stable", optimizationAvailable: false, potentialSavings: 0, subFlows: [{ name: "Car Payment", amount: 280, percentage: 73.7 }, { name: "Gas", amount: 60, percentage: 15.8 }, { name: "Insurance", amount: 40, percentage: 10.5 }] },
+    { id: "out_utilities", name: "Utilities", category: "utilities", direction: "outflow", monthlyAmount: 185, percentOfIncome: 4.1, streamWidth: 4, color: "#00E87B", healthStatus: "healthy", benchmark: 195, vsAverage: -5.1, trend: "stable", optimizationAvailable: false, potentialSavings: 0, subFlows: [{ name: "Electric", amount: 95, percentage: 51.4 }, { name: "Internet", amount: 65, percentage: 35.1 }, { name: "Water", amount: 25, percentage: 13.5 }] },
+    { id: "out_insurance", name: "Insurance", category: "insurance", direction: "outflow", monthlyAmount: 140, percentOfIncome: 3.1, streamWidth: 3, color: "#00E87B", healthStatus: "healthy", benchmark: 160, vsAverage: -12.5, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+    { id: "out_subscriptions", name: "Subscriptions", category: "subscriptions", direction: "outflow", monthlyAmount: 127, percentOfIncome: 2.8, streamWidth: 3, color: "#F97316", healthStatus: "warning", benchmark: 80, vsAverage: 58.8, trend: "increasing", optimizationAvailable: true, potentialSavings: 51, optimizationNote: "You have $51/mo in unused or overlapping subscriptions.", subFlows: [{ name: "Netflix", amount: 15.49, percentage: 12.2 }, { name: "Spotify", amount: 10.99, percentage: 8.7 }, { name: "HBO Max", amount: 15.99, percentage: 12.6 }, { name: "Gym", amount: 45, percentage: 35.4 }, { name: "Adobe CC", amount: 22.99, percentage: 18.1 }, { name: "Paramount+", amount: 5.99, percentage: 4.7 }, { name: "iCloud", amount: 2.99, percentage: 2.4 }, { name: "Other", amount: 7.55, percentage: 5.9 }] },
+    { id: "out_healthcare", name: "Healthcare", category: "healthcare", direction: "outflow", monthlyAmount: 95, percentOfIncome: 2.1, streamWidth: 2, color: "#00E87B", healthStatus: "healthy", benchmark: 120, vsAverage: -20.8, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+    { id: "out_debt", name: "Debt Payments", category: "debt_payments", direction: "outflow", monthlyAmount: 250, percentOfIncome: 5.6, streamWidth: 6, color: "#F59E0B", healthStatus: "caution", benchmark: 200, vsAverage: 25, trend: "decreasing", optimizationAvailable: true, potentialSavings: 45, optimizationNote: "Refinancing your credit card to a 0% balance transfer could save $45/mo in interest." },
+    { id: "out_personal", name: "Personal Care", category: "personal_care", direction: "outflow", monthlyAmount: 65, percentOfIncome: 1.4, streamWidth: 1, color: "#00E87B", healthStatus: "healthy", benchmark: 70, vsAverage: -7.1, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+    { id: "out_clothing", name: "Clothing", category: "clothing", direction: "outflow", monthlyAmount: 85, percentOfIncome: 1.9, streamWidth: 2, color: "#00E87B", healthStatus: "healthy", benchmark: 90, vsAverage: -5.6, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+    { id: "out_entertainment", name: "Entertainment", category: "entertainment", direction: "outflow", monthlyAmount: 110, percentOfIncome: 2.4, streamWidth: 2, color: "#F59E0B", healthStatus: "caution", benchmark: 90, vsAverage: 22.2, trend: "stable", optimizationAvailable: true, potentialSavings: 20, optimizationNote: "Try free local events — parks, community nights, library programs." },
+    { id: "out_misc", name: "Miscellaneous", category: "miscellaneous", direction: "outflow", monthlyAmount: 53, percentOfIncome: 1.2, streamWidth: 1, color: "#00E87B", healthStatus: "healthy", benchmark: 60, vsAverage: -11.7, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+  ],
+  transfers: [
+    { id: "tr_savings", name: "Emergency Fund", category: "savings_emergency", direction: "transfer", monthlyAmount: 200, percentOfIncome: 4.4, streamWidth: 4, color: "#00E87B", healthStatus: "healthy", benchmark: 150, vsAverage: -33.3, trend: "stable", optimizationAvailable: false, potentialSavings: 0 },
+    { id: "tr_invest", name: "Brokerage (Index Funds)", category: "investing_brokerage", direction: "transfer", monthlyAmount: 100, percentOfIncome: 2.2, streamWidth: 2, color: "#00E87B", healthStatus: "healthy", benchmark: 100, vsAverage: 0, trend: "increasing", optimizationAvailable: false, potentialSavings: 0 },
+  ],
+  healthScore: 62,
+  leaks: [
+    { name: "Planet Fitness Membership", amount: 45, annualImpact: 540, description: "Unused gym membership — last check-in was 4 months ago. $0 value for $45/month.", fixDifficulty: "easy" },
+    { name: "Paramount+ Subscription", amount: 5.99, annualImpact: 71.88, description: "Paramount+ — watched 0 shows in the last 60 days. Content overlaps with your Netflix and HBO.", fixDifficulty: "easy" },
+  ],
+  totalLeakage: 50.99,
+  blockedFlows: [
+    { name: "Employer 401k Match", shouldBe: 200, currentlyIs: 0, gap: 200, description: "You're not capturing $2,400/year in employer 401k match. That's free money — a 100% instant return." },
+    { name: "High-Yield Savings", shouldBe: 56.25, currentlyIs: 0, gap: 56.25, description: "You have $15,000 sitting in a 0% checking account. A 4.5% HYSA would earn $675/year — $56/month for doing nothing." },
+  ],
+  totalBlockedValue: 3075,
+  vsLastMonth: {
+    inflowChange: 0,
+    outflowChange: 85,
+    netFlowChange: -85,
+    categoriesIncreased: [
+      { category: "Dining Out", amount: 45 },
+      { category: "Subscriptions", amount: 23 },
+      { category: "Entertainment", amount: 17 },
+    ],
+    categoriesDecreased: [
+      { category: "Groceries", amount: 22 },
+      { category: "Transportation", amount: 10 },
+    ],
+  },
+  sankeyNodes: [
+    { id: "salary", name: "Salary", value: 4200, color: "#00E87B", column: 0 },
+    { id: "freelance", name: "Freelance", value: 300, color: "#00C968", column: 0 },
+    { id: "housing", name: "Housing", value: 1350, color: "#F59E0B", column: 1 },
+    { id: "food", name: "Food", value: 800, color: "#F97316", column: 1 },
+    { id: "transport", name: "Transport", value: 380, color: "#00E87B", column: 1 },
+    { id: "utilities", name: "Utilities", value: 185, color: "#00E87B", column: 1 },
+    { id: "debt", name: "Debt", value: 250, color: "#F59E0B", column: 1 },
+    { id: "subs", name: "Subscriptions", value: 127, color: "#F97316", column: 1 },
+    { id: "insurance_node", name: "Insurance", value: 140, color: "#00E87B", column: 1 },
+    { id: "healthcare_node", name: "Healthcare", value: 95, color: "#00E87B", column: 1 },
+    { id: "lifestyle", name: "Lifestyle", value: 260, color: "#F59E0B", column: 1 },
+    { id: "savings", name: "Savings", value: 200, color: "#00E87B", column: 1 },
+    { id: "investing_node", name: "Investing", value: 100, color: "#00E87B", column: 1 },
+    { id: "misc_node", name: "Other", value: 53, color: "#5E736A", column: 1 },
+  ],
+  sankeyLinks: [
+    { source: "salary", target: "housing", value: 1350, color: "#F59E0B" },
+    { source: "salary", target: "food", value: 800, color: "#F97316" },
+    { source: "salary", target: "transport", value: 380, color: "#00E87B" },
+    { source: "salary", target: "utilities", value: 185, color: "#00E87B" },
+    { source: "salary", target: "debt", value: 250, color: "#F59E0B" },
+    { source: "salary", target: "subs", value: 127, color: "#F97316" },
+    { source: "salary", target: "insurance_node", value: 140, color: "#00E87B" },
+    { source: "salary", target: "healthcare_node", value: 95, color: "#00E87B" },
+    { source: "salary", target: "lifestyle", value: 260, color: "#F59E0B" },
+    { source: "salary", target: "savings", value: 200, color: "#00E87B" },
+    { source: "salary", target: "investing_node", value: 100, color: "#00E87B" },
+    { source: "salary", target: "misc_node", value: 53, color: "#5E736A" },
+    { source: "freelance", target: "savings", value: 0, color: "#00E87B" },
+    { source: "freelance", target: "food", value: 0, color: "#F97316" },
+    { source: "freelance", target: "investing_node", value: 0, color: "#00E87B" },
+  ],
+};
+
+export const mockMoneyMapMessage = `Here's your complete Money Map for February — every dollar tracked from source to destination:
+
+\`\`\`json
+${JSON.stringify({ type: "money_map", data: mockMoneyMap })}
+\`\`\`
+
+Your health score is 62/100. The biggest opportunities: your dining spend is 60% above peers, you have $51/mo in unused subscriptions, and you're leaving $3,075/year on the table in uncaptured value. Want me to tackle any of these?`;
+
+/* ── 30. Ripple Effect (single decision) ────────────────────────── */
+
+export const mockRippleEffect: RippleEffect = {
+  id: "ripple_peacock_001",
+  trigger: "Cancelled Peacock subscription",
+  triggerDate: "February 27, 2026",
+  monthlySavings: 7.99,
+  ripples: [
+    { timeframe: "This month", amount: 7.99, investedAmount: 7.99, description: "You keep $7.99 in your pocket this month.", milestone: undefined },
+    { timeframe: "This year", amount: 95.88, investedAmount: 95.88, description: "That's $95.88 back in your budget this year." },
+    { timeframe: "In 5 years", amount: 479.40, investedAmount: 552, description: "Invested at 7%, your $7.99/month becomes $552.", milestone: "That's a weekend getaway" },
+    { timeframe: "In 10 years", amount: 958.80, investedAmount: 1383, description: "In 10 years, this grows to $1,383 invested.", milestone: "That's a round-trip flight to Europe" },
+    { timeframe: "In 30 years", amount: 2876.40, investedAmount: 3847, description: "At retirement, this single cancel becomes $3,847.", milestone: "That's a month of retirement expenses covered" },
+  ],
+  goalImpact: [
+    { goalName: "Emergency Fund ($10,000)", timeSaved: "Reach your emergency fund 2 weeks sooner", percentageBoost: 1.2 },
+  ],
+  metricsImpact: {
+    savingsRateChange: 0.18,
+    debtFreeAcceleration: 4,
+    retirementAcceleration: 6,
+    dailyEquivalent: 0.27,
+  },
+};
+
+export const mockRippleEffectMessage = `Nice move! Here's the ripple effect of cancelling Peacock:
+
+\`\`\`json
+${JSON.stringify({ type: "ripple_effect", ripple: mockRippleEffect })}
+\`\`\`
+
+That $7.99/month might seem small, but it just added $3,847 to your retirement. Every dollar matters when compound interest is on your side.`;
+
+/* ── 31. Ripple Tracker (full invisible raise) ──────────────────── */
+
+export const mockRippleTracker: RippleTrackerData = {
+  invisibleRaise: {
+    userId: "user_demo",
+    generatedAt: "2026-02-27T12:00:00Z",
+    totalAnnualSavings: 4230,
+    equivalentPreTaxRaise: 5638,
+    effectiveHourlyRaise: 2.71,
+    optimizations: [
+      { id: "opt_1", description: "Negotiated Comcast internet down $25/mo", dateFound: "2026-01-08", status: "implemented", monthlySavings: 25, annualSavings: 300, category: "Utilities", rippleId: "ripple_comcast" },
+      { id: "opt_2", description: "Cancelled Planet Fitness (unused 4 months)", dateFound: "2026-01-15", status: "implemented", monthlySavings: 45, annualSavings: 540, category: "Subscriptions", rippleId: "ripple_gym" },
+      { id: "opt_3", description: "Switched car insurance to Geico (saved $68/mo)", dateFound: "2026-01-22", status: "implemented", monthlySavings: 68, annualSavings: 816, category: "Insurance", rippleId: "ripple_insurance" },
+      { id: "opt_4", description: "Cancelled Paramount+ (unused)", dateFound: "2026-02-10", status: "implemented", monthlySavings: 5.99, annualSavings: 71.88, category: "Subscriptions", rippleId: "ripple_paramount" },
+      { id: "opt_5", description: "Refinance credit card to 0% balance transfer", dateFound: "2026-02-15", status: "pending", monthlySavings: 45, annualSavings: 540, category: "Debt", rippleId: "ripple_refi" },
+      { id: "opt_6", description: "Switch grocery staples to Aldi", dateFound: "2026-02-20", status: "pending", monthlySavings: 35, annualSavings: 420, category: "Groceries", rippleId: "ripple_aldi" },
+    ],
+    implementedSavings: 1727.88,
+    pendingSavings: 960,
+    dismissedSavings: 0,
+    compoundProjection: {
+      year1: 4230,
+      year5: 24800,
+      year10: 59200,
+      year20: 175000,
+      year30: 401000,
+      retirementImpact: 401000,
+    },
+    equivalentTo: [
+      { description: "A vacation to Cancun every year", icon: "🏖️" },
+      { description: "A new iPhone every 3 months", icon: "📱" },
+      { description: "$401K added to your retirement", icon: "🏠" },
+      { description: "$11.59/day working for you", icon: "💰" },
+    ],
+    monthlyHistory: [
+      { month: "Jan 2026", cumulativeSavings: 143.99, newOptimizations: 3, raiseAmount: 1656 },
+      { month: "Feb 2026", cumulativeSavings: 431.96, newOptimizations: 3, raiseAmount: 4230 },
+    ],
+    milestones: [
+      { name: "$100 Raise", threshold: 100, reached: true, reachedDate: "2026-01-08", icon: "🌱" },
+      { name: "$500 Raise", threshold: 500, reached: true, reachedDate: "2026-01-15", icon: "🌿" },
+      { name: "$1,000 Raise", threshold: 1000, reached: true, reachedDate: "2026-01-22", icon: "🌳" },
+      { name: "$2,500 Raise", threshold: 2500, reached: false, icon: "🏔️" },
+      { name: "$5,000 Raise", threshold: 5000, reached: false, icon: "🚀" },
+      { name: "$10,000 Raise", threshold: 10000, reached: false, icon: "💎" },
+    ],
+  },
+  recentRipples: [
+    {
+      id: "ripple_paramount",
+      trigger: "Cancelled Paramount+",
+      triggerDate: "Feb 10, 2026",
+      monthlySavings: 5.99,
+      ripples: [
+        { timeframe: "This month", amount: 5.99, investedAmount: 5.99, description: "Keep $5.99 this month" },
+        { timeframe: "This year", amount: 71.88, investedAmount: 71.88, description: "$71.88 saved this year" },
+        { timeframe: "In 10 years", amount: 718.80, investedAmount: 1037, description: "$1,037 when invested" },
+      ],
+      goalImpact: [{ goalName: "Emergency Fund", timeSaved: "10 days sooner", percentageBoost: 0.9 }],
+      metricsImpact: { savingsRateChange: 0.13, debtFreeAcceleration: 3, retirementAcceleration: 4, dailyEquivalent: 0.20 },
+    },
+    {
+      id: "ripple_insurance",
+      trigger: "Switched car insurance to Geico",
+      triggerDate: "Jan 22, 2026",
+      monthlySavings: 68,
+      ripples: [
+        { timeframe: "This month", amount: 68, investedAmount: 68, description: "$68 saved this month" },
+        { timeframe: "This year", amount: 816, investedAmount: 816, description: "$816 saved this year" },
+        { timeframe: "In 10 years", amount: 8160, investedAmount: 11780, description: "$11,780 when invested" },
+      ],
+      goalImpact: [{ goalName: "Emergency Fund", timeSaved: "3 months sooner", percentageBoost: 10.2 }],
+      metricsImpact: { savingsRateChange: 1.51, debtFreeAcceleration: 28, retirementAcceleration: 45, dailyEquivalent: 2.27 },
+    },
+  ],
+  powerStatement: "Since joining Richy 47 days ago, you've given yourself a $4,230 raise. That's $11.59/day. Invested over 30 years, that becomes $401,000. All from decisions that took less than 5 minutes.",
+};
+
+export const mockRippleTrackerMessage = `Here's your Invisible Raise scoreboard — every optimization you've made, compounded:
+
+\`\`\`json
+${JSON.stringify({ type: "ripple_tracker", data: mockRippleTracker })}
+\`\`\`
+
+You've given yourself a $4,230/year raise in just 47 days. That's $2.71/hour more without asking your boss. Want to tackle those 2 pending optimizations to push it even higher?`;
+
+
+/* ── Economic Intelligence — Personal Impact ────────────────────── */
+
+export const mockEconomicImpact: PersonalEconomicImpact = {
+  userId: "demo-user-001",
+  generatedAt: "2026-02-27T12:00:00Z",
+  monthlyInflationCost: 127,
+  annualInflationCost: 1524,
+  categoryImpacts: [
+    {
+      category: "Groceries",
+      userMonthlySpend: 650,
+      inflationRate: 3.2,
+      monthlyExtraCost: 43,
+      annualExtraCost: 516,
+      trend: "stable",
+      richyAction: "Switch to store brands on staples — saves $30-40/month with almost no quality difference.",
+    },
+    {
+      category: "Housing",
+      userMonthlySpend: 1800,
+      inflationRate: 2.1,
+      monthlyExtraCost: 38,
+      annualExtraCost: 456,
+      trend: "getting_worse",
+      richyAction: "Lock in renter's insurance now before premiums rise again in Q2.",
+    },
+    {
+      category: "Gas",
+      userMonthlySpend: 280,
+      inflationRate: 4.5,
+      monthlyExtraCost: 31,
+      annualExtraCost: 372,
+      trend: "improving",
+      richyAction: "Gas prices forecast to drop 8-12 cents in next 2 weeks — fill up mid-week for cheapest rates.",
+    },
+    {
+      category: "Dining Out",
+      userMonthlySpend: 350,
+      inflationRate: 3.8,
+      monthlyExtraCost: 15,
+      annualExtraCost: 180,
+      trend: "stable",
+      richyAction: "Use the Chipotle BOGO deal on Tuesdays and save ~$40/month on dining.",
+    },
+  ],
+  rateImpacts: {
+    savingsImpact: {
+      currentAPY: 0.5,
+      bestAvailableAPY: 4.5,
+      balanceInSavings: 15000,
+      annualEarningsDifference: 600,
+    },
+  },
+  relevantPredictions: [
+    {
+      id: "pred-electronics-001",
+      category: "Consumer Electronics",
+      prediction: "Electronics prices likely to drop 10-15% in next 2-4 weeks as retailers clear excess inventory.",
+      confidence: "high",
+      timeframe: "Next 2-4 weeks",
+      reasoning: [
+        { dataPoint: "Consumer electronics spending down 8% YoY", source: "BLS CPI Report", implication: "Retailers sitting on excess inventory" },
+        { dataPoint: "Best Buy reported 12% decline in same-store sales", source: "Q4 Earnings Report", implication: "Pressure to discount to move product" },
+        { dataPoint: "New model launches scheduled for March", source: "Industry reports", implication: "Current models will be discounted to clear shelf space" },
+      ],
+      action: "wait",
+      actionDescription: "Hold off 2-4 weeks for better prices on TVs, laptops, and headphones.",
+      potentialSavings: "Save 10-15% by waiting 3 weeks",
+      riskOfAction: "Small risk of sell-out on popular models — but most will be restocked.",
+      affectedProducts: ["TVs", "Laptops", "Headphones"],
+      generatedAt: "2026-02-27T12:00:00Z",
+      expiresAt: "2026-03-27T12:00:00Z",
+    },
+    {
+      id: "pred-used-cars-001",
+      category: "Used Cars",
+      prediction: "Used car prices trending down 3-5% as new car inventory normalizes and tax refund demand fades.",
+      confidence: "medium",
+      timeframe: "Next 4-6 weeks",
+      reasoning: [
+        { dataPoint: "New car inventory at 2.8 months supply, up from 1.9 last year", source: "NADA Report", implication: "More trade-ins hitting used market" },
+        { dataPoint: "Manheim Used Vehicle Value Index down 4.2% YoY", source: "Manheim Auctions", implication: "Wholesale prices falling, retail will follow" },
+      ],
+      action: "wait",
+      actionDescription: "If shopping for a used car, wait until late March when tax-refund demand fades.",
+      potentialSavings: "Save $800-1,500 by waiting 4-6 weeks",
+      riskOfAction: "Specific models may sell — but overall prices will be lower.",
+      affectedProducts: ["Sedans", "SUVs", "Trucks"],
+      generatedAt: "2026-02-27T12:00:00Z",
+      expiresAt: "2026-04-15T12:00:00Z",
+    },
+  ],
+  headline: "Inflation is costing you $127/month extra — but your savings account is leaving $600/year on the table. Switch to a high-yield account and electronics prices are about to drop. Wait 3 weeks on that laptop and save $150-200.",
+  netMonthlyImpact: -77,
+};
+
+export const mockEconomicImpactMessage = `Here's your personal economic weather report — how today's economy is hitting YOUR wallet specifically:
+
+\`\`\`json
+${JSON.stringify({ type: "economic_impact", impact: mockEconomicImpact })}
+\`\`\`
+
+Inflation is costing you $127/month, but there are clear moves to offset it. Switching your savings to a high-yield account alone recovers $50/month. Want me to find the best HYSA rates right now?`;
+
+/* ── Deal Prediction — Electronics ───────────────────────────────── */
+
+export const mockDealPrediction: DealPrediction = {
+  id: "pred-electronics-002",
+  category: "Consumer Electronics",
+  prediction: "Consumer electronics spending down 8% YoY — expect retailer discounts in 2-4 weeks",
+  confidence: "high",
+  timeframe: "Next 2-4 weeks",
+  reasoning: [
+    {
+      dataPoint: "Consumer electronics spending down 8% year-over-year",
+      source: "Bureau of Labor Statistics CPI Report — February 2026",
+      implication: "Retailers are sitting on excess inventory they need to move",
+    },
+    {
+      dataPoint: "Best Buy same-store sales declined 12% in Q4 2025",
+      source: "Best Buy Q4 2025 Earnings Report",
+      implication: "Major retailers under pressure to discount and drive foot traffic",
+    },
+    {
+      dataPoint: "Samsung Galaxy S26 and new MacBook Air launching in March",
+      source: "Manufacturer press releases and analyst reports",
+      implication: "Current-gen models will see aggressive clearance pricing to make room",
+    },
+  ],
+  action: "wait",
+  actionDescription: "Hold off on any electronics purchases for 2-4 weeks. Retailers will discount current inventory to clear space for new model launches.",
+  potentialSavings: "Save 10-15% ($90-180 on a typical laptop purchase)",
+  riskOfAction: "Small risk of sell-out on niche or limited-run models, but mainstream products will remain well-stocked.",
+  affectedProducts: ["TVs", "Laptops", "Headphones"],
+  generatedAt: "2026-02-27T12:00:00Z",
+  expiresAt: "2026-03-27T12:00:00Z",
+};
+
+export const mockDealPredictionMessage = `I'm seeing strong signals that electronics prices are about to drop. Here's the full breakdown:
+
+\`\`\`json
+${JSON.stringify({ type: "deal_prediction", prediction: mockDealPrediction })}
+\`\`\`
+
+Bottom line: if you're eyeing a TV, laptop, or headphones — wait 2-4 weeks. The data strongly suggests discounts are coming. Want me to set a price alert for a specific product?`;
+
+/* ── Purchase Timing — Laptop ────────────────────────────────────── */
+
+export const mockPurchaseTimingAdvice: PurchaseTimingAdvice = {
+  item: "Laptop",
+  currentPrice: 899,
+  timing: "wait",
+  reason: "WAIT — prices typically drop 15-20% in 3 weeks for back-to-school sales and new model clearance.",
+  priceForecast: {
+    weeks2: { price: 849, confidence: 0.82 },
+    weeks4: { price: 749, confidence: 0.75 },
+    months3: { price: 799, confidence: 0.60 },
+  },
+  bestMonthToBuy: "August is the best month for laptops — back-to-school sales drive prices to annual lows.",
+  worstMonthToBuy: "September-October when new models launch and old stock holds value during early fall demand.",
+  demandLevel: "normal",
+  supplyLevel: "excess",
+  alternatives: [
+    {
+      name: "Refurbished (same model, manufacturer certified)",
+      price: 679,
+      savings: 220,
+      tradeoff: "Cosmetic wear possible but full manufacturer warranty included.",
+    },
+    {
+      name: "Previous-gen model (last year's equivalent)",
+      price: 599,
+      savings: 300,
+      tradeoff: "90% of the performance at 67% of the price — older CPU but still handles everyday tasks.",
+    },
+  ],
+};
+
+export const mockPurchaseTimingMessage = `Should you buy that laptop now? Let me check the data:
+
+\`\`\`json
+${JSON.stringify({ type: "purchase_timing", timing: mockPurchaseTimingAdvice })}
+\`\`\`
+
+Verdict: WAIT. That $899 laptop is forecast to hit $749 in about 4 weeks. If you need something sooner, a certified refurbished saves you $220 right now. Want me to track the price and alert you when it drops?`;
 
 export const DEMO_MESSAGES: Record<string, { label: string; content: string }> = {
   coupons: { label: "🏷️ Coupons", content: mockCouponResults },
@@ -2623,4 +3030,10 @@ export const DEMO_MESSAGES: Record<string, { label: string; content: string }> =
   twin: { label: "🪞 Financial Twin", content: mockFinancialTwinMessage },
   race: { label: "🏆 Wealth Race", content: mockWealthRaceMessage },
   advisor: { label: "🤝 Advisor Match", content: mockAdvisorMatchMessage },
+  moneymap: { label: "🗺️ Money Map", content: mockMoneyMapMessage },
+  ripple: { label: "🌊 Ripple Tracker", content: mockRippleTrackerMessage },
+  rippleone: { label: "💧 Ripple Effect", content: mockRippleEffectMessage },
+  economic: { label: "🌡️ Economic Impact", content: mockEconomicImpactMessage },
+  dealpred: { label: "📉 Deal Prediction", content: mockDealPredictionMessage },
+  buytiming: { label: "⏰ Purchase Timing", content: mockPurchaseTimingMessage },
 };

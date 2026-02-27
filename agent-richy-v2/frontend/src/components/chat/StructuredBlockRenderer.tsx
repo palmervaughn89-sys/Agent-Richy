@@ -30,7 +30,14 @@ import WealthProjectionCard from './WealthProjectionCard';
 import FinancialTwinCard from './FinancialTwinCard';
 import WealthRaceCard from './WealthRaceCard';
 import AdvisorMatchCard from './AdvisorMatchCard';
-import LifeEventSelector from './LifeEventSelector';import { useChatStore } from "@/hooks/useChat";
+import LifeEventSelector from './LifeEventSelector';
+import MoneyMapCard from './MoneyMapCard';
+import RippleTrackerCard from './RippleTrackerCard';
+import RippleEffectCard from './RippleEffectCard';
+import EconomicImpactCard from './EconomicImpactCard';
+import DealPredictionCard from './DealPredictionCard';
+import PurchaseTimingCard from './PurchaseTimingCard';
+import { useChatStore } from "@/hooks/useChat";
 import type { MarketIntelligenceReport, AnalystInsight, SectorOutlook } from "@/types/market";
 import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
 import type { GoalSimulationResult, BillPrediction, LocalDealReport, AnalyzedReceipt } from "@/types/tools";
@@ -42,6 +49,7 @@ import type { WealthProjection } from '@/lib/wealthTrajectory';
 import type { TwinSimulation } from '@/lib/financialTwin';
 import type { WealthRaceProfile, WealthRaceLeaderboard } from '@/lib/wealthRace';
 import type { AdvisorMatch } from '@/lib/advisorMarketplace';
+import type { MoneyMapData, RippleTrackerData, RippleEffect } from '@/types/moneyMap';
 /* ── Type guards for each structured block ─────────────────────────── */
 
 interface CouponResultsBlock {
@@ -197,6 +205,36 @@ interface LifeEventSelectorBlock {
   type: "life_event_selector";
 }
 
+interface MoneyMapBlock {
+  type: "money_map";
+  data: MoneyMapData;
+}
+
+interface RippleTrackerBlock {
+  type: "ripple_tracker";
+  data: RippleTrackerData;
+}
+
+interface RippleEffectBlock {
+  type: "ripple_effect";
+  ripple: RippleEffect;
+}
+
+interface EconomicImpactBlock {
+  type: "economic_impact";
+  impact: import('@/types/economicIntel').PersonalEconomicImpact;
+}
+
+interface DealPredictionBlock {
+  type: "deal_prediction";
+  prediction: import('@/types/economicIntel').DealPrediction;
+}
+
+interface PurchaseTimingBlock {
+  type: "purchase_timing";
+  timing: import('@/types/economicIntel').PurchaseTimingAdvice;
+}
+
 type StructuredBlock =
   | CouponResultsBlock
   | ExpenseInputBlock
@@ -226,7 +264,13 @@ type StructuredBlock =
   | FinancialTwinBlock
   | WealthRaceBlock
   | AdvisorMatchBlock
-  | LifeEventSelectorBlock;
+  | LifeEventSelectorBlock
+  | MoneyMapBlock
+  | RippleTrackerBlock
+  | RippleEffectBlock
+  | EconomicImpactBlock
+  | DealPredictionBlock
+  | PurchaseTimingBlock;
 
 const KNOWN_TYPES = new Set([
   "coupon_results",
@@ -258,6 +302,12 @@ const KNOWN_TYPES = new Set([
   "wealth_race",
   "advisor_match",
   "life_event_selector",
+  "money_map",
+  "ripple_tracker",
+  "ripple_effect",
+  "economic_impact",
+  "deal_prediction",
+  "purchase_timing",
 ]);
 
 /* ── Segment: either plain text or a parsed structured block ───────── */
@@ -515,6 +565,24 @@ export default function StructuredBlockRenderer({ content }: StructuredBlockRend
 
           case "life_event_selector":
             return <LifeEventSelector key={i} onSelect={(evt) => sendMessage(`Simulate: ${evt}`)} />;
+
+          case "money_map":
+            return <MoneyMapCard key={i} data={data.data} />;
+
+          case "ripple_tracker":
+            return <RippleTrackerCard key={i} data={data.data} />;
+
+          case "ripple_effect":
+            return <RippleEffectCard key={i} ripple={data.ripple} />;
+
+          case "economic_impact":
+            return <EconomicImpactCard key={i} impact={data.impact} />;
+
+          case "deal_prediction":
+            return <DealPredictionCard key={i} prediction={data.prediction} />;
+
+          case "purchase_timing":
+            return <PurchaseTimingCard key={i} timing={data.timing} />;
 
           default:
             return null;
