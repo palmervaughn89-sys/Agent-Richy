@@ -263,21 +263,24 @@ function Field({ label, value, onChange, prefix, suffix, step }: {
   label: string; value: number; onChange: (v: number) => void;
   prefix?: string; suffix?: string; step?: number;
 }) {
+  const id = `calc-${label.toLowerCase().replace(/\s+/g, '-')}`;
   return (
     <div>
-      <label className="block text-xs font-medium text-txt-muted mb-1">{label}</label>
+      <label htmlFor={id} className="block text-xs font-medium text-txt-muted mb-1">{label}</label>
       <div className="relative">
-        {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-txt-muted">{prefix}</span>}
+        {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-txt-muted" aria-hidden="true">{prefix}</span>}
         <input
+          id={id}
           type="number"
           value={value}
           step={step}
           onChange={(e) => onChange(Number(e.target.value))}
+          aria-label={label}
           className={`w-full rounded-card border border-line bg-s2 py-2.5 text-sm text-txt
                       outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                       ${prefix ? 'pl-7' : 'pl-3'} ${suffix ? 'pr-8' : 'pr-3'}`}
         />
-        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-txt-muted">{suffix}</span>}
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-txt-muted" aria-hidden="true">{suffix}</span>}
       </div>
     </div>
   );
@@ -286,18 +289,21 @@ function Field({ label, value, onChange, prefix, suffix, step }: {
 function SliderField({ label, value, onChange, max, color, amount }: {
   label: string; value: number; onChange: (v: number) => void; max: number; color: string; amount: number;
 }) {
+  const id = `slider-${label.toLowerCase().replace(/\s+/g, '-')}`;
   return (
     <div>
       <div className="flex items-center justify-between text-xs mb-1">
-        <span className="text-txt-off font-medium">{label}: {value}%</span>
+        <label htmlFor={id} className="text-txt-off font-medium">{label}: {value}%</label>
         <span className="text-txt-muted">{fmt(amount)}</span>
       </div>
       <input
+        id={id}
         type="range"
         min={0}
         max={max}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
+        aria-label={label}
         className={`w-full h-1.5 rounded-full appearance-none cursor-pointer ${color}`}
         style={{ accentColor: color === 'bg-txt-muted' ? '#5E736A' : '#F59E0B' }}
       />

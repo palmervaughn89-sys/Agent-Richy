@@ -25,17 +25,20 @@ function fmt(n: number) {
 function NumberField({ label, value, prefix = '', onChange }: {
   label: string; value: number | undefined; prefix?: string; onChange: (v: number) => void;
 }) {
+  const id = `field-${label.toLowerCase().replace(/\s+/g, '-')}`;
   return (
     <div>
-      <label className="block text-xs font-medium text-muted mb-1">{label}</label>
+      <label htmlFor={id} className="block text-xs font-medium text-muted mb-1">{label}</label>
       <div className="relative">
         {prefix && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted">{prefix}</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted" aria-hidden="true">{prefix}</span>
         )}
         <input
+          id={id}
           type="number"
           value={value ?? ''}
           onChange={(e) => onChange(e.target.value ? Number(e.target.value) : 0)}
+          aria-label={label}
           className={`w-full rounded-lg border border-line bg-s2 py-2 text-sm text-txt
                       focus:ring-2 focus:ring-accent outline-none transition-shadow
                       ${prefix ? 'pl-7 pr-3' : 'px-3'}`}
@@ -48,12 +51,15 @@ function NumberField({ label, value, prefix = '', onChange }: {
 function SelectField({ label, value, options, onChange }: {
   label: string; value: string | undefined; options: { value: string; label: string }[]; onChange: (v: string) => void;
 }) {
+  const id = `select-${label.toLowerCase().replace(/\s+/g, '-')}`;
   return (
     <div>
-      <label className="block text-xs font-medium text-muted mb-1">{label}</label>
+      <label htmlFor={id} className="block text-xs font-medium text-muted mb-1">{label}</label>
       <select
+        id={id}
         value={value ?? ''}
         onChange={(e) => onChange(e.target.value)}
+        aria-label={label}
         className="w-full rounded-lg border border-line bg-s2 px-3 py-2 text-sm text-txt
                    focus:ring-2 focus:ring-accent outline-none transition-shadow"
       >
@@ -154,11 +160,13 @@ export default function ProfilePage() {
           <h3 className="text-sm font-semibold text-txt mb-4">👤 Personal Info</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-medium text-muted mb-1">Name</label>
+              <label htmlFor="profile-name" className="block text-xs font-medium text-muted mb-1">Name</label>
               <input
+                id="profile-name"
                 type="text"
                 value={profile?.name ?? ''}
                 onChange={(e) => patch({ name: e.target.value })}
+                aria-label="Name"
                 className="w-full rounded-lg border border-line bg-s2 px-3 py-2 text-sm text-txt focus:ring-2 focus:ring-accent outline-none"
               />
             </div>
@@ -241,6 +249,7 @@ export default function ProfilePage() {
               placeholder="Debt name"
               value={newDebtName}
               onChange={(e) => setNewDebtName(e.target.value)}
+              aria-label="Debt name"
               className="flex-1 min-w-[120px] rounded-lg bg-s2 border border-line px-3 py-2 text-sm text-txt placeholder-muted outline-none focus:ring-2 focus:ring-accent"
             />
             <input
@@ -248,6 +257,7 @@ export default function ProfilePage() {
               placeholder="Balance"
               value={newDebtBalance}
               onChange={(e) => setNewDebtBalance(e.target.value)}
+              aria-label="Debt balance"
               className="w-28 rounded-lg bg-s2 border border-line px-3 py-2 text-sm text-txt placeholder-muted outline-none focus:ring-2 focus:ring-accent"
             />
             <input
@@ -255,6 +265,7 @@ export default function ProfilePage() {
               placeholder="APR %"
               value={newDebtRate}
               onChange={(e) => setNewDebtRate(e.target.value)}
+              aria-label="Debt APR percentage"
               className="w-20 rounded-lg bg-s2 border border-line px-3 py-2 text-sm text-txt placeholder-muted outline-none focus:ring-2 focus:ring-accent"
             />
             <button

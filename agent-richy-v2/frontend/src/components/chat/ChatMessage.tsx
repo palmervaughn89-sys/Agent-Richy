@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { ChatMessage as ChatMessageType } from '@/lib/types';
 import { AGENTS } from '@/lib/constants';
@@ -11,6 +11,39 @@ import StructuredBlockRenderer from './StructuredBlockRenderer';
 interface Props {
   message: ChatMessageType;
   isLatest?: boolean;
+}
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for older browsers
+    }
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2
+                 p-1.5 rounded-md bg-s2/80 border border-line hover:bg-s2 text-txt-muted hover:text-txt"
+      aria-label="Copy message"
+      title={copied ? 'Copied!' : 'Copy to clipboard'}
+    >
+      {copied ? (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+      )}
+    </button>
+  );
 }
 
 export default function ChatMessage({ message, isLatest = false }: Props) {
@@ -35,13 +68,15 @@ export default function ChatMessage({ message, isLatest = false }: Props) {
       )}
 
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed
+        className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed relative group
           ${
             isUser
               ? 'bg-accent text-black rounded-br-md font-medium'
               : 'bg-card text-txt border border-line rounded-bl-md'
           }`}
       >
+        {/* Copy button (assistant messages only) */}
+        {!isUser && <CopyButton text={message.content} />}
         {/* Agent label */}
         {!isUser && message.agent && (
           <span

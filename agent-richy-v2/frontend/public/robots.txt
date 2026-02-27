@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://agent-richy-pwgx.vercel.app/sitemap.xml

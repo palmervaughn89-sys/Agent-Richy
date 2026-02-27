@@ -1,6 +1,7 @@
 /* ── Chat state management + API calls ───────────────────────────────── */
 
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type { ChatMessage, StructuredResponse } from '@/lib/types';
 import { streamChatMessage } from '@/lib/api';
 import { detectSkill } from '@/lib/skillDetection';
@@ -22,7 +23,9 @@ interface ChatStore {
 
 let messageCounter = 0;
 
-export const useChatStore = create<ChatStore>((set, get) => ({
+export const useChatStore = create<ChatStore>()(
+  persist(
+    (set, get) => ({
   messages: [],
   isLoading: false,
   streamingContent: '',
@@ -44,10 +47,6 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     const { activeSkill, optimizerExpenses } = get();
     const skill = detected ?? activeSkill; // persist until cleared
 
-    if (detected) {
-      console.log(`[skill-detection] Triggered: ${detected}`);
-    }
-
     set((state) => ({
       messages: [...state.messages, userMsg],
       isLoading: true,
@@ -56,6 +55,13 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     }));
 
     try {
+      // Build conversation history for context
+      const currentMessages = get().messages;
+      const history = currentMessages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+
       await streamChatMessage(
         {
           message: text,
@@ -63,6 +69,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
           session_id: sessionId,
           skill,
           optimizer_expenses: skill === 'optimizer' ? optimizerExpenses : undefined,
+          messages: history,
         },
         // onToken
         (token) => {
@@ -111,4 +118,13 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   },
 
   clearMessages: () => set({ messages: [], streamingContent: '', activeSkill: null, optimizerExpenses: '' }),
-}));
+}),
+    {
+      name: 'richy-chat',
+      partialize: (state) => ({
+        messages: state.messages.slice(-50), // persist last 50 messages
+        optimizerExpenses: state.optimizerExpenses,
+      }),
+    },
+  ),
+);

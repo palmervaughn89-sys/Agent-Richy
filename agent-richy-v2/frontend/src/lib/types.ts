@@ -11,6 +11,8 @@ export interface ChatRequest {
   skill?: "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | "grocery_plan" | "allocation_map" | "proactive" | "trajectory" | "financial_twin" | "wealth_race" | "advisor_match" | "money_map" | "ripple_tracker" | "economic_intel" | "purchase_timing" | null;
   /** Accumulated optimizer expenses for context continuity. */
   optimizer_expenses?: string;
+  /** Conversation history for multi-turn context. */
+  messages?: { role: 'user' | 'assistant'; content: string }[];
 }
 
 export interface ChartConfig {

@@ -339,6 +339,12 @@ const SMALL_CAPABILITIES = [
   { icon: '🪞', title: 'Financial Twin', desc: 'Create a digital twin of your financial life. Simulate job changes, moves, home purchases, babies, and more — see the ripple effects before you commit.' },
   { icon: '🏆', title: 'Wealth Race', desc: 'See how you rank against your age group anonymously. Earn achievements, build streaks, and track what it takes to reach the next percentile.' },
   { icon: '🤝', title: 'Advisor Marketplace', desc: 'Get matched with vetted, licensed financial advisors. Pre-built client briefs, specialty filtering, and verified credentials via BrokerCheck.' },
+  { icon: '🗺️', title: 'Money Map', desc: 'Visualize where every dollar goes. Interactive Sankey-style flow diagrams of income → expenses → savings → investments. Spot leaks instantly.' },
+  { icon: '🌊', title: 'Ripple Tracker', desc: 'See the compound impact of every change you make. Cancel a $12 subscription? See it grow to $5,400 over 20 years with investment returns.' },
+  { icon: '🌡️', title: 'Economic Intelligence', desc: 'Real-time economic indicators personalized to YOUR wallet — inflation impact, rate changes, gas trends, and grocery price shifts that affect you.' },
+  { icon: '⏰', title: 'Purchase Timing', desc: 'Should you buy now or wait? Data-driven timing advice for electronics, cars, appliances, and more based on seasonal trends and price history.' },
+  { icon: '📚', title: 'Financial Literacy', desc: 'Interactive lessons for all ages — from kids learning about saving to adults mastering tax strategy. Quizzes, badges, and streak tracking.' },
+  { icon: '🧠', title: 'Decision Science', desc: 'Every recommendation backed by 9 academic frameworks: behavioral finance, game theory, risk models, and money psychology — not just vibes.' },
 ];
 
 /* ── Footer links ─────────────────────────────────────────────────── */

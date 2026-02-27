@@ -48,8 +48,8 @@ export async function POST(request: NextRequest) {
         const emotion = determineEmotion(text, agentKey);
         return NextResponse.json(buildStructuredResponse(text, agentKey, emotion));
       }
-    } catch (e) {
-      console.error('Anthropic error:', e);
+    } catch {
+      // Fall through to offline fallback
     }
   }
 
