@@ -34,7 +34,7 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 
 /* ── Marquee items ────────────────────────────────────────────────── */
 const MARQUEE_ITEMS = [
-  '8 Core Capabilities',
+  '15 Core Capabilities',
   'All-in-One Finance AI',
   '$847 Avg. Annual Savings',
   '24/7 Always Available',
@@ -137,6 +137,37 @@ const DEEP_DIVE_CATEGORIES = [
     ],
   },
   {
+    emoji: '🎯',
+    name: 'Goals & Planning',
+    queries: [
+      'I want to save $10,000 for an emergency fund. Simulate it.',
+      'How long until I can afford a $25K down payment?',
+      'Bill forecast for next month — what\'s coming?',
+      'Goal planning: I want to save for a vacation by December',
+      'Run a Monte Carlo on my retirement contributions',
+    ],
+  },
+  {
+    emoji: '📍',
+    name: 'Deals & Receipts',
+    queries: [
+      'What grocery deals are near me this week?',
+      'Analyze my Publix receipt — did I overpay anywhere?',
+      'Show me weekly ads for stores near 30518',
+      'I just spent $87 at the grocery store. Break it down.',
+      'Find local deals on household essentials',
+    ],
+  },  {
+    emoji: '�',
+    name: 'Investment Intelligence',
+    queries: [
+      'Show me the top rated stocks by analyst consensus',
+      'What do analysts say about NVDA?',
+      'Which sectors are Goldman and JP Morgan overweight on?',
+      'What investment themes are the big firms pushing right now?',
+      'Show me the bull and bear case for the healthcare sector',
+    ],
+  },  {
     emoji: '🧒',
     name: 'Kids & Family',
     queries: [
@@ -164,6 +195,13 @@ const HERO_CAPABILITIES = [
     desc: 'Tell Richy what you pay for each month. He\'ll find zombie subscriptions, negotiate your bills, and build a savings roadmap sorted by impact.',
     stats: ['Bill Negotiation', 'Subscription Audit', 'Savings Roadmap'],
   },
+  {
+    bgLetter: 'R',
+    label: 'RESEARCH AGGREGATOR',
+    title: 'Investment Intelligence',
+    desc: 'See what Goldman, JP Morgan, Morningstar, and 10+ major firms think about any stock or sector. Consensus scores, price targets, bull & bear cases — like Rotten Tomatoes for stocks.',
+    stats: ['Consensus Scores', 'Sector Views', 'Theme Tracking'],
+  },
 ];
 
 const SMALL_CAPABILITIES = [
@@ -173,6 +211,11 @@ const SMALL_CAPABILITIES = [
   { icon: '⚡', title: 'Smart Cost Cutting', desc: 'Gas optimization, meal planning, insurance shopping, energy audits. Every dollar counts.' },
   { icon: '◇', title: 'Decision Simulator', desc: 'Run the math on real choices: rent vs buy, pay off debt vs invest, job offer comparison.' },
   { icon: '🏷️', title: 'Price Intelligence', desc: 'Compare prices across every major retailer. Find out if you\'re overpaying and where to get the same thing cheaper. Store rankings by category included.' },
+  { icon: '🎯', title: 'Goal Simulator', desc: 'Simulate any savings goal with 3 scenarios, milestone timelines, and Monte Carlo probability analysis.' },
+  { icon: '📅', title: 'Bill Predictor', desc: 'Predict next month\'s bills, flag cash flow danger zones, and never be surprised by a renewal again.' },
+  { icon: '📍', title: 'Local Deal Radar', desc: 'Find the best deals near you, cross-referenced with what you actually buy. Historic lows flagged.' },
+  { icon: '🧾', title: 'Receipt Analyzer', desc: 'Break down any purchase by category. Find items you overpaid for and where to get them cheaper.' },
+  { icon: '📊', title: 'Analyst Consensus', desc: 'See what Goldman, JP Morgan, Morningstar, and other major firms think about any stock or sector. Consensus scores, price targets, bull & bear cases.' },
 ];
 
 /* ── Footer links ─────────────────────────────────────────────────── */
@@ -322,8 +365,8 @@ export default function LandingPage() {
             </p>
           </FadeUp>
 
-          {/* Top row — 2 hero capability cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+          {/* Top row — 3 hero capability cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
             {HERO_CAPABILITIES.map((cap, i) => (
               <FadeUp key={cap.title} delay={i * 0.08}>
                 <div className="bg-card border border-line rounded-card p-8 relative overflow-hidden h-full">

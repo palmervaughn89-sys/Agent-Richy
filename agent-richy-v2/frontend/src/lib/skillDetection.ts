@@ -1,6 +1,6 @@
 /* ── Skill detection — keyword-based trigger matching ────────────────── */
 
-export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | null;
+export type DetectedSkill = "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | "goal_sim" | "bill_predict" | "local_deals" | "receipt_analyze" | "investment_intel" | null;
 
 const COUPON_TRIGGERS = [
   "coupon",
@@ -116,6 +116,112 @@ const SUBSCRIPTION_VALUE_TRIGGERS = [
   "score my subscriptions",
 ];
 
+const GOAL_SIM_TRIGGERS = [
+  "goal",
+  "savings goal",
+  "save for",
+  "saving for",
+  "how long to save",
+  "emergency fund",
+  "down payment",
+  "vacation fund",
+  "retire",
+  "retirement",
+  "pay off debt",
+  "debt payoff",
+  "financial goal",
+  "how long until",
+  "when can i afford",
+  "simulate",
+  "projection",
+  "forecast my savings",
+  "savings calculator",
+  "reach my goal",
+  "monte carlo",
+  "probability of",
+];
+
+const BILL_PREDICT_TRIGGERS = [
+  "upcoming bills",
+  "bills this month",
+  "bills next month",
+  "predict my bills",
+  "bill forecast",
+  "bill calendar",
+  "when are my bills due",
+  "bill tracker",
+  "monthly bills",
+  "how much do i owe",
+  "bills coming up",
+  "cash flow",
+  "bill schedule",
+  "recurring bills",
+  "autopay",
+  "due dates",
+];
+
+const LOCAL_DEAL_TRIGGERS = [
+  "local deals",
+  "deals near me",
+  "sales near me",
+  "weekly ads",
+  "grocery sales",
+  "store sales",
+  "whats on sale",
+  "deals this week",
+  "sales this week",
+  "nearby deals",
+  "local sales",
+  "flyer",
+  "circular",
+  "weekly specials",
+  "clearance near",
+];
+
+const RECEIPT_TRIGGERS = [
+  "receipt",
+  "analyze my receipt",
+  "what i bought",
+  "grocery trip",
+  "shopping trip",
+  "i just bought",
+  "i just spent",
+  "here is my receipt",
+  "break down my purchase",
+  "purchase analysis",
+  "did i overpay",
+  "shopping analysis",
+];
+
+const INVESTMENT_INTEL_TRIGGERS = [
+  "top rated stocks",
+  "best rated stocks",
+  "analyst ratings",
+  "consensus rating",
+  "what do analysts rate",
+  "highest rated",
+  "stock consensus",
+  "analyst consensus",
+  "wall street ratings",
+  "top picks",
+  "analyst top picks",
+  "investment themes",
+  "what are analysts buying",
+  "highest conviction",
+  "leaderboard",
+  "stock rankings",
+  "best stocks",
+  "firm ratings",
+  "goldman rates",
+  "morningstar rates",
+  "price targets",
+  "bull case bear case",
+  "sector consensus",
+  "overweight underweight",
+  "research says",
+  "analysts say about",
+];
+
 /**
  * Detect which skill (if any) should be activated based on the user's message.
  * Simple keyword matching — will be replaced with a proper intent classifier later.
@@ -125,6 +231,11 @@ export function detectSkill(message: string): DetectedSkill {
   if (COUPON_TRIGGERS.some((t) => lower.includes(t))) return "coupon";
   if (SUBSCRIPTION_VALUE_TRIGGERS.some((t) => lower.includes(t))) return "subscription_value";
   if (PRICE_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "price_intel";
+  if (RECEIPT_TRIGGERS.some((t) => lower.includes(t))) return "receipt_analyze";
+  if (INVESTMENT_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "investment_intel";
+  if (BILL_PREDICT_TRIGGERS.some((t) => lower.includes(t))) return "bill_predict";
+  if (LOCAL_DEAL_TRIGGERS.some((t) => lower.includes(t))) return "local_deals";
+  if (GOAL_SIM_TRIGGERS.some((t) => lower.includes(t))) return "goal_sim";
   if (OPTIMIZER_TRIGGERS.some((t) => lower.includes(t))) return "optimizer";
   if (MARKET_INTEL_TRIGGERS.some((t) => lower.includes(t))) return "market_intel";
   return null;

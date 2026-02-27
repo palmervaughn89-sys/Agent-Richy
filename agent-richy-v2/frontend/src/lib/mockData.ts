@@ -6,6 +6,7 @@
 import type { Coupon } from "@/types/coupon";
 import type { SavingsReport } from "@/types/spending";
 import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
+import type { ConsensusLeaderboard, ConsensusRating, SectorConsensus, InvestmentTheme } from "@/types/investment";
 
 /* ── 1. Coupon results ────────────────────────────────────────────── */
 
@@ -846,6 +847,825 @@ ${JSON.stringify({ type: "subscription_value", subscriptions: mockSubscriptionVa
 
 Quick wins: Cancel Peacock immediately ($96/year saved) and consider downgrading HBO Max to the ads plan or rotating on/off.`;
 
+// ── Goal Simulation mock data ────────────────────────────────────────────
+
+import type { GoalSimulationResult } from "@/types/tools";
+import type { BillPrediction, TrackedBill } from "@/types/tools";
+import type { LocalDeal, LocalDealReport } from "@/types/tools";
+import type { AnalyzedReceipt } from "@/types/tools";
+
+export const mockGoalSimulation: GoalSimulationResult = {
+  goalId: "goal_ef_001",
+  goalName: "Emergency Fund",
+  goalType: "emergency_fund",
+  targetAmount: 10000,
+  currentSaved: 2300,
+  monthlyContribution: 400,
+  monthsToGoal: 19.3,
+  projectedCompletionDate: "2027-10-01",
+  totalContributed: 7700,
+  totalInterestEarned: 0,
+  scenarios: [
+    {
+      name: "Current Pace",
+      monthlyAmount: 400,
+      monthsToGoal: 19.3,
+      completionDate: "2027-10-01",
+      totalInterestEarned: 0,
+      description: "At your current $400/month, you'll hit $10K in about 19 months.",
+    },
+    {
+      name: "With Optimizer Savings",
+      monthlyAmount: 637,
+      monthsToGoal: 12.1,
+      completionDate: "2027-03-01",
+      totalInterestEarned: 0,
+      description: "Apply the $237/month we found in your spending analysis and cut 7 months off.",
+    },
+    {
+      name: "Aggressive",
+      monthlyAmount: 800,
+      monthsToGoal: 9.6,
+      completionDate: "2026-12-15",
+      totalInterestEarned: 0,
+      description: "Max out savings by cutting all discretionary spending — done before 2027.",
+    },
+  ],
+  milestones: [
+    { percentage: 25, amount: 2500, projectedDate: "2026-03-15", monthsFromNow: 0.5 },
+    { percentage: 50, amount: 5000, projectedDate: "2026-10-01", monthsFromNow: 6.8 },
+    { percentage: 75, amount: 7500, projectedDate: "2027-04-15", monthsFromNow: 13.3 },
+    { percentage: 100, amount: 10000, projectedDate: "2027-10-01", monthsFromNow: 19.3 },
+  ],
+  dailyEquivalent: 13.33,
+  weeklyEquivalent: 92.31,
+  boostSuggestions: [
+    {
+      action: "Cancel Peacock → saves $7.99/mo",
+      monthlySavingsIncrease: 7.99,
+      newMonthsToGoal: 18.9,
+      timeSaved: 0.4,
+    },
+    {
+      action: "Negotiate internet bill → saves $25/mo",
+      monthlySavingsIncrease: 25,
+      newMonthsToGoal: 18.1,
+      timeSaved: 1.2,
+    },
+    {
+      action: "Downgrade HBO Max to ads plan → saves $5/mo",
+      monthlySavingsIncrease: 5,
+      newMonthsToGoal: 19.0,
+      timeSaved: 0.3,
+    },
+  ],
+  monteCarlo: {
+    simulations: 1000,
+    percentile10: 8900,
+    percentile25: 9400,
+    percentile50: 10000,
+    percentile75: 10600,
+    percentile90: 11200,
+    probabilityOfSuccess: 87,
+  },
+};
+
+export const mockGoalSimulationMessage = `Here's your Emergency Fund simulation — you're already 23% there! 💪
+
+\`\`\`json
+${JSON.stringify({ type: "goal_simulation", result: mockGoalSimulation })}
+\`\`\`
+
+That's just $13.33 per day. Skip one lunch out and you're on track. With the optimizer savings we found, you could be done 7 months sooner.`;
+
+// ── Bill Prediction mock data ────────────────────────────────────────────
+
+const billRent: TrackedBill = {
+  id: "bill_001",
+  name: "Rent",
+  category: "Housing",
+  amount: 1450,
+  frequency: "monthly",
+  nextDueDate: "2026-03-01",
+  autopay: true,
+  provider: "Greystar Properties",
+};
+
+const billCarInsurance: TrackedBill = {
+  id: "bill_002",
+  name: "Car Insurance",
+  category: "Insurance",
+  amount: 180,
+  frequency: "semi_annual",
+  nextDueDate: "2026-03-01",
+  autopay: false,
+  provider: "State Farm",
+};
+
+const billElectric: TrackedBill = {
+  id: "bill_003",
+  name: "Electric",
+  category: "Utilities",
+  amount: 137,
+  frequency: "monthly",
+  nextDueDate: "2026-03-12",
+  autopay: false,
+  provider: "Georgia Power",
+  historicalAmounts: [
+    { date: "2025-12-12", amount: 95 },
+    { date: "2026-01-12", amount: 142 },
+    { date: "2026-02-12", amount: 168 },
+  ],
+};
+
+const billInternet: TrackedBill = {
+  id: "bill_004",
+  name: "Internet",
+  category: "Telecom",
+  amount: 55,
+  frequency: "monthly",
+  nextDueDate: "2026-03-08",
+  autopay: true,
+  provider: "Xfinity",
+};
+
+const billPhone: TrackedBill = {
+  id: "bill_005",
+  name: "Phone",
+  category: "Telecom",
+  amount: 45,
+  frequency: "monthly",
+  nextDueDate: "2026-03-15",
+  autopay: true,
+  provider: "T-Mobile",
+};
+
+const billNetflix: TrackedBill = {
+  id: "bill_006",
+  name: "Netflix",
+  category: "Subscriptions",
+  amount: 15.49,
+  frequency: "monthly",
+  nextDueDate: "2026-03-22",
+  autopay: true,
+  provider: "Netflix",
+};
+
+const billSpotify: TrackedBill = {
+  id: "bill_007",
+  name: "Spotify",
+  category: "Subscriptions",
+  amount: 11.99,
+  frequency: "monthly",
+  nextDueDate: "2026-03-18",
+  autopay: true,
+  provider: "Spotify",
+};
+
+const billGym: TrackedBill = {
+  id: "bill_008",
+  name: "Planet Fitness",
+  category: "Memberships",
+  amount: 29.99,
+  frequency: "monthly",
+  nextDueDate: "2026-03-05",
+  autopay: true,
+  provider: "Planet Fitness",
+};
+
+export const mockBillPrediction: BillPrediction = {
+  period: "March 2026",
+  startDate: "2026-03-01",
+  endDate: "2026-03-31",
+  bills: [
+    { bill: billRent, dueDate: "2026-03-01", amount: 1450, isEstimate: false },
+    { bill: billCarInsurance, dueDate: "2026-03-01", amount: 180, isEstimate: false },
+    { bill: billGym, dueDate: "2026-03-05", amount: 29.99, isEstimate: false },
+    { bill: billInternet, dueDate: "2026-03-08", amount: 55, isEstimate: false },
+    { bill: billElectric, dueDate: "2026-03-12", amount: 137, isEstimate: true, varianceNote: "Your electric bill averages $137 but ranges $95–$180" },
+    { bill: billPhone, dueDate: "2026-03-15", amount: 45, isEstimate: false },
+    { bill: billSpotify, dueDate: "2026-03-18", amount: 11.99, isEstimate: false },
+    { bill: billNetflix, dueDate: "2026-03-22", amount: 15.49, isEstimate: false },
+  ],
+  totalPredicted: 1924.47,
+  comparedToLastMonth: 180,
+  comparedToLastMonthPercent: 10.3,
+  unusualItems: [
+    {
+      billName: "Car Insurance",
+      reason: "Semi-annual renewal",
+      amount: 180,
+    },
+  ],
+  calendarView: [
+    { date: "2026-03-01", bills: [{ name: "Rent", amount: 1450 }, { name: "Car Insurance", amount: 180 }], dailyTotal: 1630 },
+    { date: "2026-03-05", bills: [{ name: "Planet Fitness", amount: 29.99 }], dailyTotal: 29.99 },
+    { date: "2026-03-08", bills: [{ name: "Internet", amount: 55 }], dailyTotal: 55 },
+    { date: "2026-03-12", bills: [{ name: "Electric", amount: 137 }], dailyTotal: 137 },
+    { date: "2026-03-15", bills: [{ name: "Phone", amount: 45 }], dailyTotal: 45 },
+    { date: "2026-03-18", bills: [{ name: "Spotify", amount: 11.99 }], dailyTotal: 11.99 },
+    { date: "2026-03-22", bills: [{ name: "Netflix", amount: 15.49 }], dailyTotal: 15.49 },
+  ],
+  cashFlowWarnings: [
+    {
+      date: "2026-03-01",
+      warning: "Rent + car insurance both hit on the 1st — $1,630 in one day. Make sure your account is funded.",
+      totalDue: 1630,
+    },
+  ],
+};
+
+export const mockBillPredictionMessage = `Here's your March bill forecast — heads up, it's a bigger month:
+
+\`\`\`json
+${JSON.stringify({ type: "bill_prediction", prediction: mockBillPrediction })}
+\`\`\`
+
+Your car insurance renewal adds $180 to the usual run. Both rent and insurance hit on March 1st, so make sure you have $1,630 ready.`;
+
+// ── Local Deals mock data ────────────────────────────────────────────────
+
+const matchedDealChicken: LocalDeal = {
+  id: "deal_m1",
+  store: "kroger",
+  storeName: "Kroger",
+  storeAddress: "3245 Buford Dr, Buford GA 30519",
+  distanceMiles: 2.1,
+  dealType: "sale",
+  productName: "Boneless Chicken Breast",
+  productCategory: "Meat & Seafood",
+  originalPrice: 4.99,
+  salePrice: 2.99,
+  savings: 2.00,
+  savingsPercent: 40,
+  validFrom: "2026-02-25",
+  validUntil: "2026-03-03",
+  source: "Kroger weekly ad",
+  requiresLoyaltyCard: true,
+  requiresMembership: false,
+  userBuysThis: true,
+  usualPrice: 4.99,
+  isHistoricLow: true,
+};
+
+const matchedDealTide: LocalDeal = {
+  id: "deal_m2",
+  store: "cvs",
+  storeName: "CVS Pharmacy",
+  storeAddress: "4120 Hamilton Mill Rd, Buford GA 30518",
+  distanceMiles: 0.8,
+  dealType: "bogo",
+  productName: "Tide Pods 42-count",
+  productCategory: "Household",
+  originalPrice: 13.99,
+  salePrice: 6.99,
+  savings: 7.00,
+  savingsPercent: 50,
+  validFrom: "2026-02-23",
+  validUntil: "2026-03-01",
+  source: "CVS weekly ad",
+  requiresLoyaltyCard: true,
+  requiresMembership: false,
+  userBuysThis: true,
+  usualPrice: 13.99,
+  isHistoricLow: false,
+};
+
+const matchedDealGas: LocalDeal = {
+  id: "deal_m3",
+  store: "costco",
+  storeName: "Costco Gas",
+  storeAddress: "3200 Woodward Crossing Blvd, Buford GA 30519",
+  distanceMiles: 3.4,
+  dealType: "loyalty",
+  productName: "Regular Unleaded Gas (per gallon)",
+  productCategory: "Fuel",
+  originalPrice: 3.19,
+  salePrice: 2.89,
+  savings: 0.30,
+  savingsPercent: 9,
+  validFrom: "2026-02-27",
+  validUntil: "2026-03-06",
+  source: "Costco Gas",
+  requiresLoyaltyCard: false,
+  requiresMembership: true,
+  userBuysThis: true,
+  usualPrice: 3.19,
+  isHistoricLow: false,
+};
+
+const topDeal1: LocalDeal = {
+  id: "deal_t1",
+  store: "publix",
+  storeName: "Publix",
+  storeAddress: "3435 Braselton Hwy, Dacula GA 30019",
+  distanceMiles: 4.2,
+  dealType: "bogo",
+  productName: "Publix Premium Ice Cream (all varieties)",
+  productCategory: "Frozen",
+  originalPrice: 7.49,
+  salePrice: 3.75,
+  savings: 3.74,
+  savingsPercent: 50,
+  validFrom: "2026-02-26",
+  validUntil: "2026-03-04",
+  source: "Publix weekly ad",
+  requiresLoyaltyCard: false,
+  requiresMembership: false,
+  userBuysThis: false,
+  usualPrice: 0,
+  isHistoricLow: false,
+};
+
+const topDeal2: LocalDeal = {
+  id: "deal_t2",
+  store: "target",
+  storeName: "Target",
+  storeAddress: "3200 Mall of Georgia Blvd, Buford GA 30519",
+  distanceMiles: 3.0,
+  dealType: "sale",
+  productName: "Clorox Disinfecting Wipes 3-pack",
+  productCategory: "Household",
+  originalPrice: 12.99,
+  salePrice: 8.49,
+  savings: 4.50,
+  savingsPercent: 35,
+  validFrom: "2026-02-23",
+  validUntil: "2026-03-01",
+  source: "Target Circle",
+  requiresLoyaltyCard: true,
+  requiresMembership: false,
+  userBuysThis: false,
+  usualPrice: 0,
+  isHistoricLow: false,
+};
+
+const topDeal3: LocalDeal = {
+  id: "deal_t3",
+  store: "aldi",
+  storeName: "ALDI",
+  storeAddress: "2925 Buford Dr, Buford GA 30519",
+  distanceMiles: 2.5,
+  dealType: "sale",
+  productName: "Fresh Atlantic Salmon Fillets (per lb)",
+  productCategory: "Meat & Seafood",
+  originalPrice: 9.99,
+  salePrice: 6.99,
+  savings: 3.00,
+  savingsPercent: 30,
+  validFrom: "2026-02-26",
+  validUntil: "2026-03-04",
+  source: "ALDI Finds",
+  requiresLoyaltyCard: false,
+  requiresMembership: false,
+  userBuysThis: false,
+  usualPrice: 0,
+  isHistoricLow: true,
+};
+
+const topDeal4: LocalDeal = {
+  id: "deal_t4",
+  store: "kroger",
+  storeName: "Kroger",
+  storeAddress: "3245 Buford Dr, Buford GA 30519",
+  distanceMiles: 2.1,
+  dealType: "sale",
+  productName: "Coca-Cola 12-Pack Cans",
+  productCategory: "Beverages",
+  originalPrice: 7.99,
+  salePrice: 3.99,
+  savings: 4.00,
+  savingsPercent: 50,
+  validFrom: "2026-02-25",
+  validUntil: "2026-03-03",
+  source: "Kroger weekly ad",
+  requiresLoyaltyCard: true,
+  requiresMembership: false,
+  limitPerCustomer: 4,
+  userBuysThis: false,
+  usualPrice: 0,
+  isHistoricLow: false,
+};
+
+export const mockLocalDeals: LocalDealReport = {
+  zipCode: "30518",
+  generatedAt: "2026-02-27T10:00:00Z",
+  radius: 5,
+  topDeals: [topDeal1, topDeal2, topDeal3, topDeal4],
+  matchedDeals: [matchedDealChicken, matchedDealTide, matchedDealGas],
+  weeklyAdHighlights: [
+    {
+      store: "kroger",
+      storeName: "Kroger",
+      topDeals: [
+        { item: "Boneless Chicken Breast", salePrice: 2.99, savings: "Save $2.00/lb" },
+        { item: "Coca-Cola 12-Pack", salePrice: 3.99, savings: "Save $4.00" },
+        { item: "Kroger Brand Milk (gallon)", salePrice: 2.49, savings: "Save $1.30" },
+        { item: "Strawberries 1lb", salePrice: 2.50, savings: "Save $2.49" },
+      ],
+      adValidDates: "Feb 25 – Mar 3, 2026",
+    },
+    {
+      store: "publix",
+      storeName: "Publix",
+      topDeals: [
+        { item: "Premium Ice Cream (BOGO)", salePrice: 3.75, savings: "Save $3.74" },
+        { item: "Boar's Head Deli Meats", salePrice: 8.99, savings: "Save $3.00/lb" },
+        { item: "Publix Ground Beef 80/20", salePrice: 3.99, savings: "Save $2.00/lb" },
+      ],
+      adValidDates: "Feb 26 – Mar 4, 2026",
+    },
+  ],
+  totalPotentialSavings: 34.50,
+};
+
+export const mockLocalDealsMessage = `Found 7 deals within 5 miles of 30518 — here's what's hot this week:
+
+\`\`\`json
+${JSON.stringify({ type: "local_deals", report: mockLocalDeals })}
+\`\`\`
+
+The chicken deal at Kroger is a historic low — if you usually buy at Publix, this alone saves you $2/lb. The Tide BOGO at CVS is solid too. Just remember your Kroger Plus card!`;
+
+// ── Receipt Analysis mock data ───────────────────────────────────────────
+
+export const mockReceiptAnalysis: AnalyzedReceipt = {
+  id: "receipt_001",
+  store: "Publix",
+  storeAddress: "3435 Braselton Hwy, Dacula GA 30019",
+  date: "2026-02-26",
+  items: [
+    { name: "Boneless Chicken Breast", quantity: 2, unitPrice: 4.99, totalPrice: 9.98, category: "Meat", taxable: false },
+    { name: "Ground Turkey 93/7", quantity: 1, unitPrice: 5.49, totalPrice: 5.49, category: "Meat", taxable: false },
+    { name: "Atlantic Salmon Fillet", quantity: 1, unitPrice: 11.49, totalPrice: 11.49, category: "Meat", taxable: false },
+    { name: "Organic Baby Spinach", quantity: 1, unitPrice: 4.29, totalPrice: 4.29, category: "Produce", taxable: false },
+    { name: "Avocados (bag of 4)", quantity: 1, unitPrice: 3.99, totalPrice: 3.99, category: "Produce", taxable: false },
+    { name: "Bananas", quantity: 1, unitPrice: 1.69, totalPrice: 1.69, category: "Produce", taxable: false },
+    { name: "Roma Tomatoes", quantity: 1, unitPrice: 2.49, totalPrice: 2.49, category: "Produce", taxable: false },
+    { name: "Bell Peppers (3-pack)", quantity: 1, unitPrice: 3.99, totalPrice: 3.99, category: "Produce", taxable: false },
+    { name: "Whole Milk (gallon)", quantity: 1, unitPrice: 4.59, totalPrice: 4.59, category: "Dairy", taxable: false },
+    { name: "Shredded Cheddar Cheese", quantity: 1, unitPrice: 3.49, totalPrice: 3.49, category: "Dairy", taxable: false },
+    { name: "Greek Yogurt (4-pack)", quantity: 1, unitPrice: 5.49, totalPrice: 5.49, category: "Dairy", taxable: false },
+    { name: "Olive Oil Extra Virgin", quantity: 1, unitPrice: 8.99, totalPrice: 8.99, category: "Pantry", taxable: false },
+    { name: "Paper Towels 6-Roll", quantity: 1, unitPrice: 9.49, totalPrice: 9.49, category: "Household", taxable: true },
+    { name: "Whole Wheat Pasta", quantity: 2, unitPrice: 1.79, totalPrice: 3.58, category: "Pantry", taxable: false },
+  ],
+  subtotal: 79.49,
+  tax: 7.94,
+  total: 87.43,
+  paymentMethod: "Debit Card",
+  categoryBreakdown: [
+    { category: "Meat", amount: 26.96, percentage: 31, itemCount: 3 },
+    { category: "Produce", amount: 16.45, percentage: 19, itemCount: 5 },
+    { category: "Dairy", amount: 13.57, percentage: 16, itemCount: 3 },
+    { category: "Pantry", amount: 12.57, percentage: 14, itemCount: 2 },
+    { category: "Household", amount: 9.49, percentage: 11, itemCount: 1 },
+  ],
+  priceAlerts: [
+    {
+      item: "Boneless Chicken Breast",
+      paidPrice: 4.99,
+      betterPrice: 2.99,
+      betterStore: "Kroger",
+      savings: 2.00,
+    },
+    {
+      item: "Paper Towels 6-Roll",
+      paidPrice: 9.49,
+      betterPrice: 6.99,
+      betterStore: "Costco",
+      savings: 2.50,
+    },
+    {
+      item: "Olive Oil Extra Virgin",
+      paidPrice: 8.99,
+      betterPrice: 5.99,
+      betterStore: "ALDI",
+      savings: 3.00,
+    },
+  ],
+  comparedToAverage: {
+    thisTrip: 87.43,
+    averageTrip: 72.00,
+    difference: 15.43,
+    trend: "increasing",
+  },
+};
+
+export const mockReceiptAnalysisMessage = `Here's your Publix receipt breakdown — I found a few places you could save:
+
+\`\`\`json
+${JSON.stringify({ type: "receipt_analysis", receipt: mockReceiptAnalysis })}
+\`\`\`
+
+You could save $7.50 next time by grabbing chicken at Kroger (it's on sale this week!), paper towels at Costco, and olive oil at ALDI. Your grocery spending has been trending up — might be worth checking the deal radar for this week's sales.`;
+
+/* ── 15. Consensus Leaderboard ────────────────────────────────────── */
+
+export const mockConsensusLeaderboard: ConsensusLeaderboard = {
+  generatedAt: "2026-02-26T00:00:00Z",
+  category: "Overall",
+  categoryDescription: "Top rated stocks across all sectors by analyst consensus",
+  timeframe: "February 2026 Analyst Consensus",
+  topRated: [
+    {
+      ticker: "NVDA",
+      companyName: "NVIDIA Corporation",
+      sector: "Technology",
+      consensusScore: 91,
+      consensusLabel: "Strong Buy",
+      buyCount: 42,
+      holdCount: 5,
+      sellCount: 0,
+      totalRatings: 47,
+      currentPrice: 875.00,
+      avgPriceTarget: 1050.00,
+      highPriceTarget: 1400.00,
+      lowPriceTarget: 700.00,
+      medianPriceTarget: 1025.00,
+      impliedUpside: 20.0,
+      ratings: [],
+      morningstarStars: 4,
+      morningstarFairValue: 950.00,
+      morningstarMoat: "wide",
+      peRatio: 62.5,
+      forwardPE: 38.2,
+      dividendYield: 0.02,
+      beta: 1.65,
+      marketCap: "2.2T",
+      revenueGrowthYoY: 122.0,
+      bullCase: "AI capex super-cycle. Data center GPU monopoly.",
+      bearCase: "Valuation stretched. China export risk.",
+      lastUpdated: "2026-02-26",
+      disclaimer: "All ratings sourced from public analyst reports. Not investment advice.",
+    },
+    {
+      ticker: "META",
+      companyName: "Meta Platforms Inc.",
+      sector: "Technology",
+      consensusScore: 86,
+      consensusLabel: "Strong Buy",
+      buyCount: 38,
+      holdCount: 8,
+      sellCount: 1,
+      totalRatings: 47,
+      currentPrice: 505.00,
+      avgPriceTarget: 585.00,
+      highPriceTarget: 680.00,
+      lowPriceTarget: 400.00,
+      medianPriceTarget: 570.00,
+      impliedUpside: 15.8,
+      ratings: [],
+      morningstarStars: 4,
+      morningstarFairValue: 560.00,
+      morningstarMoat: "wide",
+      peRatio: 25.1,
+      forwardPE: 21.3,
+      dividendYield: 0.40,
+      beta: 1.22,
+      marketCap: "1.3T",
+      revenueGrowthYoY: 25.0,
+      bullCase: "Reels monetization. AI ad targeting gains.",
+      bearCase: "Reality Labs losses. Regulatory risk.",
+      lastUpdated: "2026-02-26",
+      disclaimer: "All ratings sourced from public analyst reports. Not investment advice.",
+    },
+    {
+      ticker: "LLY",
+      companyName: "Eli Lilly and Company",
+      sector: "Healthcare",
+      consensusScore: 88,
+      consensusLabel: "Strong Buy",
+      buyCount: 25,
+      holdCount: 3,
+      sellCount: 0,
+      totalRatings: 28,
+      currentPrice: 780.00,
+      avgPriceTarget: 920.00,
+      highPriceTarget: 1100.00,
+      lowPriceTarget: 650.00,
+      medianPriceTarget: 900.00,
+      impliedUpside: 17.9,
+      ratings: [],
+      morningstarStars: 3,
+      morningstarFairValue: 680.00,
+      morningstarMoat: "wide",
+      peRatio: 118.0,
+      forwardPE: 52.0,
+      dividendYield: 0.65,
+      beta: 0.42,
+      marketCap: "740B",
+      revenueGrowthYoY: 36.0,
+      bullCase: "GLP-1 drug dominance (Mounjaro/Zepbound). Pipeline depth.",
+      bearCase: "Premium valuation. Patent cliff in 2030s.",
+      lastUpdated: "2026-02-26",
+      disclaimer: "All ratings sourced from public analyst reports. Not investment advice.",
+    },
+    {
+      ticker: "AMZN",
+      companyName: "Amazon.com Inc.",
+      sector: "Consumer Discretionary",
+      consensusScore: 84,
+      consensusLabel: "Buy",
+      buyCount: 45,
+      holdCount: 10,
+      sellCount: 0,
+      totalRatings: 55,
+      currentPrice: 187.00,
+      avgPriceTarget: 225.00,
+      highPriceTarget: 270.00,
+      lowPriceTarget: 170.00,
+      medianPriceTarget: 220.00,
+      impliedUpside: 20.3,
+      ratings: [],
+      morningstarStars: 4,
+      morningstarFairValue: 210.00,
+      morningstarMoat: "wide",
+      peRatio: 58.5,
+      forwardPE: 35.0,
+      dividendYield: 0.0,
+      beta: 1.15,
+      marketCap: "1.9T",
+      revenueGrowthYoY: 12.0,
+      bullCase: "AWS re-acceleration. Advertising growth.",
+      bearCase: "Retail margin pressure. Antitrust scrutiny.",
+      lastUpdated: "2026-02-26",
+      disclaimer: "All ratings sourced from public analyst reports. Not investment advice.",
+    },
+    {
+      ticker: "JPM",
+      companyName: "JPMorgan Chase & Co.",
+      sector: "Financials",
+      consensusScore: 79,
+      consensusLabel: "Buy",
+      buyCount: 18,
+      holdCount: 7,
+      sellCount: 1,
+      totalRatings: 26,
+      currentPrice: 198.00,
+      avgPriceTarget: 220.00,
+      highPriceTarget: 250.00,
+      lowPriceTarget: 180.00,
+      medianPriceTarget: 215.00,
+      impliedUpside: 11.1,
+      ratings: [],
+      morningstarStars: 3,
+      morningstarFairValue: 190.00,
+      morningstarMoat: "wide",
+      peRatio: 11.8,
+      forwardPE: 11.2,
+      dividendYield: 2.15,
+      beta: 1.08,
+      marketCap: "570B",
+      revenueGrowthYoY: 8.0,
+      bullCase: "Best-in-class management. Net interest income strength.",
+      bearCase: "CRE exposure. Regulatory capital requirements.",
+      lastUpdated: "2026-02-26",
+      disclaimer: "All ratings sourced from public analyst reports. Not investment advice.",
+    },
+  ],
+  sectorBreakdown: [
+    { sector: "Technology", stockCount: 2, avgConsensusScore: 88.5, topPick: "NVDA" },
+    { sector: "Healthcare", stockCount: 1, avgConsensusScore: 88.0, topPick: "LLY" },
+    { sector: "Consumer Discretionary", stockCount: 1, avgConsensusScore: 84.0, topPick: "AMZN" },
+    { sector: "Financials", stockCount: 1, avgConsensusScore: 79.0, topPick: "JPM" },
+  ],
+  methodology: "Consensus scores aggregate Buy/Hold/Sell ratings from 15+ major sell-side and buy-side firms, weighted by recency and historic accuracy. Morningstar data supplements with fair value estimates and economic moat analysis.",
+  sources: ["Goldman Sachs", "JP Morgan", "Morgan Stanley", "Morningstar", "Fidelity", "Schwab", "Bank of America", "UBS"],
+  disclaimer: "All ratings are aggregated from publicly available research and belong to their respective firms. This is educational content, not investment advice. Past performance does not guarantee future results.",
+};
+
+export const mockConsensusLeaderboardMessage = `Here are the top analyst-rated stocks across major sectors — these are the names getting the most bullish consensus from Wall Street right now:
+
+\`\`\`json
+${JSON.stringify({ type: "consensus_leaderboard", leaderboard: mockConsensusLeaderboard })}
+\`\`\`
+
+NVIDIA leads the pack with a 91 consensus score, driven by the AI infrastructure super-cycle. Eli Lilly is the standout in healthcare with GLP-1 drug dominance. Want me to dive deeper into any of these stocks?`;
+
+/* ── 16. Stock Consensus ──────────────────────────────────────────── */
+
+export const mockStockConsensus: ConsensusRating = {
+  ticker: "NVDA",
+  companyName: "NVIDIA Corporation",
+  sector: "Technology",
+  consensusScore: 91,
+  consensusLabel: "Strong Buy",
+  buyCount: 42,
+  holdCount: 5,
+  sellCount: 0,
+  totalRatings: 47,
+  currentPrice: 875.00,
+  avgPriceTarget: 1050.00,
+  highPriceTarget: 1400.00,
+  lowPriceTarget: 700.00,
+  medianPriceTarget: 1025.00,
+  impliedUpside: 20.0,
+  ratings: [
+    { source: "goldman_sachs", sourceName: "Goldman Sachs", rating: "strong_buy", ratingDisplay: "Strong Buy", priceTarget: 1100, confidence: "high", dateIssued: "2025-01-15" },
+    { source: "jp_morgan", sourceName: "JP Morgan", rating: "buy", ratingDisplay: "Buy", priceTarget: 1050, confidence: "high", dateIssued: "2025-01-12" },
+    { source: "morgan_stanley", sourceName: "Morgan Stanley", rating: "strong_buy", ratingDisplay: "Strong Buy", priceTarget: 1200, confidence: "high", dateIssued: "2025-01-18" },
+    { source: "morningstar", sourceName: "Morningstar", rating: "hold", ratingDisplay: "Hold", priceTarget: 950, confidence: "high", dateIssued: "2025-01-10" },
+    { source: "bank_of_america", sourceName: "Bank of America", rating: "buy", ratingDisplay: "Buy", priceTarget: 1000, confidence: "high", dateIssued: "2025-01-14" },
+  ],
+  morningstarStars: 4,
+  morningstarFairValue: 950.00,
+  morningstarMoat: "wide",
+  peRatio: 62.5,
+  forwardPE: 38.2,
+  dividendYield: 0.02,
+  beta: 1.65,
+  marketCap: "2.2T",
+  revenueGrowthYoY: 122.0,
+  bullCase: "AI capex super-cycle: hyperscalers spending $150B+ annually on AI infrastructure. CUDA ecosystem lock-in creates switching costs that AMD/Intel can't easily overcome. Inference demand now matching training — doubles total addressable market. Software/services revenue growing 50%+ YoY, improving margin mix.",
+  bearCase: "Trading at 62x earnings — prices in perfection with zero margin for error. China export restrictions already cut ~$5B in annual revenue; could worsen. Hyperscalers building custom chips (Google TPU, Amazon Trainium) reduce dependency. Semiconductor industry is inherently cyclical — this boom will moderate.",
+  lastUpdated: "2026-02-26",
+  disclaimer: "All ratings sourced from public analyst reports. Not investment advice.",
+};
+
+export const mockStockConsensusMessage = `Here's the full analyst consensus breakdown for NVIDIA — it's one of the most covered stocks on Wall Street right now:
+
+\`\`\`json
+${JSON.stringify({ type: "stock_consensus", stock: mockStockConsensus })}
+\`\`\`
+
+The consensus is overwhelmingly bullish (91 score) with 42 Buy ratings and zero Sells. The key debate is on valuation — Goldman and Morgan Stanley are aggressive with $1,100-$1,200 targets, while Morningstar thinks the stock is trading above fair value at $950. Notable disagreement worth watching. Want me to look at any of NVIDIA's competitors or the broader semiconductor sector?`;
+
+/* ── 17. Sector Consensus ─────────────────────────────────────────── */
+
+export const mockSectorConsensus: SectorConsensus = {
+  sector: "technology",
+  sectorName: "Technology",
+  firmViews: [
+    { source: "Goldman Sachs", sourceName: "Goldman Sachs", sectorRating: "overweight", keyReason: "AI infrastructure spending creates multi-year tailwind for semiconductors and cloud infrastructure. Capex cycle just beginning.", dateIssued: "2025-01-20" },
+    { source: "JP Morgan", sourceName: "JP Morgan", sectorRating: "overweight", keyReason: "Enterprise software transitioning to AI-native products. Pricing power increasing across the stack.", dateIssued: "2025-01-18" },
+    { source: "Morgan Stanley", sourceName: "Morgan Stanley", sectorRating: "overweight", keyReason: "Inference demand inflection doubles semiconductor TAM. Cloud re-acceleration visible in Q4 data.", dateIssued: "2025-01-22" },
+    { source: "Morningstar", sourceName: "Morningstar", sectorRating: "equal_weight", keyReason: "Secular tailwinds are real but valuations have already priced in significant growth. Few bargains remain in quality names.", dateIssued: "2025-01-15" },
+    { source: "Fidelity", sourceName: "Fidelity", sectorRating: "overweight", keyReason: "Productivity gains from AI adoption will disproportionately benefit tech companies with data advantages.", dateIssued: "2025-01-17" },
+    { source: "UBS", sourceName: "UBS", sectorRating: "overweight", keyReason: "Cybersecurity spending acceleration and cloud migration tailwinds remain intact for 2025-2026.", dateIssued: "2025-01-19" },
+  ],
+  overweightCount: 5,
+  equalWeightCount: 1,
+  underweightCount: 0,
+  consensusView: "overweight",
+  topPicks: [
+    mockConsensusLeaderboard.topRated[0], // NVDA
+    mockConsensusLeaderboard.topRated[1], // META
+  ],
+  sectorMetrics: { peRatio: 32.5, ytdReturn: 8.2, dividendYield: 0.85, earningsGrowth: 18.5 },
+  catalysts: [
+    "Q1 mega-cap earnings season (April) — key test for AI revenue growth narratives",
+    "NVIDIA GTC conference — next-gen Blackwell Ultra architecture details expected",
+    "Fed rate cut timeline — lower rates benefit growth stock valuations",
+    "Enterprise AI adoption inflection — several Fortune 500 companies increasing AI budgets 3-5x",
+  ],
+  risks: [
+    "Antitrust regulation in US and EU targeting major tech platforms",
+    "Rising interest rates compress growth multiples if Fed delays cuts",
+    "China tech restrictions could escalate, impacting semiconductor supply chains",
+    "AI spending ROI questions — if enterprises don't see returns, capex could pull back sharply",
+  ],
+};
+
+export const mockSectorConsensusMessage = `Here's the analyst consensus view on the Technology sector — the overwhelming majority of major firms are overweight:
+
+\`\`\`json
+${JSON.stringify({ type: "sector_consensus", sector: mockSectorConsensus })}
+\`\`\`
+
+5 out of 6 major firms rate Technology as overweight, with AI infrastructure spending as the primary driver. Morningstar is the notable holdout — they agree the tailwinds are real but think valuations have gotten ahead of fundamentals. Key catalysts to watch: Q1 earnings season and NVIDIA's GTC conference. Want me to drill into a specific stock or compare this to another sector?`;
+
+/* ── 18. Investment Theme ─────────────────────────────────────────── */
+
+export const mockInvestmentTheme: InvestmentTheme = {
+  id: "ai-infrastructure",
+  themeName: "AI Infrastructure Buildout",
+  description: "The rapid adoption of generative AI is driving unprecedented demand for GPUs, data center capacity, networking equipment, and power infrastructure. This theme captures companies building the physical and digital backbone of the AI revolution — from chip designers to cloud providers to energy suppliers cooling massive data centers.",
+  supportingFirms: [
+    { source: "Goldman Sachs", sourceName: "Goldman Sachs", thesis: "AI capex cycle to reach $200B+ annually by 2027. Infrastructure is the safest way to play the AI trade — picks and shovels always win in a gold rush.", datePublished: "2025-01-10" },
+    { source: "Morgan Stanley", sourceName: "Morgan Stanley", thesis: "Inference demand inflection means the data center buildout is only at 30% of its eventual scale. Power constraints are the next bottleneck — creating opportunities in energy infrastructure.", datePublished: "2025-01-12" },
+    { source: "ARK Invest", sourceName: "ARK Invest", thesis: "AI training costs falling 75% annually while capabilities double. This creates a virtuous cycle of adoption that requires exponentially more infrastructure.", datePublished: "2025-01-08" },
+    { source: "JP Morgan", sourceName: "JP Morgan", thesis: "Enterprise AI adoption is moving from experimentation to production deployment. The infrastructure needed for production workloads is 10-100x what experimentation required.", datePublished: "2025-01-14" },
+  ],
+  relatedStocks: [
+    { ticker: "NVDA", companyName: "NVIDIA Corporation", consensusScore: 91, connection: "Dominant GPU supplier for AI training and inference. CUDA ecosystem creates deep switching costs." },
+    { ticker: "AVGO", companyName: "Broadcom Inc.", consensusScore: 82, connection: "Custom AI accelerator chips (XPUs) for hyperscalers + networking silicon for AI clusters." },
+    { ticker: "ANET", companyName: "Arista Networks", consensusScore: 78, connection: "High-speed networking equipment connecting GPU clusters in AI data centers." },
+    { ticker: "VRT", companyName: "Vertiv Holdings", consensusScore: 75, connection: "Thermal management and power distribution for AI data centers — cooling is the key bottleneck." },
+    { ticker: "EQIX", companyName: "Equinix Inc.", consensusScore: 73, connection: "Largest global data center REIT — AI workloads driving capacity expansion worldwide." },
+  ],
+  timeHorizon: "long_term",
+  riskLevel: "moderate",
+};
+
+export const mockInvestmentThemeMessage = `Here's a deep dive on one of the biggest investment themes right now — the AI Infrastructure buildout:
+
+\`\`\`json
+${JSON.stringify({ type: "investment_theme", theme: mockInvestmentTheme })}
+\`\`\`
+
+This is a "picks and shovels" play — instead of trying to guess which AI application wins, you invest in the infrastructure everyone needs. Goldman, Morgan Stanley, ARK, and JP Morgan all have high-conviction theses here. The risk level is moderate because while demand is undeniable, valuations on some of these names are stretched. Want me to explore another theme like clean energy or GLP-1 healthcare?`;
+
 export const DEMO_MESSAGES: Record<string, { label: string; content: string }> = {
   coupons: { label: "🏷️ Coupons", content: mockCouponResults },
   savings: { label: "📊 Savings Report", content: mockSavingsReport },
@@ -857,4 +1677,12 @@ export const DEMO_MESSAGES: Record<string, { label: string; content: string }> =
   prices: { label: "💲 Price Compare", content: mockPriceComparisonMessage },
   stores: { label: "🏪 Store Rankings", content: mockStoreRankingMessage },
   subs: { label: "📺 Sub Value", content: mockSubscriptionValueMessage },
+  goal: { label: "🎯 Goal Simulator", content: mockGoalSimulationMessage },
+  bills: { label: "📅 Bill Predictor", content: mockBillPredictionMessage },
+  deals: { label: "📍 Local Deals", content: mockLocalDealsMessage },
+  receipt: { label: "🧾 Receipt Analysis", content: mockReceiptAnalysisMessage },
+  leaderboard: { label: "🏆 Consensus Board", content: mockConsensusLeaderboardMessage },
+  stockview: { label: "📊 Stock Consensus", content: mockStockConsensusMessage },
+  sectorview: { label: "🏭 Sector View", content: mockSectorConsensusMessage },
+  theme: { label: "🎯 Invest Theme", content: mockInvestmentThemeMessage },
 };

@@ -14,9 +14,19 @@ import SectorOutlookCard from "./SectorOutlookCard";
 import PriceComparisonCard from "./PriceComparisonCard";
 import StoreRankingCard from "./StoreRankingCard";
 import SubscriptionValueCard from "./SubscriptionValueCard";
+import GoalSimulatorCard from "./GoalSimulatorCard";
+import BillPredictorCard from "./BillPredictorCard";
+import LocalDealCard from "./LocalDealCard";
+import ReceiptAnalysisCard from "./ReceiptAnalysisCard";
+import ConsensusLeaderboardCard from "./ConsensusLeaderboardCard";
+import StockConsensusCard from "./StockConsensusCard";
+import SectorConsensusCard from "./SectorConsensusCard";
+import InvestmentThemeCard from "./InvestmentThemeCard";
 import { useChatStore } from "@/hooks/useChat";
 import type { MarketIntelligenceReport, AnalystInsight, SectorOutlook } from "@/types/market";
 import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
+import type { GoalSimulationResult, BillPrediction, LocalDealReport, AnalyzedReceipt } from "@/types/tools";
+import type { ConsensusLeaderboard, ConsensusRating, SectorConsensus, InvestmentTheme } from "@/types/investment";
 
 /* ── Type guards for each structured block ─────────────────────────── */
 
@@ -83,6 +93,46 @@ interface SubscriptionValueBlock {
   subscriptions: SubscriptionValue[];
 }
 
+interface GoalSimulationBlock {
+  type: "goal_simulation";
+  result: GoalSimulationResult;
+}
+
+interface BillPredictionBlock {
+  type: "bill_prediction";
+  prediction: BillPrediction;
+}
+
+interface LocalDealsBlock {
+  type: "local_deals";
+  report: LocalDealReport;
+}
+
+interface ReceiptAnalysisBlock {
+  type: "receipt_analysis";
+  receipt: AnalyzedReceipt;
+}
+
+interface ConsensusLeaderboardBlock {
+  type: "consensus_leaderboard";
+  leaderboard: ConsensusLeaderboard;
+}
+
+interface StockConsensusBlock {
+  type: "stock_consensus";
+  stock: ConsensusRating;
+}
+
+interface SectorConsensusBlock {
+  type: "sector_consensus";
+  sector: SectorConsensus;
+}
+
+interface InvestmentThemeBlock {
+  type: "investment_theme";
+  theme: InvestmentTheme;
+}
+
 type StructuredBlock =
   | CouponResultsBlock
   | ExpenseInputBlock
@@ -94,7 +144,15 @@ type StructuredBlock =
   | SectorOutlookBlock
   | PriceComparisonBlock
   | StoreRankingBlock
-  | SubscriptionValueBlock;
+  | SubscriptionValueBlock
+  | GoalSimulationBlock
+  | BillPredictionBlock
+  | LocalDealsBlock
+  | ReceiptAnalysisBlock
+  | ConsensusLeaderboardBlock
+  | StockConsensusBlock
+  | SectorConsensusBlock
+  | InvestmentThemeBlock;
 
 const KNOWN_TYPES = new Set([
   "coupon_results",
@@ -108,6 +166,14 @@ const KNOWN_TYPES = new Set([
   "price_comparison",
   "store_ranking",
   "subscription_value",
+  "goal_simulation",
+  "bill_prediction",
+  "local_deals",
+  "receipt_analysis",
+  "consensus_leaderboard",
+  "stock_consensus",
+  "sector_consensus",
+  "investment_theme",
 ]);
 
 /* ── Segment: either plain text or a parsed structured block ───────── */
@@ -305,6 +371,30 @@ export default function StructuredBlockRenderer({ content }: StructuredBlockRend
 
           case "subscription_value":
             return <SubscriptionValueCard key={i} subscriptions={data.subscriptions} />;
+
+          case "goal_simulation":
+            return <GoalSimulatorCard key={i} result={data.result} />;
+
+          case "bill_prediction":
+            return <BillPredictorCard key={i} prediction={data.prediction} />;
+
+          case "local_deals":
+            return <LocalDealCard key={i} report={data.report} />;
+
+          case "receipt_analysis":
+            return <ReceiptAnalysisCard key={i} receipt={data.receipt} />;
+
+          case "consensus_leaderboard":
+            return <ConsensusLeaderboardCard key={i} leaderboard={data.leaderboard} />;
+
+          case "stock_consensus":
+            return <StockConsensusCard key={i} stock={data.stock} />;
+
+          case "sector_consensus":
+            return <SectorConsensusCard key={i} sector={data.sector} />;
+
+          case "investment_theme":
+            return <InvestmentThemeCard key={i} theme={data.theme} />;
 
           default:
             return null;
