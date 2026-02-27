@@ -1,0 +1,148 @@
+{
+  "source": "USDA, Census Bureau, BLS, NerdWallet, Bankrate, Investopedia",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+  "events": {
+    "having_a_baby": {
+      "upfrontCosts": {
+        "birthWithInsurance": { "low": 2000, "mid": 5000, "high": 15000, "note": "Vaginal delivery with insurance. C-section adds $5K-10K" },
+        "babyGearFirstYear": { "low": 1500, "mid": 4000, "high": 10000, "note": "Crib, car seat, stroller, clothes, diapers setup" },
+        "nurserySetup": { "low": 500, "mid": 2000, "high": 8000, "note": "Furniture, decor, safety items" }
+      },
+      "ongoingMonthlyCosts": {
+        "diapers": { "low": 50, "mid": 80, "high": 120, "duration": "30 months" },
+        "formula": { "low": 0, "mid": 100, "high": 200, "note": "$0 if breastfeeding" },
+        "childcare": { "low": 800, "mid": 1500, "high": 3000, "note": "Varies enormously by location. Highest in NE and West Coast" },
+        "food": { "low": 100, "mid": 200, "high": 350, "note": "After 6 months when solids start" },
+        "clothing": { "low": 30, "mid": 60, "high": 120, "note": "Kids grow fast — buy secondhand" },
+        "healthcare": { "low": 50, "mid": 150, "high": 300, "note": "Additional insurance premium + copays" },
+        "miscellaneous": { "low": 50, "mid": 100, "high": 250, "note": "Toys, books, activities" }
+      },
+      "annualCostUSDA": { "low": 15000, "mid": 18000, "high": 25000, "note": "USDA estimates $18,271/year average for middle-income families" },
+      "taxBenefits": {
+        "childTaxCredit": 2000,
+        "dependentCareFSA": 5000,
+        "additionalExemptions": "Varies by state"
+      },
+      "insuranceImpact": {
+        "healthPremiumIncrease": { "low": 100, "mid": 250, "high": 500 },
+        "lifeInsuranceRecommended": true
+      }
+    },
+    "buying_a_home": {
+      "upfrontCosts": {
+        "downPayment3pct": { "formula": "homePrice * 0.03", "note": "FHA minimum. Requires PMI." },
+        "downPayment20pct": { "formula": "homePrice * 0.20", "note": "Avoids PMI. Standard conventional." },
+        "closingCosts": { "formula": "homePrice * 0.03", "low": 5000, "high": 25000, "note": "2-5% of purchase price" },
+        "homeInspection": { "low": 300, "mid": 500, "high": 800 },
+        "appraisal": { "low": 300, "mid": 450, "high": 700 },
+        "movingCosts": { "low": 1500, "mid": 4500, "high": 12000, "note": "Local vs long distance" },
+        "initialRepairs": { "low": 0, "mid": 3000, "high": 15000, "note": "Things you want to fix before moving in" }
+      },
+      "ongoingMonthlyCosts": {
+        "mortgagePayment": { "formula": "standard amortization based on price, down payment, rate, term", "note": "Use current 30-year rate" },
+        "propertyTax": { "formula": "homePrice * localTaxRate / 12", "nationalAvgRate": 1.1, "note": "1.1% national avg, varies 0.3% (Hawaii) to 2.2% (New Jersey)" },
+        "homeInsurance": { "low": 100, "mid": 175, "high": 350, "note": "Varies by location, coverage, home value" },
+        "pmi": { "formula": "loanAmount * 0.005 / 12", "note": "Only if down payment < 20%. Typically 0.5-1% of loan annually" },
+        "maintenance": { "formula": "homePrice * 0.01 / 12", "note": "Budget 1-2% of home value per year for maintenance" },
+        "hoa": { "low": 0, "mid": 250, "high": 600, "note": "Not all homes have HOA. Condos almost always do." },
+        "utilities": { "low": 150, "mid": 250, "high": 450, "note": "Often higher than apartment due to more space" }
+      },
+      "taxBenefits": {
+        "mortgageInterestDeduction": "Deduct interest on first $750K of mortgage debt",
+        "propertyTaxDeduction": "Deduct up to $10,000 in state/local taxes (SALT cap)",
+        "capitalGainsExclusion": "Exclude $250K ($500K married) in gains when selling after 2+ years"
+      }
+    },
+    "moving_cities": {
+      "upfrontCosts": {
+        "movingCompany": { "low": 1500, "mid": 4500, "high": 12000, "note": "Local ~$1,500, cross-country ~$4,500-12,000" },
+        "securityDeposit": { "formula": "newRent * 2", "note": "First + last month + security. May overlap with old lease." },
+        "leaseBreakFee": { "low": 0, "mid": 1500, "high": 5000, "note": "Typically 1-2 months rent if breaking early" },
+        "travelCosts": { "low": 200, "mid": 1000, "high": 3000, "note": "Apartment hunting trips, gas/flights" },
+        "temporaryHousing": { "low": 0, "mid": 2000, "high": 6000, "note": "If you need a hotel/Airbnb while finding housing" }
+      },
+      "ongoingImpacts": {
+        "rentDifference": "Based on cost-of-living index comparison",
+        "stateTaxDifference": "Compare state income tax rates",
+        "groceryDifference": "Based on cost-of-living grocery index",
+        "transportationDifference": "Car costs vary by city (insurance, gas, parking)",
+        "salaryAdjustment": "Employers often adjust salary for cost of living"
+      }
+    },
+    "getting_married": {
+      "upfrontCosts": {
+        "averageWedding": { "low": 5000, "mid": 30000, "high": 80000, "note": "National average ~$30K. Courthouse: $100-500" },
+        "honeymoon": { "low": 1000, "mid": 5000, "high": 15000 },
+        "rings": { "low": 500, "mid": 3000, "high": 10000 }
+      },
+      "ongoingImpacts": {
+        "combinedIncome": "Dual income household — often significant increase",
+        "sharedExpenses": "Housing, utilities, insurance split = lower per-person cost",
+        "taxImpact": "Marriage can increase or decrease taxes depending on income disparity",
+        "insuranceSavings": "Combined auto, health, and home insurance often cheaper",
+        "estatePlanning": "Need updated beneficiaries, wills, possibly trusts"
+      }
+    },
+    "career_change": {
+      "upfrontCosts": {
+        "education": { "low": 0, "mid": 5000, "high": 50000, "note": "Certifications, bootcamps, degrees" },
+        "incomeGap": { "low": 0, "mid": 5000, "high": 30000, "note": "Lost income during transition. Budget 3-6 months." },
+        "networking": { "low": 0, "mid": 500, "high": 2000, "note": "Conferences, memberships, events" }
+      },
+      "ongoingImpacts": {
+        "salaryChange": "Research median salary in new field vs current",
+        "benefitsChange": "401k match, health insurance, PTO may differ significantly",
+        "growthTrajectory": "New field may have faster or slower salary growth curve",
+        "satisfaction": "Career satisfaction affects spending patterns (less retail therapy, fewer stress purchases)"
+      }
+    },
+    "starting_a_business": {
+      "upfrontCosts": {
+        "llcFormation": { "low": 50, "mid": 500, "high": 2000, "note": "State filing fees + legal help" },
+        "equipment": { "low": 500, "mid": 5000, "high": 50000, "note": "Depends entirely on business type" },
+        "initialInventory": { "low": 0, "mid": 5000, "high": 50000, "note": "Service businesses: $0. Product businesses: significant." },
+        "marketing": { "low": 200, "mid": 2000, "high": 10000, "note": "Website, branding, initial advertising" },
+        "insurance": { "low": 500, "mid": 2000, "high": 5000, "note": "Annual. General liability, professional liability" }
+      },
+      "ongoingImpacts": {
+        "selfEmploymentTax": 15.3,
+        "healthInsurance": { "low": 300, "mid": 500, "high": 1200, "note": "Must purchase individually. ACA marketplace or private." },
+        "retirementContributions": "No employer match. Must self-fund SEP IRA or Solo 401k.",
+        "incomeVariability": "Income becomes unpredictable. Budget based on worst-case months.",
+        "taxDeductions": "Business expenses are tax deductible: home office, equipment, travel, meals (50%)"
+      },
+      "recommendations": {
+        "emergencyFund": "Have 6-12 months personal expenses saved before starting",
+        "keepDayJob": "Consider starting as a side business first",
+        "separateAccounts": "Business and personal finances must be completely separate"
+      }
+    },
+    "retirement": {
+      "incomeReplacement": {
+        "socialSecurity": {
+          "averageMonthly": 1900,
+          "earlyAt62": "Permanently reduced ~30%",
+          "fullRetirementAge": "67 for anyone born after 1960",
+          "delayedAt70": "Increased ~24% above full retirement amount",
+          "maxAt70": 4873
+        },
+        "fourPercentRule": "Withdraw 4% of portfolio annually for ~30-year retirement",
+        "requiredMinimumDistributions": "Must start withdrawing from 401k/Traditional IRA at age 73"
+      },
+      "expenses": {
+        "healthcareBefore65": { "low": 500, "mid": 1000, "high": 2000, "note": "No Medicare until 65. ACA marketplace or COBRA." },
+        "medicareAfter65": { "low": 175, "mid": 350, "high": 600, "note": "Part B + Part D + Supplement/Advantage" },
+        "longTermCare": { "annualAvgNursingHome": 108400, "annualAvgAssistedLiving": 54000, "note": "50% of people over 65 will need some form" },
+        "generalExpenses": "Typically 70-80% of pre-retirement expenses. Travel may increase, commuting drops."
+      },
+      "savingsGuidelines": {
+        "by30": "1x annual salary saved",
+        "by40": "3x annual salary saved",
+        "by50": "6x annual salary saved",
+        "by60": "8x annual salary saved",
+        "by67": "10x annual salary saved"
+      }
+    }
+  }
+}

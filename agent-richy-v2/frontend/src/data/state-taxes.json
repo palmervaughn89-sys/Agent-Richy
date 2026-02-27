@@ -1,0 +1,673 @@
+{
+  "source": "Tax Foundation, state tax authority websites",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+  "federalBrackets2026": [
+    { "min": 0, "max": 11600, "rate": 10 },
+    { "min": 11601, "max": 47150, "rate": 12 },
+    { "min": 47151, "max": 100525, "rate": 22 },
+    { "min": 100526, "max": 191950, "rate": 24 },
+    { "min": 191951, "max": 243725, "rate": 32 },
+    { "min": 243726, "max": 609350, "rate": 35 },
+    { "min": 609351, "max": null, "rate": 37 }
+  ],
+  "standardDeduction2026": {
+    "single": 15000,
+    "marriedFilingJointly": 30000,
+    "headOfHousehold": 22500
+  },
+  "states": [
+    {
+      "state": "Alabama",
+      "abbrev": "AL",
+      "type": "graduated",
+      "topRate": 5.0,
+      "brackets": [
+        { "min": 0, "max": 500, "rate": 2 },
+        { "min": 501, "max": 3000, "rate": 4 },
+        { "min": 3001, "max": null, "rate": 5 }
+      ],
+      "standardDeduction": 2500,
+      "notes": "Allows federal tax deduction"
+    },
+    {
+      "state": "Alaska",
+      "abbrev": "AK",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax. Also pays PFD (Permanent Fund Dividend) ~$1,300/year"
+    },
+    {
+      "state": "Arizona",
+      "abbrev": "AZ",
+      "type": "flat",
+      "topRate": 2.5,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 2.5 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "Flat tax as of 2023"
+    },
+    {
+      "state": "Arkansas",
+      "abbrev": "AR",
+      "type": "graduated",
+      "topRate": 3.9,
+      "brackets": [
+        { "min": 0, "max": 5100, "rate": 0 },
+        { "min": 5101, "max": 10300, "rate": 2 },
+        { "min": 10301, "max": 15500, "rate": 3 },
+        { "min": 15501, "max": 24700, "rate": 3.4 },
+        { "min": 24701, "max": null, "rate": 3.9 }
+      ],
+      "standardDeduction": 2340,
+      "notes": ""
+    },
+    {
+      "state": "California",
+      "abbrev": "CA",
+      "type": "graduated",
+      "topRate": 13.3,
+      "brackets": [
+        { "min": 0, "max": 10412, "rate": 1 },
+        { "min": 10413, "max": 24684, "rate": 2 },
+        { "min": 24685, "max": 38959, "rate": 4 },
+        { "min": 38960, "max": 54081, "rate": 6 },
+        { "min": 54082, "max": 68350, "rate": 8 },
+        { "min": 68351, "max": 349137, "rate": 9.3 },
+        { "min": 349138, "max": 418961, "rate": 10.3 },
+        { "min": 418962, "max": 698271, "rate": 11.3 },
+        { "min": 698272, "max": 1000000, "rate": 12.3 },
+        { "min": 1000001, "max": null, "rate": 13.3 }
+      ],
+      "standardDeduction": 5540,
+      "notes": "Highest state income tax in the US. Mental health surcharge above $1M."
+    },
+    {
+      "state": "Colorado",
+      "abbrev": "CO",
+      "type": "flat",
+      "topRate": 4.4,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 4.4 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "Uses federal AGI as starting point"
+    },
+    {
+      "state": "Connecticut",
+      "abbrev": "CT",
+      "type": "graduated",
+      "topRate": 6.99,
+      "brackets": [
+        { "min": 0, "max": 10000, "rate": 3 },
+        { "min": 10001, "max": 50000, "rate": 5 },
+        { "min": 50001, "max": 100000, "rate": 5.5 },
+        { "min": 100001, "max": 200000, "rate": 6 },
+        { "min": 200001, "max": 250000, "rate": 6.5 },
+        { "min": 250001, "max": 500000, "rate": 6.9 },
+        { "min": 500001, "max": null, "rate": 6.99 }
+      ],
+      "standardDeduction": 0,
+      "notes": "No standard deduction, uses personal exemptions"
+    },
+    {
+      "state": "Delaware",
+      "abbrev": "DE",
+      "type": "graduated",
+      "topRate": 6.6,
+      "brackets": [
+        { "min": 0, "max": 2000, "rate": 0 },
+        { "min": 2001, "max": 5000, "rate": 2.2 },
+        { "min": 5001, "max": 10000, "rate": 3.9 },
+        { "min": 10001, "max": 20000, "rate": 4.8 },
+        { "min": 20001, "max": 25000, "rate": 5.2 },
+        { "min": 25001, "max": 60000, "rate": 5.55 },
+        { "min": 60001, "max": null, "rate": 6.6 }
+      ],
+      "standardDeduction": 3250,
+      "notes": "No sales tax"
+    },
+    {
+      "state": "Florida",
+      "abbrev": "FL",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax. Major draw for high earners."
+    },
+    {
+      "state": "Georgia",
+      "abbrev": "GA",
+      "type": "flat",
+      "topRate": 5.39,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 5.39 }
+      ],
+      "standardDeduction": 12000,
+      "notes": "Transitioning to flat tax, rate decreasing annually"
+    },
+    {
+      "state": "Hawaii",
+      "abbrev": "HI",
+      "type": "graduated",
+      "topRate": 11.0,
+      "brackets": [
+        { "min": 0, "max": 2400, "rate": 1.4 },
+        { "min": 2401, "max": 4800, "rate": 3.2 },
+        { "min": 4801, "max": null, "rate": 11.0 }
+      ],
+      "standardDeduction": 2200,
+      "notes": "Second highest top rate after California"
+    },
+    {
+      "state": "Idaho",
+      "abbrev": "ID",
+      "type": "flat",
+      "topRate": 5.695,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 5.695 }
+      ],
+      "standardDeduction": 14600,
+      "notes": ""
+    },
+    {
+      "state": "Illinois",
+      "abbrev": "IL",
+      "type": "flat",
+      "topRate": 4.95,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 4.95 }
+      ],
+      "standardDeduction": 0,
+      "notes": "Flat rate, uses personal exemptions. High property taxes."
+    },
+    {
+      "state": "Indiana",
+      "abbrev": "IN",
+      "type": "flat",
+      "topRate": 3.05,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 3.05 }
+      ],
+      "standardDeduction": 0,
+      "notes": "Counties add 0.5-3% on top"
+    },
+    {
+      "state": "Iowa",
+      "abbrev": "IA",
+      "type": "flat",
+      "topRate": 3.8,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 3.8 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "Transitioning to flat tax"
+    },
+    {
+      "state": "Kansas",
+      "abbrev": "KS",
+      "type": "graduated",
+      "topRate": 5.7,
+      "brackets": [
+        { "min": 0, "max": 15000, "rate": 3.1 },
+        { "min": 15001, "max": 30000, "rate": 5.25 },
+        { "min": 30001, "max": null, "rate": 5.7 }
+      ],
+      "standardDeduction": 3500,
+      "notes": ""
+    },
+    {
+      "state": "Kentucky",
+      "abbrev": "KY",
+      "type": "flat",
+      "topRate": 4.0,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 4.0 }
+      ],
+      "standardDeduction": 3160,
+      "notes": ""
+    },
+    {
+      "state": "Louisiana",
+      "abbrev": "LA",
+      "type": "flat",
+      "topRate": 3.0,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 3.0 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "Recently moved to flat tax"
+    },
+    {
+      "state": "Maine",
+      "abbrev": "ME",
+      "type": "graduated",
+      "topRate": 7.15,
+      "brackets": [
+        { "min": 0, "max": 26050, "rate": 5.8 },
+        { "min": 26051, "max": 61600, "rate": 6.75 },
+        { "min": 61601, "max": null, "rate": 7.15 }
+      ],
+      "standardDeduction": 14600,
+      "notes": ""
+    },
+    {
+      "state": "Maryland",
+      "abbrev": "MD",
+      "type": "graduated",
+      "topRate": 5.75,
+      "brackets": [
+        { "min": 0, "max": 1000, "rate": 2 },
+        { "min": 1001, "max": 2000, "rate": 3 },
+        { "min": 2001, "max": 3000, "rate": 4 },
+        { "min": 3001, "max": 100000, "rate": 4.75 },
+        { "min": 100001, "max": 125000, "rate": 5 },
+        { "min": 125001, "max": 150000, "rate": 5.25 },
+        { "min": 150001, "max": 250000, "rate": 5.5 },
+        { "min": 250001, "max": null, "rate": 5.75 }
+      ],
+      "standardDeduction": 2550,
+      "notes": "Counties add 2.25-3.2% on top"
+    },
+    {
+      "state": "Massachusetts",
+      "abbrev": "MA",
+      "type": "flat",
+      "topRate": 5.0,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 5.0 }
+      ],
+      "standardDeduction": 0,
+      "notes": "4% millionaire surtax on income over $1M"
+    },
+    {
+      "state": "Michigan",
+      "abbrev": "MI",
+      "type": "flat",
+      "topRate": 4.05,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 4.05 }
+      ],
+      "standardDeduction": 0,
+      "notes": "Some cities add local income tax (Detroit 2.4%)"
+    },
+    {
+      "state": "Minnesota",
+      "abbrev": "MN",
+      "type": "graduated",
+      "topRate": 9.85,
+      "brackets": [
+        { "min": 0, "max": 31690, "rate": 5.35 },
+        { "min": 31691, "max": 104090, "rate": 6.8 },
+        { "min": 104091, "max": 183340, "rate": 7.85 },
+        { "min": 183341, "max": null, "rate": 9.85 }
+      ],
+      "standardDeduction": 14575,
+      "notes": ""
+    },
+    {
+      "state": "Mississippi",
+      "abbrev": "MS",
+      "type": "flat",
+      "topRate": 4.7,
+      "brackets": [
+        { "min": 0, "max": 10000, "rate": 0 },
+        { "min": 10001, "max": null, "rate": 4.7 }
+      ],
+      "standardDeduction": 2300,
+      "notes": "First $10K exempt"
+    },
+    {
+      "state": "Missouri",
+      "abbrev": "MO",
+      "type": "graduated",
+      "topRate": 4.8,
+      "brackets": [
+        { "min": 0, "max": 1207, "rate": 0 },
+        { "min": 1208, "max": 2414, "rate": 2 },
+        { "min": 2415, "max": 3621, "rate": 2.5 },
+        { "min": 3622, "max": 4828, "rate": 3 },
+        { "min": 4829, "max": 6035, "rate": 3.5 },
+        { "min": 6036, "max": 7242, "rate": 4 },
+        { "min": 7243, "max": 8449, "rate": 4.5 },
+        { "min": 8450, "max": null, "rate": 4.8 }
+      ],
+      "standardDeduction": 14600,
+      "notes": ""
+    },
+    {
+      "state": "Montana",
+      "abbrev": "MT",
+      "type": "graduated",
+      "topRate": 5.9,
+      "brackets": [
+        { "min": 0, "max": 20500, "rate": 4.7 },
+        { "min": 20501, "max": null, "rate": 5.9 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "No sales tax"
+    },
+    {
+      "state": "Nebraska",
+      "abbrev": "NE",
+      "type": "graduated",
+      "topRate": 5.84,
+      "brackets": [
+        { "min": 0, "max": 3700, "rate": 2.46 },
+        { "min": 3701, "max": 22170, "rate": 3.51 },
+        { "min": 22171, "max": 35730, "rate": 5.01 },
+        { "min": 35731, "max": null, "rate": 5.84 }
+      ],
+      "standardDeduction": 8550,
+      "notes": ""
+    },
+    {
+      "state": "Nevada",
+      "abbrev": "NV",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax"
+    },
+    {
+      "state": "New Hampshire",
+      "abbrev": "NH",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No income tax as of 2025 (interest/dividends tax phased out)"
+    },
+    {
+      "state": "New Jersey",
+      "abbrev": "NJ",
+      "type": "graduated",
+      "topRate": 10.75,
+      "brackets": [
+        { "min": 0, "max": 20000, "rate": 1.4 },
+        { "min": 20001, "max": 35000, "rate": 1.75 },
+        { "min": 35001, "max": 40000, "rate": 3.5 },
+        { "min": 40001, "max": 75000, "rate": 5.525 },
+        { "min": 75001, "max": 500000, "rate": 6.37 },
+        { "min": 500001, "max": 1000000, "rate": 10.75 },
+        { "min": 1000001, "max": null, "rate": 10.75 }
+      ],
+      "standardDeduction": 0,
+      "notes": "High property taxes on top"
+    },
+    {
+      "state": "New Mexico",
+      "abbrev": "NM",
+      "type": "graduated",
+      "topRate": 5.9,
+      "brackets": [
+        { "min": 0, "max": 5500, "rate": 1.7 },
+        { "min": 5501, "max": 11000, "rate": 3.2 },
+        { "min": 11001, "max": 16000, "rate": 4.7 },
+        { "min": 16001, "max": 210000, "rate": 4.9 },
+        { "min": 210001, "max": null, "rate": 5.9 }
+      ],
+      "standardDeduction": 14600,
+      "notes": ""
+    },
+    {
+      "state": "New York",
+      "abbrev": "NY",
+      "type": "graduated",
+      "topRate": 10.9,
+      "brackets": [
+        { "min": 0, "max": 8500, "rate": 4 },
+        { "min": 8501, "max": 11700, "rate": 4.5 },
+        { "min": 11701, "max": 13900, "rate": 5.25 },
+        { "min": 13901, "max": 80650, "rate": 5.5 },
+        { "min": 80651, "max": 215400, "rate": 6 },
+        { "min": 215401, "max": 1077550, "rate": 6.85 },
+        { "min": 1077551, "max": 5000000, "rate": 9.65 },
+        { "min": 5000001, "max": 25000000, "rate": 10.3 },
+        { "min": 25000001, "max": null, "rate": 10.9 }
+      ],
+      "standardDeduction": 8000,
+      "notes": "NYC adds 3.078-3.876% on top"
+    },
+    {
+      "state": "North Carolina",
+      "abbrev": "NC",
+      "type": "flat",
+      "topRate": 4.5,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 4.5 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "Rate decreasing annually"
+    },
+    {
+      "state": "North Dakota",
+      "abbrev": "ND",
+      "type": "flat",
+      "topRate": 1.95,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 1.95 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "One of the lowest rates"
+    },
+    {
+      "state": "Ohio",
+      "abbrev": "OH",
+      "type": "graduated",
+      "topRate": 3.5,
+      "brackets": [
+        { "min": 0, "max": 26050, "rate": 0 },
+        { "min": 26051, "max": 100000, "rate": 2.75 },
+        { "min": 100001, "max": null, "rate": 3.5 }
+      ],
+      "standardDeduction": 0,
+      "notes": "First $26K exempt. Some cities add local tax (Columbus 2.5%)"
+    },
+    {
+      "state": "Oklahoma",
+      "abbrev": "OK",
+      "type": "graduated",
+      "topRate": 4.75,
+      "brackets": [
+        { "min": 0, "max": 1000, "rate": 0.25 },
+        { "min": 1001, "max": 2500, "rate": 0.75 },
+        { "min": 2501, "max": 3750, "rate": 1.75 },
+        { "min": 3751, "max": 4900, "rate": 2.75 },
+        { "min": 4901, "max": 7200, "rate": 3.75 },
+        { "min": 7201, "max": null, "rate": 4.75 }
+      ],
+      "standardDeduction": 7350,
+      "notes": ""
+    },
+    {
+      "state": "Oregon",
+      "abbrev": "OR",
+      "type": "graduated",
+      "topRate": 9.9,
+      "brackets": [
+        { "min": 0, "max": 4300, "rate": 4.75 },
+        { "min": 4301, "max": 10750, "rate": 6.75 },
+        { "min": 10751, "max": 125000, "rate": 8.75 },
+        { "min": 125001, "max": null, "rate": 9.9 }
+      ],
+      "standardDeduction": 2745,
+      "notes": "No sales tax. High income tax compensates."
+    },
+    {
+      "state": "Pennsylvania",
+      "abbrev": "PA",
+      "type": "flat",
+      "topRate": 3.07,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 3.07 }
+      ],
+      "standardDeduction": 0,
+      "notes": "Low flat rate. Philadelphia adds 3.75% local."
+    },
+    {
+      "state": "Rhode Island",
+      "abbrev": "RI",
+      "type": "graduated",
+      "topRate": 5.99,
+      "brackets": [
+        { "min": 0, "max": 77450, "rate": 3.75 },
+        { "min": 77451, "max": 176050, "rate": 4.75 },
+        { "min": 176051, "max": null, "rate": 5.99 }
+      ],
+      "standardDeduction": 10550,
+      "notes": ""
+    },
+    {
+      "state": "South Carolina",
+      "abbrev": "SC",
+      "type": "graduated",
+      "topRate": 6.2,
+      "brackets": [
+        { "min": 0, "max": 3460, "rate": 0 },
+        { "min": 3461, "max": 17330, "rate": 3 },
+        { "min": 17331, "max": null, "rate": 6.2 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "Rate decreasing"
+    },
+    {
+      "state": "South Dakota",
+      "abbrev": "SD",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax"
+    },
+    {
+      "state": "Tennessee",
+      "abbrev": "TN",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax. Hall Tax on investment income eliminated 2021."
+    },
+    {
+      "state": "Texas",
+      "abbrev": "TX",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax. Higher property taxes compensate."
+    },
+    {
+      "state": "Utah",
+      "abbrev": "UT",
+      "type": "flat",
+      "topRate": 4.55,
+      "brackets": [
+        { "min": 0, "max": null, "rate": 4.55 }
+      ],
+      "standardDeduction": 0,
+      "notes": "Taxpayer tax credit effectively creates 0% on first ~$16K"
+    },
+    {
+      "state": "Vermont",
+      "abbrev": "VT",
+      "type": "graduated",
+      "topRate": 8.75,
+      "brackets": [
+        { "min": 0, "max": 45400, "rate": 3.35 },
+        { "min": 45401, "max": 110050, "rate": 6.6 },
+        { "min": 110051, "max": 229550, "rate": 7.6 },
+        { "min": 229551, "max": null, "rate": 8.75 }
+      ],
+      "standardDeduction": 14600,
+      "notes": ""
+    },
+    {
+      "state": "Virginia",
+      "abbrev": "VA",
+      "type": "graduated",
+      "topRate": 5.75,
+      "brackets": [
+        { "min": 0, "max": 3000, "rate": 2 },
+        { "min": 3001, "max": 5000, "rate": 3 },
+        { "min": 5001, "max": 17000, "rate": 5 },
+        { "min": 17001, "max": null, "rate": 5.75 }
+      ],
+      "standardDeduction": 8000,
+      "notes": ""
+    },
+    {
+      "state": "Washington",
+      "abbrev": "WA",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax. 7% capital gains tax on gains over $270K. High sales tax."
+    },
+    {
+      "state": "West Virginia",
+      "abbrev": "WV",
+      "type": "graduated",
+      "topRate": 5.12,
+      "brackets": [
+        { "min": 0, "max": 10000, "rate": 2.36 },
+        { "min": 10001, "max": 25000, "rate": 3.15 },
+        { "min": 25001, "max": 40000, "rate": 3.54 },
+        { "min": 40001, "max": 60000, "rate": 4.72 },
+        { "min": 60001, "max": null, "rate": 5.12 }
+      ],
+      "standardDeduction": 0,
+      "notes": "Rate reducing"
+    },
+    {
+      "state": "Wisconsin",
+      "abbrev": "WI",
+      "type": "graduated",
+      "topRate": 7.65,
+      "brackets": [
+        { "min": 0, "max": 14320, "rate": 3.5 },
+        { "min": 14321, "max": 28640, "rate": 4.4 },
+        { "min": 28641, "max": 315310, "rate": 5.3 },
+        { "min": 315311, "max": null, "rate": 7.65 }
+      ],
+      "standardDeduction": 13230,
+      "notes": ""
+    },
+    {
+      "state": "Wyoming",
+      "abbrev": "WY",
+      "type": "none",
+      "topRate": 0,
+      "brackets": [],
+      "standardDeduction": 0,
+      "notes": "No state income tax"
+    },
+    {
+      "state": "District of Columbia",
+      "abbrev": "DC",
+      "type": "graduated",
+      "topRate": 10.75,
+      "brackets": [
+        { "min": 0, "max": 10000, "rate": 4 },
+        { "min": 10001, "max": 40000, "rate": 6 },
+        { "min": 40001, "max": 60000, "rate": 6.5 },
+        { "min": 60001, "max": 250000, "rate": 8.5 },
+        { "min": 250001, "max": 500000, "rate": 9.25 },
+        { "min": 500001, "max": 1000000, "rate": 9.75 },
+        { "min": 1000001, "max": null, "rate": 10.75 }
+      ],
+      "standardDeduction": 14600,
+      "notes": "No statehood but full income tax"
+    }
+  ],
+  "noIncomeTaxStates": ["AK", "FL", "NV", "NH", "SD", "TN", "TX", "WA", "WY"],
+  "lowestTaxStates": ["ND", "PA", "IN", "AZ", "LA"],
+  "highestTaxStates": ["CA", "HI", "NY", "NJ", "OR", "MN"]
+}

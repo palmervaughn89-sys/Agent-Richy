@@ -1,0 +1,549 @@
+{
+  "source": "Bureau of Economic Analysis Regional Price Parities, Bureau of Labor Statistics CPI",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+  "methodology": "National average = 100. Component indexes are relative to national average for that category.",
+  "nationalAverage": 100,
+  "cities": [
+    {
+      "city": "New York City",
+      "state": "NY",
+      "zipPrefix": ["100", "101", "102", "103", "104", "110", "111", "112", "113", "114", "116"],
+      "index": 187,
+      "components": {
+        "housing": 240,
+        "groceries": 116,
+        "transportation": 130,
+        "healthcare": 110,
+        "utilities": 105,
+        "miscellaneous": 115
+      },
+      "medianRent1BR": 3200,
+      "medianRent2BR": 4100,
+      "medianHomePrice": 680000,
+      "medianHouseholdIncome": 75000
+    },
+    {
+      "city": "San Francisco",
+      "state": "CA",
+      "zipPrefix": ["941"],
+      "index": 182,
+      "components": {
+        "housing": 268,
+        "groceries": 112,
+        "transportation": 125,
+        "healthcare": 115,
+        "utilities": 90,
+        "miscellaneous": 112
+      },
+      "medianRent1BR": 3000,
+      "medianRent2BR": 3900,
+      "medianHomePrice": 1250000,
+      "medianHouseholdIncome": 112000
+    },
+    {
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipPrefix": ["900", "901", "902", "903", "904", "905", "906", "907", "908", "910", "911", "912", "913", "914", "915", "916", "917", "918"],
+      "index": 166,
+      "components": {
+        "housing": 228,
+        "groceries": 108,
+        "transportation": 130,
+        "healthcare": 112,
+        "utilities": 95,
+        "miscellaneous": 108
+      },
+      "medianRent1BR": 2400,
+      "medianRent2BR": 3100,
+      "medianHomePrice": 850000,
+      "medianHouseholdIncome": 72000
+    },
+    {
+      "city": "Seattle",
+      "state": "WA",
+      "zipPrefix": ["981"],
+      "index": 149,
+      "components": {
+        "housing": 195,
+        "groceries": 110,
+        "transportation": 120,
+        "healthcare": 112,
+        "utilities": 85,
+        "miscellaneous": 108
+      },
+      "medianRent1BR": 2200,
+      "medianRent2BR": 2800,
+      "medianHomePrice": 780000,
+      "medianHouseholdIncome": 105000
+    },
+    {
+      "city": "Boston",
+      "state": "MA",
+      "zipPrefix": ["021"],
+      "index": 152,
+      "components": {
+        "housing": 195,
+        "groceries": 108,
+        "transportation": 115,
+        "healthcare": 120,
+        "utilities": 115,
+        "miscellaneous": 110
+      },
+      "medianRent1BR": 2600,
+      "medianRent2BR": 3200,
+      "medianHomePrice": 650000,
+      "medianHouseholdIncome": 82000
+    },
+    {
+      "city": "Washington DC",
+      "state": "DC",
+      "zipPrefix": ["200"],
+      "index": 149,
+      "components": {
+        "housing": 190,
+        "groceries": 105,
+        "transportation": 115,
+        "healthcare": 108,
+        "utilities": 100,
+        "miscellaneous": 108
+      },
+      "medianRent1BR": 2300,
+      "medianRent2BR": 2900,
+      "medianHomePrice": 580000,
+      "medianHouseholdIncome": 90000
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "zipPrefix": ["331", "332", "333"],
+      "index": 127,
+      "components": {
+        "housing": 155,
+        "groceries": 105,
+        "transportation": 112,
+        "healthcare": 108,
+        "utilities": 95,
+        "miscellaneous": 105
+      },
+      "medianRent1BR": 2100,
+      "medianRent2BR": 2700,
+      "medianHomePrice": 480000,
+      "medianHouseholdIncome": 58000
+    },
+    {
+      "city": "Denver",
+      "state": "CO",
+      "zipPrefix": ["802"],
+      "index": 128,
+      "components": {
+        "housing": 155,
+        "groceries": 102,
+        "transportation": 105,
+        "healthcare": 108,
+        "utilities": 90,
+        "miscellaneous": 105
+      },
+      "medianRent1BR": 1800,
+      "medianRent2BR": 2300,
+      "medianHomePrice": 550000,
+      "medianHouseholdIncome": 82000
+    },
+    {
+      "city": "Austin",
+      "state": "TX",
+      "zipPrefix": ["787"],
+      "index": 111,
+      "components": {
+        "housing": 120,
+        "groceries": 97,
+        "transportation": 102,
+        "healthcare": 98,
+        "utilities": 100,
+        "miscellaneous": 100
+      },
+      "medianRent1BR": 1500,
+      "medianRent2BR": 1900,
+      "medianHomePrice": 420000,
+      "medianHouseholdIncome": 78000
+    },
+    {
+      "city": "Dallas",
+      "state": "TX",
+      "zipPrefix": ["750", "751", "752"],
+      "index": 104,
+      "components": {
+        "housing": 98,
+        "groceries": 96,
+        "transportation": 100,
+        "healthcare": 102,
+        "utilities": 105,
+        "miscellaneous": 100
+      },
+      "medianRent1BR": 1350,
+      "medianRent2BR": 1750,
+      "medianHomePrice": 350000,
+      "medianHouseholdIncome": 68000
+    },
+    {
+      "city": "Houston",
+      "state": "TX",
+      "zipPrefix": ["770", "771", "772", "773", "774", "775"],
+      "index": 103,
+      "components": {
+        "housing": 95,
+        "groceries": 94,
+        "transportation": 100,
+        "healthcare": 100,
+        "utilities": 108,
+        "miscellaneous": 98
+      },
+      "medianRent1BR": 1250,
+      "medianRent2BR": 1600,
+      "medianHomePrice": 310000,
+      "medianHouseholdIncome": 62000
+    },
+    {
+      "city": "Atlanta",
+      "state": "GA",
+      "zipPrefix": ["303", "300", "301"],
+      "index": 107,
+      "components": {
+        "housing": 105,
+        "groceries": 100,
+        "transportation": 105,
+        "healthcare": 105,
+        "utilities": 95,
+        "miscellaneous": 102
+      },
+      "medianRent1BR": 1600,
+      "medianRent2BR": 2000,
+      "medianHomePrice": 380000,
+      "medianHouseholdIncome": 68000
+    },
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "zipPrefix": ["606", "607", "608"],
+      "index": 117,
+      "components": {
+        "housing": 120,
+        "groceries": 104,
+        "transportation": 115,
+        "healthcare": 108,
+        "utilities": 100,
+        "miscellaneous": 105
+      },
+      "medianRent1BR": 1800,
+      "medianRent2BR": 2200,
+      "medianHomePrice": 320000,
+      "medianHouseholdIncome": 68000
+    },
+    {
+      "city": "Nashville",
+      "state": "TN",
+      "zipPrefix": ["372"],
+      "index": 107,
+      "components": {
+        "housing": 110,
+        "groceries": 96,
+        "transportation": 98,
+        "healthcare": 100,
+        "utilities": 95,
+        "miscellaneous": 100
+      },
+      "medianRent1BR": 1500,
+      "medianRent2BR": 1850,
+      "medianHomePrice": 400000,
+      "medianHouseholdIncome": 65000
+    },
+    {
+      "city": "Charlotte",
+      "state": "NC",
+      "zipPrefix": ["282"],
+      "index": 101,
+      "components": {
+        "housing": 95,
+        "groceries": 98,
+        "transportation": 95,
+        "healthcare": 102,
+        "utilities": 95,
+        "miscellaneous": 98
+      },
+      "medianRent1BR": 1400,
+      "medianRent2BR": 1700,
+      "medianHomePrice": 350000,
+      "medianHouseholdIncome": 65000
+    },
+    {
+      "city": "Raleigh",
+      "state": "NC",
+      "zipPrefix": ["276"],
+      "index": 104,
+      "components": {
+        "housing": 105,
+        "groceries": 98,
+        "transportation": 95,
+        "healthcare": 105,
+        "utilities": 92,
+        "miscellaneous": 100
+      },
+      "medianRent1BR": 1400,
+      "medianRent2BR": 1700,
+      "medianHomePrice": 385000,
+      "medianHouseholdIncome": 72000
+    },
+    {
+      "city": "Phoenix",
+      "state": "AZ",
+      "zipPrefix": ["850", "851", "852"],
+      "index": 105,
+      "components": {
+        "housing": 108,
+        "groceries": 98,
+        "transportation": 102,
+        "healthcare": 100,
+        "utilities": 105,
+        "miscellaneous": 98
+      },
+      "medianRent1BR": 1350,
+      "medianRent2BR": 1700,
+      "medianHomePrice": 390000,
+      "medianHouseholdIncome": 65000
+    },
+    {
+      "city": "Minneapolis",
+      "state": "MN",
+      "zipPrefix": ["554", "553"],
+      "index": 110,
+      "components": {
+        "housing": 108,
+        "groceries": 100,
+        "transportation": 105,
+        "healthcare": 110,
+        "utilities": 95,
+        "miscellaneous": 102
+      },
+      "medianRent1BR": 1400,
+      "medianRent2BR": 1800,
+      "medianHomePrice": 340000,
+      "medianHouseholdIncome": 78000
+    },
+    {
+      "city": "Philadelphia",
+      "state": "PA",
+      "zipPrefix": ["191"],
+      "index": 118,
+      "components": {
+        "housing": 120,
+        "groceries": 105,
+        "transportation": 112,
+        "healthcare": 112,
+        "utilities": 108,
+        "miscellaneous": 105
+      },
+      "medianRent1BR": 1700,
+      "medianRent2BR": 2100,
+      "medianHomePrice": 310000,
+      "medianHouseholdIncome": 55000
+    },
+    {
+      "city": "Tampa",
+      "state": "FL",
+      "zipPrefix": ["336", "335"],
+      "index": 102,
+      "components": {
+        "housing": 100,
+        "groceries": 100,
+        "transportation": 102,
+        "healthcare": 100,
+        "utilities": 98,
+        "miscellaneous": 98
+      },
+      "medianRent1BR": 1500,
+      "medianRent2BR": 1850,
+      "medianHomePrice": 350000,
+      "medianHouseholdIncome": 58000
+    },
+    {
+      "city": "Columbus",
+      "state": "OH",
+      "zipPrefix": ["432"],
+      "index": 96,
+      "components": {
+        "housing": 85,
+        "groceries": 98,
+        "transportation": 98,
+        "healthcare": 100,
+        "utilities": 92,
+        "miscellaneous": 95
+      },
+      "medianRent1BR": 1100,
+      "medianRent2BR": 1350,
+      "medianHomePrice": 270000,
+      "medianHouseholdIncome": 62000
+    },
+    {
+      "city": "Indianapolis",
+      "state": "IN",
+      "zipPrefix": ["462"],
+      "index": 93,
+      "components": {
+        "housing": 80,
+        "groceries": 96,
+        "transportation": 98,
+        "healthcare": 98,
+        "utilities": 92,
+        "miscellaneous": 95
+      },
+      "medianRent1BR": 1050,
+      "medianRent2BR": 1300,
+      "medianHomePrice": 250000,
+      "medianHouseholdIncome": 58000
+    },
+    {
+      "city": "Kansas City",
+      "state": "MO",
+      "zipPrefix": ["641"],
+      "index": 95,
+      "components": {
+        "housing": 82,
+        "groceries": 96,
+        "transportation": 100,
+        "healthcare": 100,
+        "utilities": 95,
+        "miscellaneous": 95
+      },
+      "medianRent1BR": 1050,
+      "medianRent2BR": 1300,
+      "medianHomePrice": 260000,
+      "medianHouseholdIncome": 62000
+    },
+    {
+      "city": "San Diego",
+      "state": "CA",
+      "zipPrefix": ["921", "920"],
+      "index": 160,
+      "components": {
+        "housing": 218,
+        "groceries": 108,
+        "transportation": 122,
+        "healthcare": 115,
+        "utilities": 92,
+        "miscellaneous": 108
+      },
+      "medianRent1BR": 2300,
+      "medianRent2BR": 2900,
+      "medianHomePrice": 850000,
+      "medianHouseholdIncome": 82000
+    },
+    {
+      "city": "Salt Lake City",
+      "state": "UT",
+      "zipPrefix": ["841"],
+      "index": 108,
+      "components": {
+        "housing": 115,
+        "groceries": 98,
+        "transportation": 100,
+        "healthcare": 100,
+        "utilities": 85,
+        "miscellaneous": 100
+      },
+      "medianRent1BR": 1350,
+      "medianRent2BR": 1700,
+      "medianHomePrice": 480000,
+      "medianHouseholdIncome": 75000
+    },
+    {
+      "city": "Pittsburgh",
+      "state": "PA",
+      "zipPrefix": ["152"],
+      "index": 94,
+      "components": {
+        "housing": 80,
+        "groceries": 100,
+        "transportation": 102,
+        "healthcare": 100,
+        "utilities": 100,
+        "miscellaneous": 95
+      },
+      "medianRent1BR": 1100,
+      "medianRent2BR": 1350,
+      "medianHomePrice": 220000,
+      "medianHouseholdIncome": 58000
+    },
+    {
+      "city": "Detroit",
+      "state": "MI",
+      "zipPrefix": ["482", "481"],
+      "index": 91,
+      "components": {
+        "housing": 75,
+        "groceries": 96,
+        "transportation": 102,
+        "healthcare": 100,
+        "utilities": 98,
+        "miscellaneous": 92
+      },
+      "medianRent1BR": 1000,
+      "medianRent2BR": 1250,
+      "medianHomePrice": 220000,
+      "medianHouseholdIncome": 55000
+    },
+    {
+      "city": "Las Vegas",
+      "state": "NV",
+      "zipPrefix": ["891"],
+      "index": 103,
+      "components": {
+        "housing": 105,
+        "groceries": 100,
+        "transportation": 105,
+        "healthcare": 100,
+        "utilities": 98,
+        "miscellaneous": 98
+      },
+      "medianRent1BR": 1300,
+      "medianRent2BR": 1600,
+      "medianHomePrice": 380000,
+      "medianHouseholdIncome": 60000
+    },
+    {
+      "city": "Orlando",
+      "state": "FL",
+      "zipPrefix": ["328", "327"],
+      "index": 101,
+      "components": {
+        "housing": 100,
+        "groceries": 100,
+        "transportation": 102,
+        "healthcare": 100,
+        "utilities": 95,
+        "miscellaneous": 98
+      },
+      "medianRent1BR": 1500,
+      "medianRent2BR": 1800,
+      "medianHomePrice": 370000,
+      "medianHouseholdIncome": 58000
+    },
+    {
+      "city": "Portland",
+      "state": "OR",
+      "zipPrefix": ["972"],
+      "index": 130,
+      "components": {
+        "housing": 160,
+        "groceries": 105,
+        "transportation": 115,
+        "healthcare": 112,
+        "utilities": 85,
+        "miscellaneous": 105
+      },
+      "medianRent1BR": 1600,
+      "medianRent2BR": 2000,
+      "medianHomePrice": 500000,
+      "medianHouseholdIncome": 75000
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "source": "Investopedia, CFPB, SEC, Vanguard Education, Morningstar",
+  "lastUpdated": "2026-01-01",
+  "concepts": {
+    "compound_interest": {
+      "name": "Compound Interest",
+      "difficulty": "beginner",
+      "oneLiner": "Earning interest on your interest — the snowball effect of money.",
+      "explanation": "When you invest $1,000 at 7% annual return, you earn $70 the first year. But the second year, you earn 7% on $1,070 = $74.90. The third year, 7% on $1,144.90 = $80.14. Each year, the growth accelerates because you're earning returns on your previous returns. Over 30 years, $1,000 becomes $7,612 — without adding another dollar.",
+      "keyNumbers": {
+        "ruleOf72": "Divide 72 by your return rate to estimate years to double. 72/7 = ~10 years to double at 7%.",
+        "example10yr": "$1,000 at 7% for 10 years = $1,967",
+        "example20yr": "$1,000 at 7% for 20 years = $3,870",
+        "example30yr": "$1,000 at 7% for 30 years = $7,612"
+      }
+    },
+    "index_fund": {
+      "name": "Index Fund",
+      "difficulty": "beginner",
+      "oneLiner": "A fund that buys every stock in a market index, like the S&P 500.",
+      "explanation": "Instead of picking individual stocks, an index fund buys ALL of them in proportion. An S&P 500 index fund owns 500 companies. A total market fund owns 3,700+. Because nobody has to research and pick stocks, fees are incredibly low (0.03% vs 1%+ for actively managed funds). Over 20 years, 90%+ of actively managed funds LOSE to index funds. This is why Warren Buffett recommends them for most people.",
+      "keyNumbers": {
+        "avgExpenseRatio": "0.03-0.10% for index funds vs 0.50-1.50% for active",
+        "feeDifference": "On $100K invested for 30 years: 0.03% fees = $568K. 1% fees = $432K. That's $136K lost to fees.",
+        "historicalReturn": "S&P 500 has averaged ~10% annually since 1926"
+      }
+    },
+    "emergency_fund": {
+      "name": "Emergency Fund",
+      "difficulty": "beginner",
+      "oneLiner": "3-6 months of living expenses in a savings account for unexpected events.",
+      "explanation": "Job loss, medical emergency, car breakdown — life happens. Without an emergency fund, these events go on credit cards at 20%+ interest, creating a debt spiral. The fund should be in a high-yield savings account (not invested in stocks) because you need to access it quickly and can't afford it to be down 20% when you need it.",
+      "keyNumbers": {
+        "recommended": "3-6 months of essential expenses",
+        "singleNoKids": "3 months is usually sufficient",
+        "familyOrVariableIncome": "6 months recommended",
+        "hysa_rate": "4-5% APY at online banks (Feb 2026)"
+      }
+    },
+    "dollar_cost_averaging": {
+      "name": "Dollar-Cost Averaging",
+      "difficulty": "beginner",
+      "oneLiner": "Investing the same amount regularly regardless of market conditions.",
+      "explanation": "Instead of trying to time the market (impossible), you invest $500 every month no matter what. When prices are high, you buy fewer shares. When prices are low, you buy more. Over time, this averages out to a good price and removes emotion from investing. Your 401k already does this automatically with every paycheck."
+    },
+    "asset_allocation": {
+      "name": "Asset Allocation",
+      "difficulty": "intermediate",
+      "oneLiner": "How you split your money between stocks, bonds, and cash.",
+      "explanation": "The single most important investment decision is not WHICH stocks to buy — it's how much to put in stocks vs bonds vs cash. Stocks grow faster but are volatile. Bonds are stable but grow slowly. The classic rule: subtract your age from 110 for your stock percentage. Age 30 = 80% stocks, 20% bonds. Age 60 = 50/50. This automatically becomes more conservative as you age."
+    },
+    "tax_advantaged_accounts": {
+      "name": "Tax-Advantaged Accounts (401k, IRA, Roth)",
+      "difficulty": "intermediate",
+      "oneLiner": "Accounts that reduce your taxes now or in retirement.",
+      "explanation": "Traditional 401k/IRA: money goes in pre-tax (reduces your taxable income NOW), grows tax-free, taxed when you withdraw in retirement. Roth IRA: money goes in after-tax (no tax break now), grows tax-free, and withdrawals are TAX-FREE in retirement. The rule of thumb: if you expect to be in a higher tax bracket in retirement, Roth is better. If lower, Traditional is better. Most young people should prioritize Roth.",
+      "keyNumbers": {
+        "401kLimit": "$23,500/year (2026)",
+        "iraLimit": "$7,000/year (2026)",
+        "employerMatch": "Average employer matches 50-100% of first 3-6% of salary. Not contributing enough to get the full match is leaving free money on the table."
+      }
+    },
+    "debt_avalanche_vs_snowball": {
+      "name": "Debt Avalanche vs Snowball",
+      "difficulty": "intermediate",
+      "oneLiner": "Two strategies for paying off multiple debts.",
+      "explanation": "Avalanche: pay minimums on all debts, put extra money toward the HIGHEST interest rate first. Mathematically optimal — saves the most money. Snowball: pay minimums on all debts, put extra money toward the SMALLEST balance first. Psychologically powerful — quick wins build momentum. The best method is whichever one you'll actually stick with."
+    },
+    "expense_ratio": {
+      "name": "Expense Ratio",
+      "difficulty": "intermediate",
+      "oneLiner": "The annual fee a fund charges, expressed as a percentage of your investment.",
+      "explanation": "A 1% expense ratio on $100,000 means you pay $1,000/year in fees — whether the fund gains or loses money. This sounds small but compounds devastatingly over decades. The difference between 0.03% (Vanguard index fund) and 1% (typical actively managed fund) on $100K over 30 years at 7% return is over $130,000 in lost wealth. Always check the expense ratio."
+    },
+    "diversification": {
+      "name": "Diversification",
+      "difficulty": "beginner",
+      "oneLiner": "Don't put all your eggs in one basket.",
+      "explanation": "Owning one stock is gambling. Owning 500 stocks is investing. When one company fails, the others compensate. This is why index funds are powerful — VTI gives you 3,700+ companies in one purchase. True diversification also means owning international stocks (VXUS), bonds (BND), and having different account types (401k, Roth, taxable)."
+    },
+    "inflation": {
+      "name": "Inflation",
+      "difficulty": "beginner",
+      "oneLiner": "Your money loses purchasing power over time.",
+      "explanation": "At 3% inflation, something that costs $100 today will cost $134 in 10 years and $181 in 20 years. This is why keeping money in a checking account (0% return) actually LOSES value. Your investments need to earn MORE than inflation to build real wealth. The stock market's ~10% historical return minus ~3% inflation = ~7% real return."
+    },
+    "credit_score": {
+      "name": "Credit Score",
+      "difficulty": "beginner",
+      "oneLiner": "A number (300-850) that represents how reliable you are with borrowed money.",
+      "explanation": "Your score affects interest rates on mortgages, car loans, credit cards, and even apartment applications. The difference between a 680 and 760 credit score on a $300,000 mortgage can be $100+/month in higher interest. Factors: payment history (35%), amounts owed (30%), length of credit history (15%), new credit (10%), credit mix (10%). The fastest way to improve: pay on time, keep credit utilization under 30%."
+    }
+  }
+}

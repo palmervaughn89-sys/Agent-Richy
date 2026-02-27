@@ -1,0 +1,372 @@
+{
+  "source": "ETF provider websites (Vanguard, iShares, Schwab, State Street), Morningstar",
+  "lastUpdated": "2026-02-01",
+  "updateFrequency": "quarterly",
+  "disclaimer": "ETF data is approximate and may not reflect current prices or yields. Always verify current data before making investment decisions.",
+  "dataAge": "Prices and yields as of early 2026. RICHY MUST USE WEB SEARCH FOR CURRENT DATA when generating allocation plans. This file is a FALLBACK reference only.",
+  "etfs": {
+    "total_market": [
+      {
+        "ticker": "VTI",
+        "name": "Vanguard Total Stock Market ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.03,
+        "category": "US Total Market",
+        "approxPrice": 290,
+        "approxYield": 1.3,
+        "holdings": 3700,
+        "top5": ["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL"],
+        "description": "Tracks entire US stock market. The default choice for broad US exposure."
+      },
+      {
+        "ticker": "ITOT",
+        "name": "iShares Core S&P Total US Stock Market ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.03,
+        "category": "US Total Market",
+        "approxPrice": 120,
+        "approxYield": 1.3,
+        "holdings": 3600,
+        "description": "iShares equivalent of VTI. Essentially identical."
+      },
+      {
+        "ticker": "SWTSX",
+        "name": "Schwab Total Stock Market Index Fund",
+        "provider": "Schwab",
+        "expenseRatio": 0.03,
+        "category": "US Total Market",
+        "description": "Mutual fund version. Good for Schwab 401k plans."
+      }
+    ],
+    "sp500": [
+      {
+        "ticker": "VOO",
+        "name": "Vanguard S&P 500 ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.03,
+        "category": "S&P 500",
+        "approxPrice": 540,
+        "approxYield": 1.2,
+        "holdings": 503,
+        "description": "Tracks the S&P 500. Slightly less diversified than VTI but nearly identical performance."
+      },
+      {
+        "ticker": "SPY",
+        "name": "SPDR S&P 500 ETF Trust",
+        "provider": "State Street",
+        "expenseRatio": 0.09,
+        "category": "S&P 500",
+        "approxPrice": 590,
+        "approxYield": 1.2,
+        "holdings": 503,
+        "description": "Original S&P 500 ETF. Higher expense ratio than VOO — use VOO instead unless your 401k only offers SPY."
+      },
+      {
+        "ticker": "IVV",
+        "name": "iShares Core S&P 500 ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.03,
+        "category": "S&P 500",
+        "approxPrice": 590,
+        "approxYield": 1.2,
+        "holdings": 503,
+        "description": "iShares version. Same as VOO essentially."
+      }
+    ],
+    "international": [
+      {
+        "ticker": "VXUS",
+        "name": "Vanguard Total International Stock ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.07,
+        "category": "International Developed + Emerging",
+        "approxPrice": 60,
+        "approxYield": 3.0,
+        "holdings": 8500,
+        "description": "All non-US stocks. Essential for diversification."
+      },
+      {
+        "ticker": "IXUS",
+        "name": "iShares Core MSCI Total International Stock ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.07,
+        "category": "International",
+        "approxPrice": 70,
+        "approxYield": 2.8,
+        "description": "iShares equivalent of VXUS."
+      },
+      {
+        "ticker": "VEA",
+        "name": "Vanguard FTSE Developed Markets ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.05,
+        "category": "International Developed Only",
+        "approxPrice": 50,
+        "approxYield": 3.2,
+        "description": "Developed markets only (Europe, Japan, Australia). No emerging markets."
+      },
+      {
+        "ticker": "VWO",
+        "name": "Vanguard FTSE Emerging Markets ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.08,
+        "category": "Emerging Markets",
+        "approxPrice": 44,
+        "approxYield": 3.5,
+        "description": "Emerging markets (China, India, Brazil, etc.). Higher risk, higher potential growth."
+      }
+    ],
+    "bonds": [
+      {
+        "ticker": "BND",
+        "name": "Vanguard Total Bond Market ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.03,
+        "category": "US Total Bond",
+        "approxPrice": 72,
+        "approxYield": 4.5,
+        "duration": 6.1,
+        "description": "The default bond ETF. Covers entire US investment-grade bond market."
+      },
+      {
+        "ticker": "AGG",
+        "name": "iShares Core US Aggregate Bond ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.03,
+        "category": "US Total Bond",
+        "approxPrice": 98,
+        "approxYield": 4.5,
+        "duration": 6.1,
+        "description": "iShares equivalent of BND."
+      },
+      {
+        "ticker": "BNDX",
+        "name": "Vanguard Total International Bond ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.07,
+        "category": "International Bond",
+        "approxPrice": 49,
+        "approxYield": 3.2,
+        "description": "International bond exposure. Good for diversification."
+      },
+      {
+        "ticker": "VTIP",
+        "name": "Vanguard Short-Term Inflation-Protected Securities ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.04,
+        "category": "TIPS",
+        "approxPrice": 48,
+        "approxYield": 4.8,
+        "description": "Inflation-protected. Good for near-term savings goals."
+      },
+      {
+        "ticker": "SHV",
+        "name": "iShares Short Treasury Bond ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.15,
+        "category": "Short-Term Treasury",
+        "approxPrice": 110,
+        "approxYield": 4.8,
+        "description": "Ultra-safe. Basically a cash equivalent with better yield than savings."
+      },
+      {
+        "ticker": "TLT",
+        "name": "iShares 20+ Year Treasury Bond ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.15,
+        "category": "Long-Term Treasury",
+        "approxPrice": 90,
+        "approxYield": 4.7,
+        "duration": 16.5,
+        "description": "Long-duration treasuries. High interest rate sensitivity. Good when rates are falling."
+      }
+    ],
+    "sector": [
+      {
+        "ticker": "VGT",
+        "name": "Vanguard Information Technology ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.10,
+        "category": "Technology",
+        "approxPrice": 600,
+        "approxYield": 0.6,
+        "description": "Tech sector. AAPL, MSFT, NVDA heavy."
+      },
+      {
+        "ticker": "VHT",
+        "name": "Vanguard Health Care ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.10,
+        "category": "Healthcare",
+        "approxPrice": 270,
+        "approxYield": 1.3,
+        "description": "Healthcare sector. JNJ, UNH, LLY heavy."
+      },
+      {
+        "ticker": "VFH",
+        "name": "Vanguard Financials ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.10,
+        "category": "Financials",
+        "approxPrice": 108,
+        "approxYield": 1.8,
+        "description": "Financial sector. JPM, BRK, BAC heavy."
+      },
+      {
+        "ticker": "VDE",
+        "name": "Vanguard Energy ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.10,
+        "category": "Energy",
+        "approxPrice": 120,
+        "approxYield": 3.0,
+        "description": "Energy sector. XOM, CVX heavy."
+      },
+      {
+        "ticker": "VNQ",
+        "name": "Vanguard Real Estate ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.12,
+        "category": "Real Estate (REITs)",
+        "approxPrice": 85,
+        "approxYield": 3.8,
+        "description": "Real estate investment trusts. Good income, place in tax-advantaged accounts."
+      },
+      {
+        "ticker": "VIS",
+        "name": "Vanguard Industrials ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.10,
+        "category": "Industrials",
+        "approxPrice": 230,
+        "approxYield": 1.2,
+        "description": "Industrial sector. Infrastructure, defense, manufacturing."
+      }
+    ],
+    "dividend": [
+      {
+        "ticker": "VYM",
+        "name": "Vanguard High Dividend Yield ETF",
+        "provider": "Vanguard",
+        "expenseRatio": 0.06,
+        "category": "High Dividend",
+        "approxPrice": 125,
+        "approxYield": 2.7,
+        "description": "High-dividend US stocks. Good for income-focused investors."
+      },
+      {
+        "ticker": "SCHD",
+        "name": "Schwab US Dividend Equity ETF",
+        "provider": "Schwab",
+        "expenseRatio": 0.06,
+        "category": "Dividend Growth",
+        "approxPrice": 82,
+        "approxYield": 3.3,
+        "description": "Dividend growth focus. Very popular for quality + income."
+      },
+      {
+        "ticker": "DGRO",
+        "name": "iShares Core Dividend Growth ETF",
+        "provider": "iShares",
+        "expenseRatio": 0.08,
+        "category": "Dividend Growth",
+        "approxPrice": 60,
+        "approxYield": 2.2,
+        "description": "Focuses on companies growing their dividends consistently."
+      }
+    ],
+    "target_date": [
+      {
+        "ticker": "VTTVX",
+        "name": "Vanguard Target Retirement 2035 Fund",
+        "provider": "Vanguard",
+        "expenseRatio": 0.08,
+        "category": "Target Date 2035",
+        "description": "Auto-adjusting fund. Shifts from stocks to bonds as 2035 approaches. Best for people who want zero maintenance."
+      },
+      {
+        "ticker": "VFORX",
+        "name": "Vanguard Target Retirement 2040 Fund",
+        "provider": "Vanguard",
+        "expenseRatio": 0.08,
+        "category": "Target Date 2040",
+        "description": "Same concept, 2040 target."
+      },
+      {
+        "ticker": "VFIFX",
+        "name": "Vanguard Target Retirement 2050 Fund",
+        "provider": "Vanguard",
+        "expenseRatio": 0.08,
+        "category": "Target Date 2050",
+        "description": "Same concept, 2050 target. Currently ~90% stocks."
+      },
+      {
+        "ticker": "VLXVX",
+        "name": "Vanguard Target Retirement 2060 Fund",
+        "provider": "Vanguard",
+        "expenseRatio": 0.08,
+        "category": "Target Date 2060",
+        "description": "For younger investors. Currently ~90% stocks."
+      }
+    ]
+  },
+  "modelPortfolios": {
+    "conservative": {
+      "name": "Conservative (Low Risk)",
+      "stocks": 30,
+      "bonds": 60,
+      "cash": 10,
+      "suitableFor": "Near retirement, low risk tolerance, short time horizon",
+      "historicalReturn": "5-6% annually",
+      "suggestedETFs": [
+        { "ticker": "VTI", "percentage": 20 },
+        { "ticker": "VXUS", "percentage": 10 },
+        { "ticker": "BND", "percentage": 45 },
+        { "ticker": "BNDX", "percentage": 15 },
+        { "ticker": "SHV", "percentage": 10 }
+      ]
+    },
+    "moderate": {
+      "name": "Moderate (Balanced)",
+      "stocks": 60,
+      "bonds": 30,
+      "cash": 10,
+      "suitableFor": "Mid-career, moderate risk tolerance, 10+ year horizon",
+      "historicalReturn": "7-8% annually",
+      "suggestedETFs": [
+        { "ticker": "VTI", "percentage": 40 },
+        { "ticker": "VXUS", "percentage": 20 },
+        { "ticker": "BND", "percentage": 20 },
+        { "ticker": "BNDX", "percentage": 10 },
+        { "ticker": "SHV", "percentage": 10 }
+      ]
+    },
+    "aggressive": {
+      "name": "Aggressive (Growth)",
+      "stocks": 85,
+      "bonds": 10,
+      "cash": 5,
+      "suitableFor": "Young, high risk tolerance, 20+ year horizon",
+      "historicalReturn": "9-10% annually",
+      "suggestedETFs": [
+        { "ticker": "VTI", "percentage": 55 },
+        { "ticker": "VXUS", "percentage": 30 },
+        { "ticker": "BND", "percentage": 10 },
+        { "ticker": "SHV", "percentage": 5 }
+      ]
+    }
+  },
+  "retirementRules": {
+    "401kContributionLimit2026": 23500,
+    "401kCatchUp50Plus": 7500,
+    "iraContributionLimit2026": 7000,
+    "iraCatchUp50Plus": 1000,
+    "rothIncomeLimit2026Single": 161000,
+    "rothIncomeLimit2026Married": 240000,
+    "requiredMinDistributionAge": 73,
+    "socialSecurityEarlyAge": 62,
+    "socialSecurityFullAge": 67,
+    "socialSecurityMaxAge": 70,
+    "medicareAge": 65
+  }
+}
