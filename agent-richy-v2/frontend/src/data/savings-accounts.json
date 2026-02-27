@@ -1,0 +1,140 @@
+{
+  "source": "Bankrate, NerdWallet, DepositAccounts.com, bank websites",
+  "lastUpdated": "2026-02-01",
+  "updateFrequency": "monthly",
+  "dataAgeNote": "HYSA rates change frequently with Fed rate decisions. RICHY MUST WEB SEARCH for current rates before recommending. This file provides the list of institutions and typical rate positioning.",
+
+  "highYieldSavings": [
+    {
+      "bank": "Marcus by Goldman Sachs",
+      "type": "online",
+      "apy": 4.40,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No monthly fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["No minimum balance", "Easy transfers to external banks", "Well-known brand"],
+      "drawbacks": ["No checking account or debit card", "Only 6 withdrawals/month"],
+      "bestFor": "Set-it-and-forget-it savers who want a trusted brand"
+    },
+    {
+      "bank": "Ally Bank",
+      "type": "online",
+      "apy": 4.20,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No monthly fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["Full online bank (checking + savings)", "Buckets feature for goal tracking", "24/7 customer service", "ATM network"],
+      "drawbacks": ["Rate not always the absolute highest"],
+      "bestFor": "People who want a full-service online bank, not just savings"
+    },
+    {
+      "bank": "Wealthfront Cash Account",
+      "type": "fintech",
+      "apy": 4.50,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["Consistently top rates", "FDIC insured through partner banks up to $8M", "Integrated with Wealthfront investing"],
+      "drawbacks": ["Not a traditional bank", "Limited physical banking"],
+      "bestFor": "Tech-savvy savers who want the highest rate and don't need a physical bank"
+    },
+    {
+      "bank": "SoFi Checking & Savings",
+      "type": "fintech",
+      "apy": 4.30,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["Combined checking + savings", "Up to 4.30% with direct deposit", "No account fees ever", "ATM fee reimbursement"],
+      "drawbacks": ["Need direct deposit for highest rate", "Newer banking brand"],
+      "bestFor": "People who want checking + savings in one place with direct deposit"
+    },
+    {
+      "bank": "Discover Online Savings",
+      "type": "online",
+      "apy": 4.20,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["Established brand", "Cashback debit card", "No minimum balance"],
+      "drawbacks": ["Rate slightly below top competitors"],
+      "bestFor": "People who already have Discover credit card and want ecosystem"
+    },
+    {
+      "bank": "Barclays Online Savings",
+      "type": "online",
+      "apy": 4.35,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["No minimum balance", "Strong rate history", "Large global bank"],
+      "drawbacks": ["No checking account", "Transfers can take 1-3 days"],
+      "bestFor": "Savers who want a big-bank name with competitive online rates"
+    },
+    {
+      "bank": "Capital One 360 Performance Savings",
+      "type": "online",
+      "apy": 4.10,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No fees",
+      "fdic": true,
+      "mobileApp": true,
+      "features": ["Can link to Capital One checking", "Physical branches in some cities", "Well-known brand"],
+      "drawbacks": ["Rate slightly lower than pure online banks"],
+      "bestFor": "People who want a hybrid — mostly online but with some branch access"
+    },
+    {
+      "bank": "Bread Savings (Comenity)",
+      "type": "online",
+      "apy": 4.50,
+      "minimumDeposit": 0,
+      "minimumBalance": 0,
+      "fees": "No fees",
+      "fdic": true,
+      "mobileApp": false,
+      "features": ["Consistently top-tier rates", "CDs also available at excellent rates"],
+      "drawbacks": ["Less known brand", "No mobile app", "Basic interface"],
+      "bestFor": "Rate chasers who just want the highest APY and don't care about bells and whistles"
+    }
+  ],
+
+  "traditionalBankComparison": {
+    "Chase Savings": 0.01,
+    "Bank of America Savings": 0.01,
+    "Wells Fargo Way2Save": 0.01,
+    "Citibank Savings": 0.01,
+    "note": "Major bank savings accounts pay 0.01% APY. On $10,000 that earns $1/year. A 4.40% HYSA earns $440/year. That's $439 in free money you're leaving on the table."
+  },
+
+  "impactCalculation": "userSavingsBalance × (bestHYSA_rate - currentRate) / 100 = annual additional earnings. Example: $15,000 × (4.40 - 0.01) / 100 = $658.50/year more.",
+
+  "cdRates": [
+    { "term": "3 months", "topRate": 4.50, "bestBank": "Bread Savings" },
+    { "term": "6 months", "topRate": 4.55, "bestBank": "Marcus" },
+    { "term": "1 year", "topRate": 4.50, "bestBank": "Ally / Barclays" },
+    { "term": "2 years", "topRate": 4.00, "bestBank": "Marcus" },
+    { "term": "5 years", "topRate": 3.80, "bestBank": "Ally" }
+  ],
+
+  "iBonds": {
+    "currentRate": 3.11,
+    "rateChanges": "Every 6 months (May and November)",
+    "annualLimit": 10000,
+    "lockup": "Must hold 1 year minimum. Penalty of 3 months interest if sold before 5 years.",
+    "taxAdvantage": "State tax exempt. Federal tax deferred until redemption.",
+    "bestFor": "Long-term savings (5+ years) with inflation protection."
+  }
+}

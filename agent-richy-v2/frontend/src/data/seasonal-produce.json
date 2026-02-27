@@ -1,0 +1,44 @@
+{
+  "source": "USDA Seasonal Produce Guide, local harvest data, grocery industry pricing",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+
+  "spring": {
+    "months": ["March", "April", "May"],
+    "peak": ["asparagus", "artichokes", "peas", "spinach", "strawberries", "rhubarb", "radishes", "green onions", "lettuce", "arugula", "swiss chard", "snap peas"],
+    "coming_into_season": ["blueberries", "cherries", "apricots", "zucchini", "bell peppers"],
+    "tip": "Spring greens are at their cheapest and most flavorful. Stock up on spinach and lettuce. Strawberries hit peak in late April/May — buy local."
+  },
+  "summer": {
+    "months": ["June", "July", "August"],
+    "peak": ["tomatoes", "corn", "berries", "peaches", "watermelon", "zucchini", "squash", "cucumbers", "bell peppers", "green beans", "eggplant", "okra", "cherries", "plums", "nectarines", "cantaloupe", "honeydew", "grapes", "figs", "basil"],
+    "coming_into_season": ["apples", "pears"],
+    "tip": "Summer is produce paradise. Farmers markets have the best prices on tomatoes, corn, and berries. Buy berries in bulk and freeze them — they're 2-3x more expensive in winter. Watermelon is cheapest in July."
+  },
+  "fall": {
+    "months": ["September", "October", "November"],
+    "peak": ["apples", "pears", "pumpkin", "sweet potatoes", "butternut squash", "brussels sprouts", "broccoli", "cauliflower", "cranberries", "grapes", "pomegranates", "persimmons", "turnips", "parsnips", "kale"],
+    "coming_into_season": ["citrus", "avocados"],
+    "tip": "Fall root vegetables are cheap, nutritious, and last weeks in the fridge. Buy apples and pears in bulk at orchards. Sweet potatoes are cheapest in October-November. Stock up on butternut squash — stores for months."
+  },
+  "winter": {
+    "months": ["December", "January", "February"],
+    "peak": ["citrus", "grapefruit", "oranges", "tangerines", "lemons", "limes", "avocados", "kale", "collard greens", "turnips", "rutabaga", "cabbage", "beets", "carrots", "celery", "potatoes"],
+    "coming_into_season": ["asparagus", "strawberries"],
+    "tip": "Citrus is king in winter — cheapest and most nutritious. Cabbage, potatoes, carrots, and onions are cheap year-round but especially in winter. Avoid out-of-season berries ($6+ for a tiny container). Buy frozen instead."
+  },
+
+  "yearRound": {
+    "alwaysCheap": ["bananas", "onions", "potatoes", "carrots", "cabbage", "rice", "beans", "eggs", "garlic"],
+    "tip": "These staples are cheap regardless of season. Build meals around them and add seasonal produce for variety and savings."
+  },
+
+  "savingsTips": [
+    "Buy in-season produce for 30-50% savings over out-of-season",
+    "Frozen fruits and vegetables are picked at peak ripeness and often cheaper than fresh out-of-season — nutritionally equal",
+    "Farmers markets are cheapest at end of day — vendors would rather sell cheap than take produce home",
+    "Buy ugly/imperfect produce — same nutrition, 30-50% cheaper (Misfits Market, Imperfect Foods, or in-store 'ugly produce' bins)",
+    "Whole fruits/vegetables are cheaper than pre-cut — pay for the convenience, not the food",
+    "Store-brand canned and frozen produce is nearly identical to name-brand at 30-40% less"
+  ]
+}

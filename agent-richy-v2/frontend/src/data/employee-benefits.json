@@ -1,0 +1,102 @@
+{
+  "source": "SHRM, BLS Employee Benefits Survey, IRS guidelines",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+
+  "commonBenefits": {
+    "401k_match": {
+      "name": "401(k) Employer Match",
+      "whatItIs": "Your employer puts free money into your retirement account when you contribute.",
+      "avgBenefit": "Average match: 50% of first 6% of salary = 3% free money",
+      "valueExample": "On $60,000 salary: contributing 6% = $3,600/year from you + $1,800 from employer = $5,400 total. The $1,800 match is FREE money you lose if you don't contribute enough.",
+      "percentOfWorkersWhoMaxMatch": 79,
+      "percentWhoLeaveMoneyOnTable": 21,
+      "avgLeftOnTable": 1336,
+      "richyAction": "If you're not contributing at least enough to get the full match, you are literally declining free money. This is ALWAYS the first financial priority after basic expenses."
+    },
+    "hsa": {
+      "name": "Health Savings Account (HSA)",
+      "whatItIs": "Triple tax-advantaged account: tax-deductible contributions, tax-free growth, tax-free withdrawals for medical expenses.",
+      "eligibility": "Must have a High Deductible Health Plan (HDHP)",
+      "limits2026": { "individual": 4300, "family": 8550 },
+      "avgBenefit": "The only account with three tax benefits. At 22% tax bracket, contributing $4,300 saves $946 in taxes alone.",
+      "secretWealth": "You can invest HSA funds and let them grow for decades. Pay medical expenses out of pocket now, let HSA grow, withdraw tax-free in retirement. It's a stealth retirement account.",
+      "percentOfEligibleWhoContribute": 55,
+      "percentWhoInvest": 12,
+      "richyAction": "If you have an HDHP, an HSA is the most powerful tax-advantaged account that exists. Contribute the max, invest it, and don't touch it until retirement."
+    },
+    "fsa": {
+      "name": "Flexible Spending Account (FSA)",
+      "whatItIs": "Pre-tax dollars for medical expenses (Health FSA) or dependent care (Dependent Care FSA).",
+      "limits2026": { "healthFSA": 3300, "dependentCare": 5000 },
+      "keyRule": "USE IT OR LOSE IT — money expires at end of plan year (some plans allow $640 rollover or 2.5 month grace period).",
+      "avgBenefit": "At 22% tax bracket, $3,300 FSA saves $726 in taxes. Plus you save 7.65% FICA = another $252. Total tax savings: $978.",
+      "richyAction": "Calculate your expected medical/dental/vision costs for the year and contribute that amount. Don't over-contribute (use it or lose it) but don't under-contribute either."
+    },
+    "dependent_care_fsa": {
+      "name": "Dependent Care FSA",
+      "whatItIs": "Pre-tax dollars for childcare, daycare, preschool, before/after school care, and elder care.",
+      "limit2026": 5000,
+      "avgBenefit": "On $5,000 at 22% bracket: save $1,100 in income tax + $383 in FICA = $1,483 total savings. If you're paying for childcare anyway, this is free money.",
+      "eligibility": "Must have a dependent child under 13 or disabled dependent",
+      "richyAction": "If you pay for childcare, this is one of the biggest tax savings available. $1,483/year saved on childcare you're already paying for."
+    },
+    "commuter_benefits": {
+      "name": "Commuter/Transit Benefits",
+      "whatItIs": "Pre-tax dollars for public transit passes, vanpooling, and parking.",
+      "limits2026": { "transit": 325, "parking": 325 },
+      "avgBenefit": "Monthly transit pass of $100 pre-tax saves $264/year in taxes (at 22% bracket)",
+      "richyAction": "If you commute by public transit or pay for parking, you should always use pre-tax dollars. It's automatic savings."
+    },
+    "employee_stock_purchase": {
+      "name": "Employee Stock Purchase Plan (ESPP)",
+      "whatItIs": "Buy company stock at a 5-15% discount through payroll deductions.",
+      "avgDiscount": 15,
+      "avgBenefit": "15% instant return on your money. Even if you sell immediately, you pocket the discount (minus taxes). If max contribution is $5,000/period, that's $750 guaranteed profit.",
+      "strategy": "Contribute, buy at discount, sell immediately for guaranteed 15% gain. Don't hold unless you want company-specific risk.",
+      "richyAction": "If your company offers ESPP with a 15% discount, it's one of the safest guaranteed returns available. Contribute the max and sell if you want to diversify."
+    },
+    "tuition_reimbursement": {
+      "name": "Tuition Reimbursement",
+      "whatItIs": "Employer pays for courses, degrees, or certifications related to your job.",
+      "avgBenefit": "Average: $5,250/year tax-free (IRS Section 127 exclusion). Some employers offer more (taxable above $5,250).",
+      "percentOfEmployersOffering": 48,
+      "percentOfEmployeesUsing": 2,
+      "richyAction": "Only 2% of eligible employees use tuition reimbursement. If your employer offers it and you're considering any education or certification, this is thousands of dollars in free career development."
+    },
+    "employee_discounts": {
+      "name": "Employee Discounts & Perks",
+      "whatItIs": "Negotiated discounts on cell phones, gym memberships, insurance, travel, retail, and more.",
+      "commonDiscounts": [
+        "Cell phone: 15-25% off monthly bill (AT&T, Verizon, T-Mobile all offer employer discounts)",
+        "Gym membership: corporate rates 20-50% below retail",
+        "Auto insurance: group discount 5-15%",
+        "Home/renters insurance: group discount 5-10%",
+        "Dell/Apple/Lenovo: employee purchase programs 10-30% off",
+        "Travel: corporate rates on hotels, rental cars"
+      ],
+      "richyAction": "Check your company intranet or HR portal for the full list of employee discounts. Most people don't realize their employer has negotiated discounts on cell phones, gym memberships, and insurance."
+    },
+    "life_insurance": {
+      "name": "Employer Life Insurance",
+      "whatItIs": "Most employers provide free basic life insurance (usually 1-2x annual salary).",
+      "avgBenefit": "Free coverage of $50,000-150,000 depending on salary. Supplemental coverage available at group rates (cheaper than individual).",
+      "richyAction": "Review your free coverage amount. If you have dependents, you likely need 10-12x your income. Buy supplemental through your employer — group rates are 30-50% cheaper than individual policies."
+    },
+    "wellness_programs": {
+      "name": "Wellness Programs & Incentives",
+      "whatItIs": "Many employers offer cash incentives, premium discounts, or HSA contributions for completing health activities.",
+      "commonIncentives": [
+        "Annual physical completion: $50-200 reward",
+        "Health risk assessment: $25-100 reward",
+        "Biometric screening: $50-150 reward",
+        "Fitness challenge completion: $50-500 reward",
+        "Tobacco cessation: $200-600 annual premium reduction",
+        "Total possible: $200-1,500/year in incentives"
+      ],
+      "richyAction": "Check if your employer has a wellness program. Many people miss out on $200-1,500/year in easy rewards just for getting an annual checkup and filling out a health questionnaire."
+    }
+  },
+
+  "totalValueEstimate": "A typical employee with access to all common benefits who fully utilizes them captures $3,000-8,000/year in additional value beyond their salary. Most employees capture less than 40% of available benefits."
+}

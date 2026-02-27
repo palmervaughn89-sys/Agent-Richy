@@ -1,0 +1,182 @@
+{
+  "source": "BillShark data, Consumer Reports surveys, FTC complaint data, community-sourced",
+  "lastUpdated": "2026-02-01",
+  "updateFrequency": "semi-annual",
+
+  "providers": {
+    "internet": {
+      "comcast_xfinity": {
+        "name": "Comcast / Xfinity",
+        "negotiationSuccessRate": 72,
+        "avgSavings": 25,
+        "retentionNumber": "1-800-934-6489",
+        "bestStrategy": "loyalty_department",
+        "tips": [
+          "Call the cancellation/retention department directly — they have the best deals",
+          "Have a competitor's price ready (T-Mobile Home Internet, AT&T Fiber)",
+          "Ask for the 'new customer promotion' to be applied to your account",
+          "Best time to call: Tuesday-Thursday, 9-11am (shorter wait, reps less stressed)",
+          "If first rep says no, hang up and call again — different rep, different answer",
+          "Mention you've been a customer for X years — loyalty matters"
+        ],
+        "script": "Hi, I'm considering switching my internet service because my bill has gone up to $[current]. I've been a loyal customer for [years] and I'd like to stay, but [competitor] is offering [their price] for the same speed. Is there anything you can do to keep my business?",
+        "commonOffers": ["$20-30/month off for 12 months", "Free speed upgrade", "Free equipment rental for 12 months"],
+        "escalationPhrase": "I understand. Could you transfer me to your retention or loyalty department? I'd like to explore my options before I cancel."
+      },
+      "att": {
+        "name": "AT&T",
+        "negotiationSuccessRate": 65,
+        "avgSavings": 20,
+        "retentionNumber": "1-800-288-2020",
+        "bestStrategy": "loyalty_department",
+        "tips": [
+          "AT&T retention department is called 'Loyalty' — ask for them directly",
+          "Bundling discounts are often available if you have wireless + internet",
+          "Fiber customers have less leverage (less competition) but can still get speed upgrades",
+          "Ask about any current promotions not advertised online"
+        ],
+        "script": "Hi, I've noticed my bill has increased to $[current] per month. I've been looking at other options and I found [competitor] offering [price]. I'd prefer to stay with AT&T since I've been here [years], but I need the price to come down. What can you offer?",
+        "commonOffers": ["$15-25/month discount", "Speed upgrade at same price", "Bundle discount with wireless"]
+      },
+      "spectrum": {
+        "name": "Spectrum (Charter)",
+        "negotiationSuccessRate": 58,
+        "avgSavings": 18,
+        "retentionNumber": "1-833-267-6094",
+        "bestStrategy": "competitor_pricing",
+        "tips": [
+          "Spectrum is harder to negotiate because they don't do contracts — but that also means no cancellation fee",
+          "Threaten to switch to T-Mobile Home Internet or Starlink",
+          "Ask for a 'limited time promotional rate'",
+          "If they won't budge, actually cancel — they often call back within a week with an offer"
+        ],
+        "script": "I'm calling because my bill is now $[current] which is significantly more than when I signed up. T-Mobile Home Internet is offering $50/month with no price increases. Unless you can match something close to that, I'll need to switch.",
+        "commonOffers": ["$10-20/month off", "Speed upgrade", "Add mobile line discount"]
+      },
+      "tmobile_home": {
+        "name": "T-Mobile Home Internet",
+        "negotiationSuccessRate": 15,
+        "avgSavings": 0,
+        "tips": ["T-Mobile Home Internet is already priced aggressively ($50/month) with price lock guarantee. Not much room to negotiate, but it's a great card to play against cable companies."],
+        "script": ""
+      }
+    },
+    "cell_phone": {
+      "general": {
+        "negotiationSuccessRate": 55,
+        "avgSavings": 15,
+        "tips": [
+          "Switching carriers saves the most — loyalty is expensive in wireless",
+          "Check for employer discounts (many companies get 15-25% off major carriers)",
+          "MVNOs (Mint Mobile, Visible, Cricket) use the same networks for 50-70% less",
+          "Family plans are always cheaper per line — find friends to share a plan"
+        ],
+        "alternatives": [
+          { "name": "Mint Mobile", "network": "T-Mobile", "price": "15-30/month", "note": "Must prepay 3-12 months. Best budget option." },
+          { "name": "Visible", "network": "Verizon", "price": "25-45/month", "note": "Unlimited on Verizon's network. Party Pay for cheaper." },
+          { "name": "Cricket Wireless", "network": "AT&T", "price": "30-55/month", "note": "AT&T's budget brand. Reliable." },
+          { "name": "Google Fi", "network": "T-Mobile/US Cellular", "price": "20-65/month", "note": "Flexible plans. Good for low data users." },
+          { "name": "US Mobile", "network": "Verizon/T-Mobile", "price": "10-45/month", "note": "Extremely customizable plans." }
+        ]
+      }
+    },
+    "insurance_car": {
+      "general": {
+        "negotiationSuccessRate": 85,
+        "avgSavings": 180,
+        "savingsMethod": "shopping_around",
+        "tips": [
+          "Car insurance is the EASIEST money to save — just get 3 quotes",
+          "Average savings from shopping: $180/year (some save $500+)",
+          "Always ask about: multi-policy, good driver, low mileage, autopay, paid-in-full discounts",
+          "Raise deductible from $500 to $1,000 — saves 15-25% on premium",
+          "If you have an emergency fund, higher deductible is smart",
+          "Good credit = lower rates in most states",
+          "Shop every 12-18 months — loyalty is not rewarded in insurance"
+        ],
+        "discountChecklist": [
+          "Multi-policy (bundle home + auto): 5-25%",
+          "Good driver / accident-free: 10-25%",
+          "Low mileage (under 7,500/year): 5-15%",
+          "Autopay / paperless: 3-10%",
+          "Paid in full (annual vs monthly): 5-10%",
+          "Good student (under 25, B average): 5-20%",
+          "Defensive driving course: 5-15%",
+          "Vehicle safety features: 3-10%",
+          "Military/veteran: 5-15%",
+          "Employer group discount: varies"
+        ]
+      }
+    },
+    "insurance_home_renters": {
+      "general": {
+        "negotiationSuccessRate": 70,
+        "avgSavings": 120,
+        "savingsMethod": "shopping_around_plus_bundling",
+        "tips": [
+          "Bundle with auto insurance for biggest discount (15-25%)",
+          "Raise deductible to $1,000-2,500 if you have emergency fund",
+          "Ask about claims-free discount if no claims in 3+ years",
+          "Security system discount: 5-15%",
+          "Non-smoker discount: 5-15%",
+          "Review coverage annually — you may be over-insured"
+        ]
+      }
+    },
+    "medical_bills": {
+      "general": {
+        "negotiationSuccessRate": 68,
+        "avgSavings": 350,
+        "tips": [
+          "ALWAYS negotiate medical bills — the sticker price is rarely the real price",
+          "Ask for an itemized bill first — errors are found 30-40% of the time",
+          "Ask for the 'self-pay' or 'cash pay' discount (often 20-50% off)",
+          "Set up a payment plan — most providers offer 0% interest plans",
+          "If uninsured, ask about charity care or financial assistance programs",
+          "Compare costs on Healthcare Bluebook or Fair Health before procedures"
+        ],
+        "script": "I received a bill for $[amount] and I'd like to discuss payment options. Could you tell me if there's a self-pay discount or a financial assistance program available? I'd also like to request an itemized statement to review the charges.",
+        "resources": [
+          "Healthcare Bluebook (fairhealthconsumer.org) — check fair prices",
+          "GoodRx (goodrx.com) — prescription savings, often 60-80% off",
+          "NeedyMeds (needymeds.org) — patient assistance programs",
+          "RxAssist (rxassist.org) — medication assistance database"
+        ]
+      }
+    },
+    "subscriptions": {
+      "general": {
+        "tips": [
+          "Call to cancel and you'll often get offered a discount to stay (30-50% off for 3-6 months)",
+          "Use annual billing — almost always 15-20% cheaper than monthly",
+          "Student discounts: Spotify ($5.99), Apple Music ($5.99), Amazon Prime ($7.49/month), YouTube Premium ($7.99)",
+          "Share family plans: Spotify Family ($16.99/6 people), YouTube Premium Family ($22.99/5 people)",
+          "Check if your library card gives free access to Kanopy, Hoopla, Libby"
+        ],
+        "cancelRetentionOffers": {
+          "Netflix": "Rarely offers discounts. Cancel and come back — they sometimes send win-back offers.",
+          "Hulu": "Often offers 50% off for 3 months when you try to cancel.",
+          "SiriusXM": "ALWAYS negotiate. Never pay full price. Typical: $5-8/month vs $17 list.",
+          "Audible": "Try to cancel and they'll often offer 3 months at $7.95 or a free month.",
+          "NYT / WSJ": "Cancel and they typically offer 50-75% off to retain."
+        }
+      }
+    },
+    "rent": {
+      "general": {
+        "negotiationSuccessRate": 42,
+        "avgSavings": 75,
+        "tips": [
+          "Negotiate rent at renewal — landlords lose $3,000-5,000 on turnover",
+          "Frame it as: 'I'd like to stay, but I need the rent to stay at $[current]'",
+          "Offer to sign a longer lease (18-24 months) for a lower rate",
+          "Offer to pay several months upfront for a discount",
+          "Being a good tenant IS leverage — on-time payments, no complaints, no damage",
+          "Research comparable rents in the area to show your current rate is at or above market",
+          "Best time to negotiate: 60-90 days before lease ends"
+        ],
+        "script": "Hi [landlord], I've really enjoyed living here and I'd love to renew my lease. I noticed the proposed increase to $[new amount]. I've been researching comparable units in the area and found several at $[lower comp]. Given that I've been a reliable tenant — always on time with rent, no complaints, and I take care of the place — I'd like to propose renewing at $[target]. I'm happy to sign a longer lease if that helps."
+      }
+    }
+  }
+}

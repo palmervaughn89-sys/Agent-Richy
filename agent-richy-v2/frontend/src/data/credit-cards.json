@@ -1,0 +1,196 @@
+{
+  "source": "Card issuer websites, NerdWallet, The Points Guy, Bankrate",
+  "lastUpdated": "2026-02-01",
+  "updateFrequency": "quarterly",
+  "dataAgeNote": "Annual fees, APRs, and sign-up bonuses change frequently. RICHY SHOULD WEB SEARCH to verify current offers before recommending a specific card. Use this data for category rewards rates and general structure, which change less often.",
+  "disclaimer": "Agent Richy is not a licensed financial advisor. Credit card recommendations are based on publicly available reward structures and the user's stated spending patterns. Always read the full terms before applying.",
+
+  "cards": [
+    {
+      "name": "Amex Blue Cash Preferred",
+      "issuer": "American Express",
+      "annualFee": 95,
+      "apr": { "purchase": "19.24-29.99%", "introOffer": "0% for 12 months on purchases and balance transfers" },
+      "signUpBonus": { "amount": "$250 statement credit", "requirement": "Spend $3,000 in first 6 months" },
+      "rewards": {
+        "groceries": { "rate": 6, "cap": "Up to $6,000/year, then 1%", "note": "Best grocery card. 6% back = $360/year on $500/month grocery spend." },
+        "streaming": { "rate": 6, "cap": "No cap", "note": "Netflix, Spotify, Hulu, Disney+, etc." },
+        "gas": { "rate": 3, "cap": "At US gas stations" },
+        "transit": { "rate": 3, "cap": "Taxis, rideshare, parking, tolls, trains, buses" },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "Heavy grocery shoppers spending $300+/month on groceries",
+      "breakEvenSpend": "The $95 fee is covered if you spend $159/month on groceries (at 6% vs 1.5% on a flat-rate card)",
+      "notIdealFor": "Light grocery shoppers, people who shop at Walmart/Target (coded as superstore, not grocery)"
+    },
+    {
+      "name": "Chase Freedom Unlimited",
+      "issuer": "Chase",
+      "annualFee": 0,
+      "apr": { "purchase": "20.49-29.24%", "introOffer": "0% for 15 months" },
+      "signUpBonus": { "amount": "$200 bonus", "requirement": "Spend $500 in first 3 months" },
+      "rewards": {
+        "dining": { "rate": 3, "cap": "No cap" },
+        "drugstores": { "rate": 3, "cap": "No cap" },
+        "travel_via_chase": { "rate": 5, "cap": "Booked through Chase Travel" },
+        "everything_else": { "rate": 1.5 }
+      },
+      "bestFor": "Everyday spending card. 1.5% on everything with no annual fee. Great starter card.",
+      "breakEvenSpend": "No annual fee — always profitable",
+      "notIdealFor": "People who want maximum returns in specific categories"
+    },
+    {
+      "name": "Citi Double Cash",
+      "issuer": "Citi",
+      "annualFee": 0,
+      "apr": { "purchase": "19.24-29.24%", "introOffer": "0% for 18 months on balance transfers" },
+      "signUpBonus": { "amount": "$200 cash back", "requirement": "Spend $1,500 in first 6 months" },
+      "rewards": {
+        "everything": { "rate": 2, "cap": "No cap", "note": "1% when you buy + 1% when you pay. Effectively 2% flat on everything." }
+      },
+      "bestFor": "Simple, no-category-tracking 2% back on everything. Best flat-rate card.",
+      "breakEvenSpend": "No annual fee — always profitable",
+      "notIdealFor": "People who want to maximize specific categories"
+    },
+    {
+      "name": "Chase Sapphire Preferred",
+      "issuer": "Chase",
+      "annualFee": 95,
+      "apr": { "purchase": "21.49-28.49%" },
+      "signUpBonus": { "amount": "60,000 points ($750+ value)", "requirement": "Spend $4,000 in first 3 months" },
+      "rewards": {
+        "travel": { "rate": 5, "cap": "Booked through Chase Travel portal" },
+        "dining": { "rate": 3, "cap": "No cap" },
+        "online_grocery": { "rate": 3, "cap": "Online grocery orders, excludes in-store" },
+        "streaming": { "rate": 3, "cap": "No cap" },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "Travelers and diners. Points worth 25% more through Chase Travel portal.",
+      "breakEvenSpend": "Spend ~$320/month on dining/travel to offset $95 fee vs a 1.5% card",
+      "notIdealFor": "People who don't travel or rarely eat out"
+    },
+    {
+      "name": "Capital One SavorOne",
+      "issuer": "Capital One",
+      "annualFee": 0,
+      "apr": { "purchase": "19.99-29.99%" },
+      "signUpBonus": { "amount": "$200 cash bonus", "requirement": "Spend $500 in first 3 months" },
+      "rewards": {
+        "dining": { "rate": 3, "cap": "No cap" },
+        "entertainment": { "rate": 3, "cap": "Movies, concerts, sports, streaming" },
+        "groceries": { "rate": 3, "cap": "No cap" },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "No annual fee with 3% on dining, entertainment, and groceries. Great all-arounder.",
+      "breakEvenSpend": "No annual fee",
+      "notIdealFor": "People wanting maximum groceries (Amex Blue Cash Preferred is better at 6%)"
+    },
+    {
+      "name": "Discover it Cash Back",
+      "issuer": "Discover",
+      "annualFee": 0,
+      "apr": { "purchase": "17.24-28.24%", "introOffer": "0% for 15 months" },
+      "signUpBonus": { "amount": "Cashback Match — Discover matches ALL cash back earned in first year", "requirement": "Automatic" },
+      "rewards": {
+        "rotating_quarterly": { "rate": 5, "cap": "$1,500/quarter in rotating categories (gas, groceries, Amazon, restaurants, etc.)", "note": "Must activate each quarter" },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "First year is incredible — effectively 10% back on quarterly categories and 2% on everything else due to the match. Great first card.",
+      "breakEvenSpend": "No annual fee",
+      "notIdealFor": "People who forget to activate quarterly categories"
+    },
+    {
+      "name": "Wells Fargo Active Cash",
+      "issuer": "Wells Fargo",
+      "annualFee": 0,
+      "apr": { "purchase": "20.24-29.99%", "introOffer": "0% for 15 months" },
+      "signUpBonus": { "amount": "$200 cash rewards bonus", "requirement": "Spend $500 in first 3 months" },
+      "rewards": {
+        "everything": { "rate": 2, "cap": "No cap" }
+      },
+      "bestFor": "Another excellent flat 2% card. Competes directly with Citi Double Cash.",
+      "breakEvenSpend": "No annual fee",
+      "notIdealFor": "People wanting category bonuses"
+    },
+    {
+      "name": "Amazon Prime Rewards Visa",
+      "issuer": "Chase (Amazon)",
+      "annualFee": 0,
+      "apr": { "purchase": "19.49-27.49%" },
+      "signUpBonus": { "amount": "$200 Amazon gift card", "requirement": "Instant upon approval" },
+      "rewards": {
+        "amazon": { "rate": 5, "cap": "Amazon.com and Whole Foods purchases", "note": "Requires Prime membership ($139/year)" },
+        "restaurants_gas_transit": { "rate": 2 },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "Amazon Prime members who spend $200+/month on Amazon. 5% back = $120+/year.",
+      "breakEvenSpend": "No card fee but requires Prime ($139/year). Need to spend ~$232/month on Amazon for 5% rewards to cover Prime cost vs a 2% card.",
+      "notIdealFor": "Non-Prime members or light Amazon shoppers"
+    },
+    {
+      "name": "Costco Anywhere Visa",
+      "issuer": "Citi (Costco)",
+      "annualFee": 0,
+      "apr": { "purchase": "20.49-29.49%" },
+      "signUpBonus": { "amount": "None", "requirement": "N/A" },
+      "rewards": {
+        "gas": { "rate": 4, "cap": "$7,000/year, then 1%", "note": "Best gas card at 4%. Costco gas is already cheapest." },
+        "restaurants": { "rate": 3, "cap": "No cap" },
+        "travel": { "rate": 3, "cap": "No cap" },
+        "costco": { "rate": 2, "cap": "All Costco purchases" },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "Costco members who drive a lot. 4% on gas is best available. Combined with cheap Costco gas = maximum fuel savings.",
+      "breakEvenSpend": "No card fee but requires Costco membership ($65-130/year)",
+      "notIdealFor": "Non-Costco members"
+    },
+    {
+      "name": "US Bank Cash+",
+      "issuer": "US Bank",
+      "annualFee": 0,
+      "apr": { "purchase": "19.24-29.24%" },
+      "signUpBonus": { "amount": "$200 bonus", "requirement": "Spend $1,000 in first 120 days" },
+      "rewards": {
+        "chosen_category_1": { "rate": 5, "cap": "$2,000/quarter combined", "note": "YOU CHOOSE two 5% categories: utilities, internet/streaming, cell phone, TV/internet, gym, fast food, furniture stores, department stores, electronics, select clothing" },
+        "chosen_category_2": { "rate": 5, "cap": "Same $2,000 combined cap" },
+        "chosen_category_3": { "rate": 2, "cap": "Choose one 2% category: gas, groceries, restaurants" },
+        "everything_else": { "rate": 1 }
+      },
+      "bestFor": "The only card that gives 5% on UTILITIES and CELL PHONE BILLS. If your electric + internet + phone = $300/month, that's $180/year back. Nobody else offers this.",
+      "breakEvenSpend": "No annual fee",
+      "notIdealFor": "People who don't want to manage category selections"
+    }
+  ],
+
+  "strategies": {
+    "twoCardCombo": {
+      "name": "The Two-Card Strategy",
+      "description": "Use a high-category card for your top spending areas + a flat 2% card for everything else.",
+      "examples": [
+        {
+          "name": "Grocery + Everything",
+          "cards": ["Amex Blue Cash Preferred (groceries 6%, streaming 6%)", "Citi Double Cash (everything else 2%)"],
+          "idealFor": "Families spending $400+/month on groceries"
+        },
+        {
+          "name": "Gas + Everything",
+          "cards": ["Costco Anywhere Visa (gas 4%, restaurants 3%)", "Wells Fargo Active Cash (everything else 2%)"],
+          "idealFor": "Commuters spending $200+/month on gas"
+        },
+        {
+          "name": "Bills + Everything",
+          "cards": ["US Bank Cash+ (utilities 5%, phone 5%)", "Citi Double Cash (everything else 2%)"],
+          "idealFor": "Anyone with $300+/month in utility and phone bills"
+        }
+      ]
+    },
+    "debtPayoff": {
+      "name": "Balance Transfer Strategy",
+      "description": "Transfer high-interest credit card debt to a 0% intro APR card to stop bleeding interest.",
+      "bestCards": ["Citi Double Cash (0% for 18 months)", "Chase Freedom Unlimited (0% for 15 months)", "Discover it (0% for 15 months)"],
+      "warning": "Balance transfer fees are typically 3-5%. Calculate whether the interest savings exceed the fee."
+    }
+  },
+
+  "calculationFormula": "For each spending category: monthlySpend × (newCardRate - currentCardRate) / 100 × 12 = annual reward difference. Subtract annual fee difference. Positive = switch is worth it."
+}

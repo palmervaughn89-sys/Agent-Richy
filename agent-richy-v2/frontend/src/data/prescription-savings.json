@@ -1,0 +1,67 @@
+{
+  "source": "GoodRx, AARP, CMS drug pricing data, NeedyMeds",
+  "lastUpdated": "2026-02-01",
+  "updateFrequency": "quarterly",
+  "dataAgeNote": "Drug prices change frequently. RICHY SHOULD WEB SEARCH for current GoodRx prices. This data provides general savings strategies and program information.",
+
+  "savingsPrograms": {
+    "goodrx": {
+      "name": "GoodRx",
+      "cost": "Free (premium version $9.99/month for additional family savings)",
+      "howItWorks": "Shows prices at every pharmacy near you and provides coupons. Average savings: 60-80% on generic drugs.",
+      "website": "goodrx.com",
+      "example": "Generic Lipitor (atorvastatin): Retail $80-150/month → GoodRx price $4-12/month at Costco or Kroger",
+      "tip": "Always check GoodRx BEFORE using insurance — sometimes the GoodRx price is lower than your insurance copay."
+    },
+    "costPlus": {
+      "name": "Mark Cuban Cost Plus Drugs",
+      "cost": "No membership fee",
+      "howItWorks": "Online pharmacy selling generics at cost + 15% markup + $5 shipping + $3 pharmacy fee. Radically transparent pricing.",
+      "website": "costplusdrugs.com",
+      "example": "Generic Crestor (rosuvastatin): Typical retail $50-200/month → Cost Plus $4-8/month",
+      "tip": "Best for maintenance medications you take monthly. Order 90-day supplies to minimize shipping costs."
+    },
+    "rxAssist": {
+      "name": "RxAssist / Patient Assistance Programs",
+      "cost": "Free",
+      "howItWorks": "Database of pharmaceutical company programs that provide free or low-cost medications to qualifying patients.",
+      "eligibility": "Usually income-based. Many programs cover people making up to 400% of federal poverty level.",
+      "website": "rxassist.org",
+      "tip": "If you're on expensive brand-name drugs, check if the manufacturer has a patient assistance program. Many people qualify and don't know."
+    },
+    "medicare_extra_help": {
+      "name": "Medicare Extra Help (Low-Income Subsidy)",
+      "cost": "Free",
+      "howItWorks": "Helps Medicare beneficiaries pay for prescriptions. Savings up to $5,000/year.",
+      "eligibility": "Income below $22,590 (single) or $30,660 (married) and limited resources",
+      "tip": "Over 2 million eligible people aren't enrolled. Check if your parents or grandparents qualify."
+    },
+    "walmart_4_dollar": {
+      "name": "Walmart $4 Generic Program",
+      "cost": "No membership needed",
+      "howItWorks": "Over 100 common generics for $4/30-day or $10/90-day supply.",
+      "tip": "Some of the most common medications are on this list: metformin, lisinopril, amlodipine, omeprazole."
+    }
+  },
+
+  "generalTips": [
+    "Always ask: 'Is there a generic version?' — generics are FDA-required to be equally effective and cost 80-90% less",
+    "90-day mail-order prescriptions are 20-40% cheaper than 30-day pharmacy fills",
+    "Compare prices at 3-4 pharmacies — prices vary wildly for the same drug (Costco is often cheapest)",
+    "Costco pharmacy does NOT require a Costco membership — anyone can use it",
+    "If your doctor prescribes a brand-name drug, ask if a generic or therapeutic alternative exists",
+    "Use your FSA/HSA for prescription costs — pre-tax dollars save an additional 22-37%",
+    "Split pills: some drugs cost the same regardless of dose. A 20mg pill split in half = two 10mg doses at half price. Ask your pharmacist if this is safe for your medication.",
+    "Prescription discount cards (GoodRx, SingleCare, RxSaver) are free and often beat insurance copays"
+  ],
+
+  "commonDrugSavings": [
+    { "drug": "Atorvastatin (Lipitor)", "use": "Cholesterol", "retail": "80-150", "withSavings": "4-12", "bestSource": "Costco + GoodRx" },
+    { "drug": "Metformin", "use": "Diabetes", "retail": "30-80", "withSavings": "4-10", "bestSource": "Walmart $4 program" },
+    { "drug": "Lisinopril", "use": "Blood pressure", "retail": "20-60", "withSavings": "4-8", "bestSource": "Walmart $4 program" },
+    { "drug": "Omeprazole (Prilosec)", "use": "Acid reflux", "retail": "25-80", "withSavings": "4-15", "bestSource": "Costco OTC" },
+    { "drug": "Sertraline (Zoloft)", "use": "Depression/anxiety", "retail": "30-100", "withSavings": "4-12", "bestSource": "GoodRx + Costco" },
+    { "drug": "Albuterol inhaler", "use": "Asthma", "retail": "60-90", "withSavings": "15-30", "bestSource": "GoodRx or Cost Plus" },
+    { "drug": "Amoxicillin", "use": "Antibiotic", "retail": "20-50", "withSavings": "4-8", "bestSource": "Walmart $4 program" }
+  ]
+}

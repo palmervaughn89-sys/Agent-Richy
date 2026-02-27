@@ -113,6 +113,58 @@ export const DATA_SOURCES: Record<string, DataSource> = {
     maxAge: 31536000,
     fallbackToStatic: true,
     file: "src/data/etf-reference.json"  // retirementRules section
+  },
+  creditCards: {
+    name: "Credit Card Rewards & Rates",
+    freshness: "quarterly",
+    maxAge: 7776000,
+    fallbackToStatic: true,
+    file: "src/data/credit-cards.json",
+    searchQuery: "[CARD_NAME] credit card current rewards rates annual fee"
+  },
+  savingsAccounts: {
+    name: "High-Yield Savings Rates",
+    freshness: "monthly",
+    maxAge: 2592000,
+    fallbackToStatic: true,
+    file: "src/data/savings-accounts.json",
+    searchQuery: "best high yield savings account rates [current month year]"
+  },
+  negotiationData: {
+    name: "Bill Negotiation Strategies",
+    freshness: "annual",
+    maxAge: 31536000,
+    fallbackToStatic: true,
+    file: "src/data/negotiation-database.json"
+  },
+  seasonalProduce: {
+    name: "Seasonal Produce Guide",
+    freshness: "static",
+    maxAge: Infinity,
+    fallbackToStatic: true,
+    file: "src/data/seasonal-produce.json"
+  },
+  employeeBenefits: {
+    name: "Employee Benefits Reference",
+    freshness: "annual",
+    maxAge: 31536000,
+    fallbackToStatic: true,
+    file: "src/data/employee-benefits.json"
+  },
+  carReference: {
+    name: "Car Valuation & Depreciation",
+    freshness: "annual",
+    maxAge: 31536000,
+    fallbackToStatic: true,
+    file: "src/data/car-reference.json"
+  },
+  prescriptionSavings: {
+    name: "Prescription Drug Savings",
+    freshness: "quarterly",
+    maxAge: 7776000,
+    fallbackToStatic: true,
+    file: "src/data/prescription-savings.json",
+    searchQuery: "[DRUG_NAME] price GoodRx [LOCATION]"
   }
 };
 
@@ -129,6 +181,12 @@ ALWAYS USE WEB SEARCH FOR:
 - ETF prices and yields (search first, use etf-reference.json as fallback ONLY)
 - Any data where being wrong could cost the user money
 
+SEMI-DYNAMIC (search to verify, static as fallback):
+- Credit card rewards rates and sign-up bonuses (verify current offers before recommending)
+- HYSA and CD rates (verify before quoting specific rates)
+- Prescription drug prices (always check GoodRx current price)
+- Car prices (always verify current market for specific makes/models)
+
 SAFE TO USE STATIC KNOWLEDGE BASE FOR:
 - Cost of living comparisons by city (cost-of-living.json)
 - State tax rates and brackets (state-taxes.json) 
@@ -140,6 +198,11 @@ SAFE TO USE STATIC KNOWLEDGE BASE FOR:
 - ETF expense ratios and structure (etf-reference.json — these rarely change)
 - Retirement contribution limits (etf-reference.json retirementRules section)
 - Model portfolio allocations (etf-reference.json modelPortfolios section)
+- Credit card category reward structures (change rarely)
+- Negotiation scripts and strategies (timeless)
+- Seasonal produce guide (doesn't change)
+- Employee benefits reference and contribution limits (annual)
+- Car depreciation curves and cost-of-ownership patterns (annual)
 
 WHEN USING STATIC DATA:
 - Always note the data date: "Based on 2026 data from [source]"

@@ -1,0 +1,66 @@
+{
+  "source": "Edmunds, KBB, Consumer Reports, iSeeCars depreciation data",
+  "lastUpdated": "2026-01-01",
+  "updateFrequency": "annual",
+  "dataAgeNote": "Car prices fluctuate. RICHY SHOULD WEB SEARCH for current used car prices. This data provides depreciation patterns and cost-of-ownership reference.",
+
+  "depreciation": {
+    "averageNewCar": {
+      "year1": 20, "year2": 15, "year3": 12, "year4": 10, "year5": 8,
+      "fiveYearTotal": 65,
+      "note": "Average new car loses 65% of its value in 5 years. A $35,000 car is worth ~$12,250 at year 5."
+    },
+    "bestValueAge": "3-5 years old. Someone else took the biggest depreciation hit but the car still has 60-70% of its useful life.",
+    "slowestDepreciation": [
+      { "brand": "Toyota", "model": "Tacoma", "5yrDepreciation": 35 },
+      { "brand": "Toyota", "model": "4Runner", "5yrDepreciation": 38 },
+      { "brand": "Porsche", "model": "911", "5yrDepreciation": 36 },
+      { "brand": "Jeep", "model": "Wrangler", "5yrDepreciation": 30 },
+      { "brand": "Toyota", "model": "Corolla", "5yrDepreciation": 42 },
+      { "brand": "Honda", "model": "Civic", "5yrDepreciation": 43 },
+      { "brand": "Subaru", "model": "Crosstrek", "5yrDepreciation": 40 },
+      { "brand": "Honda", "model": "CR-V", "5yrDepreciation": 42 }
+    ],
+    "fastestDepreciation": [
+      { "brand": "Maserati", "model": "Ghibli", "5yrDepreciation": 72 },
+      { "brand": "BMW", "model": "5 Series", "5yrDepreciation": 68 },
+      { "brand": "Mercedes", "model": "S-Class", "5yrDepreciation": 70 },
+      { "brand": "Jaguar", "model": "XF", "5yrDepreciation": 71 },
+      { "brand": "Lincoln", "model": "MKZ", "5yrDepreciation": 69 },
+      { "brand": "Infiniti", "model": "Q50", "5yrDepreciation": 67 }
+    ]
+  },
+
+  "costOfOwnership": {
+    "avgAnnualCosts": {
+      "fuel": 1800,
+      "insurance": 1900,
+      "maintenance": 800,
+      "repairs": 600,
+      "tiresAndBrakes": 300,
+      "registration": 200,
+      "total": 5600,
+      "note": "Average annual cost of owning a car beyond the purchase price: ~$5,600"
+    },
+    "cheapestToMaintain": ["Toyota Corolla", "Honda Civic", "Toyota Camry", "Honda Accord", "Mazda3"],
+    "mostExpensiveToMaintain": ["BMW 3 Series", "Mercedes C-Class", "Audi A4", "Land Rover", "Jaguar"],
+    "evVsGas": {
+      "avgFuelSavingsPerYear": 1200,
+      "avgMaintenanceSavingsPerYear": 400,
+      "note": "EVs save ~$1,600/year in fuel and maintenance but typically cost $5,000-10,000 more upfront. Breakeven: 3-6 years."
+    }
+  },
+
+  "buyingTips": [
+    "Buy 3-5 year old cars for best value — 40-55% depreciation already absorbed",
+    "Toyota and Honda hold value best — you pay more upfront but lose less over time",
+    "Certified Pre-Owned (CPO) from dealers includes warranty but costs 5-10% more than private party",
+    "Private party sales are 10-20% cheaper than dealer but no warranty protection",
+    "Always get a pre-purchase inspection ($100-200) before buying used — saves thousands in hidden problems",
+    "Check vehicle history: Carfax ($39.99) or AutoCheck ($24.99). Non-negotiable.",
+    "Best months to buy: September-December (model year turnover + year-end dealer quotas)",
+    "Worst months: March-April (tax refund season = high demand)"
+  ],
+
+  "newVsUsedCalculation": "A $35,000 new car at 6% for 60 months = $676/month, $40,560 total. A 3-year-old version of the same car at $20,000 at 7% for 48 months = $479/month, $22,992 total. Savings: $197/month and $17,568 total."
+}
