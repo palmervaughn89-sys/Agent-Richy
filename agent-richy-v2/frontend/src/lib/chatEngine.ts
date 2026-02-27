@@ -216,6 +216,9 @@ function loadPromptFile(filename: string): string | null {
 const SKILL_PROMPT_FILES: Record<string, string> = {
   coupon: 'coupon-finder.md',
   optimizer: 'spending-optimizer.md',
+  market_intel: 'market-intelligence.md',
+  price_intel: 'price-intelligence.md',
+  subscription_value: 'price-intelligence.md',
 };
 
 /**
@@ -225,7 +228,7 @@ const SKILL_PROMPT_FILES: Record<string, string> = {
  */
 export function getAgentSystemPrompt(
   agentKey: string,
-  skill?: 'coupon' | 'optimizer' | null,
+  skill?: 'coupon' | 'optimizer' | 'market_intel' | 'price_intel' | 'subscription_value' | null,
 ): string {
   // Load unified base prompt
   const unified = loadPromptFile('richy-unified.md');

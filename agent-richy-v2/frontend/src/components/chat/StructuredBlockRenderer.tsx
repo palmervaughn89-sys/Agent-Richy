@@ -8,7 +8,15 @@ import ExpenseInputCard from "./ExpenseInputCard";
 import SavingsReportCard from "./SavingsReportCard";
 import NegotiationScriptCard from "./NegotiationScriptCard";
 import SpendToSaveCard from "./SpendToSaveCard";
+import MarketReportCard from "./MarketReportCard";
+import AnalystInsightCard from "./AnalystInsightCard";
+import SectorOutlookCard from "./SectorOutlookCard";
+import PriceComparisonCard from "./PriceComparisonCard";
+import StoreRankingCard from "./StoreRankingCard";
+import SubscriptionValueCard from "./SubscriptionValueCard";
 import { useChatStore } from "@/hooks/useChat";
+import type { MarketIntelligenceReport, AnalystInsight, SectorOutlook } from "@/types/market";
+import type { PriceComparison, StoreCategoryRanking, SubscriptionValue } from "@/types/pricing";
 
 /* ── Type guards for each structured block ─────────────────────────── */
 
@@ -45,12 +53,48 @@ interface SpendToSaveBlock {
   description: string;
 }
 
+interface MarketReportBlock {
+  type: "market_report";
+  report: MarketIntelligenceReport;
+}
+
+interface AnalystInsightBlock {
+  type: "analyst_insight";
+  insight: AnalystInsight;
+}
+
+interface SectorOutlookBlock {
+  type: "sector_outlook";
+  outlook: SectorOutlook;
+}
+
+interface PriceComparisonBlock {
+  type: "price_comparison";
+  comparison: PriceComparison;
+}
+
+interface StoreRankingBlock {
+  type: "store_ranking";
+  ranking: StoreCategoryRanking;
+}
+
+interface SubscriptionValueBlock {
+  type: "subscription_value";
+  subscriptions: SubscriptionValue[];
+}
+
 type StructuredBlock =
   | CouponResultsBlock
   | ExpenseInputBlock
   | SavingsReportBlock
   | NegotiationScriptBlock
-  | SpendToSaveBlock;
+  | SpendToSaveBlock
+  | MarketReportBlock
+  | AnalystInsightBlock
+  | SectorOutlookBlock
+  | PriceComparisonBlock
+  | StoreRankingBlock
+  | SubscriptionValueBlock;
 
 const KNOWN_TYPES = new Set([
   "coupon_results",
@@ -58,6 +102,12 @@ const KNOWN_TYPES = new Set([
   "savings_report",
   "negotiation_script",
   "spend_to_save",
+  "market_report",
+  "analyst_insight",
+  "sector_outlook",
+  "price_comparison",
+  "store_ranking",
+  "subscription_value",
 ]);
 
 /* ── Segment: either plain text or a parsed structured block ───────── */
@@ -237,6 +287,24 @@ export default function StructuredBlockRenderer({ content }: StructuredBlockRend
                 description={data.description}
               />
             );
+
+          case "market_report":
+            return <MarketReportCard key={i} report={data.report} />;
+
+          case "analyst_insight":
+            return <AnalystInsightCard key={i} insight={data.insight} />;
+
+          case "sector_outlook":
+            return <SectorOutlookCard key={i} outlook={data.outlook} />;
+
+          case "price_comparison":
+            return <PriceComparisonCard key={i} comparison={data.comparison} />;
+
+          case "store_ranking":
+            return <StoreRankingCard key={i} ranking={data.ranking} />;
+
+          case "subscription_value":
+            return <SubscriptionValueCard key={i} subscriptions={data.subscriptions} />;
 
           default:
             return null;

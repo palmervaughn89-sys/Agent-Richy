@@ -1,0 +1,41 @@
+{
+  "groceries": {
+    "categoryName": "Groceries",
+    "lastUpdated": "2026-02-01",
+    "source": "Consumer Reports, USDA ERS Food Price Outlook, NerdWallet",
+    "rankings": [
+      { "rank": 1, "store": "aldi", "storeName": "Aldi", "avgPriceIndex": 78, "bestFor": "Everyday staples, produce, store brand quality rivals name brands", "watchOut": "Limited selection, no name brands, inconsistent stock on specialty items" },
+      { "rank": 2, "store": "costco", "storeName": "Costco", "avgPriceIndex": 80, "bestFor": "Bulk buying for families, meat and dairy, organic options", "watchOut": "Requires $65+/year membership, must buy large quantities, easy to overspend" },
+      { "rank": 3, "store": "walmart", "storeName": "Walmart", "avgPriceIndex": 85, "bestFor": "One-stop shopping, Great Value brand, price matching", "watchOut": "Produce quality varies, crowded stores, less organic selection" },
+      { "rank": 4, "store": "kroger", "storeName": "Kroger", "avgPriceIndex": 90, "bestFor": "Sale cycles are excellent, fuel points, digital coupons stack well", "watchOut": "Regular prices are average, need to shop sales strategically" },
+      { "rank": 5, "store": "target", "storeName": "Target", "avgPriceIndex": 92, "bestFor": "Good Gather brand is solid, RedCard saves 5% on everything", "watchOut": "Higher on staples without RedCard, smaller grocery selection" },
+      { "rank": 6, "store": "trader_joes", "storeName": "Trader Joe's", "avgPriceIndex": 88, "bestFor": "Unique store brands, frozen meals, snacks, wine", "watchOut": "No sales or coupons ever, limited conventional brands, small stores" },
+      { "rank": 7, "store": "publix", "storeName": "Publix", "avgPriceIndex": 105, "bestFor": "BOGO sales are genuinely good, bakery and deli, clean stores", "watchOut": "Regular prices are 15-20% above average, Southeast US only" },
+      { "rank": 8, "store": "whole_foods", "storeName": "Whole Foods", "avgPriceIndex": 118, "bestFor": "Organic selection, Prime member deals on Wednesdays, quality standards", "watchOut": "Premium pricing on everything, Prime deals are limited" }
+    ]
+  },
+  "electronics": {
+    "categoryName": "Electronics",
+    "lastUpdated": "2026-02-01",
+    "source": "PCMag, Wirecutter price tracking, Consumer Reports",
+    "rankings": [
+      { "rank": 1, "store": "amazon", "storeName": "Amazon", "avgPriceIndex": 82, "bestFor": "Widest selection, fast shipping, price drops during events", "watchOut": "Prices fluctuate wildly, counterfeit risk on marketplace items, easy to impulse buy" },
+      { "rank": 2, "store": "bestbuy", "storeName": "Best Buy", "avgPriceIndex": 88, "bestFor": "Price matches Amazon, open-box deals save 15-30%, expert advice in store", "watchOut": "Regular prices slightly higher, extended warranty upsells" },
+      { "rank": 3, "store": "walmart", "storeName": "Walmart", "avgPriceIndex": 90, "bestFor": "Competitive on major brands, pickup available, Walmart+ free delivery", "watchOut": "Smaller tech selection, less knowledgeable staff" },
+      { "rank": 4, "store": "costco", "storeName": "Costco", "avgPriceIndex": 85, "bestFor": "Best return policy in retail (90 days electronics), bundle deals", "watchOut": "Limited selection, membership required, may not carry latest models immediately" },
+      { "rank": 5, "store": "target", "storeName": "Target", "avgPriceIndex": 95, "bestFor": "RedCard 5% discount, occasional exclusives, clean shopping experience", "watchOut": "Smaller selection, rarely the cheapest without RedCard" }
+    ]
+  },
+  "household": {
+    "categoryName": "Household & Cleaning",
+    "lastUpdated": "2026-02-01",
+    "source": "Consumer Reports, Clark.com, NerdWallet",
+    "rankings": [
+      { "rank": 1, "store": "dollar_tree", "storeName": "Dollar Tree", "avgPriceIndex": 65, "bestFor": "Cleaning supplies, party supplies, basic household items at $1.25", "watchOut": "Smaller sizes, limited brands, quality varies on some items" },
+      { "rank": 2, "store": "aldi", "storeName": "Aldi", "avgPriceIndex": 75, "bestFor": "Store brand cleaning products rival name brands at 40% less", "watchOut": "Very limited selection, may not carry your preferred brand" },
+      { "rank": 3, "store": "costco", "storeName": "Costco", "avgPriceIndex": 78, "bestFor": "Kirkland brand is excellent quality, bulk = lower per-unit cost", "watchOut": "Must buy large quantities, storage space needed" },
+      { "rank": 4, "store": "walmart", "storeName": "Walmart", "avgPriceIndex": 85, "bestFor": "Widest selection, Great Value brand, one-stop convenience", "watchOut": "Name brands not discounted much vs other stores" },
+      { "rank": 5, "store": "target", "storeName": "Target", "avgPriceIndex": 92, "bestFor": "Up&Up brand quality, nicer store experience, RedCard discount", "watchOut": "Regularly priced 5-10% above Walmart without RedCard" }
+    ]
+  }
+}

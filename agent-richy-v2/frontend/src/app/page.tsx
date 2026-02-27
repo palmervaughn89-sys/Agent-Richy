@@ -115,6 +115,28 @@ const DEEP_DIVE_CATEGORIES = [
     ],
   },
   {
+    emoji: '📊',
+    name: 'Market Intelligence',
+    queries: [
+      'What sectors look strong heading into Q2?',
+      'What are analysts saying about healthcare stocks?',
+      'Show me the bull and bear case for the tech sector',
+      'Any recent analyst upgrades or downgrades?',
+      'What does Morningstar say about the energy sector valuation?',
+    ],
+  },
+  {
+    emoji: '🏷️',
+    name: 'Price Intelligence',
+    queries: [
+      'I just paid $47 for headphones at Best Buy. Did I overpay?',
+      'Where\u2019s the cheapest place to buy groceries near me?',
+      'Rank the best stores for electronics',
+      'I buy diapers at Target every month. Is there a better option?',
+      'Score my subscriptions \u2014 am I getting my money\u2019s worth?',
+    ],
+  },
+  {
     emoji: '🧒',
     name: 'Kids & Family',
     queries: [
@@ -150,7 +172,7 @@ const SMALL_CAPABILITIES = [
   { icon: '◎', title: 'Wealth Education', desc: 'Investment concepts in plain English. Compound interest, index funds, retirement math.' },
   { icon: '⚡', title: 'Smart Cost Cutting', desc: 'Gas optimization, meal planning, insurance shopping, energy audits. Every dollar counts.' },
   { icon: '◇', title: 'Decision Simulator', desc: 'Run the math on real choices: rent vs buy, pay off debt vs invest, job offer comparison.' },
-  { icon: '★', title: 'Kids Zone', desc: 'Age-appropriate money lessons, savings challenges, and interactive quizzes for young earners.' },
+  { icon: '🏷️', title: 'Price Intelligence', desc: 'Compare prices across every major retailer. Find out if you\'re overpaying and where to get the same thing cheaper. Store rankings by category included.' },
 ];
 
 /* ── Footer links ─────────────────────────────────────────────────── */

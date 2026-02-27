@@ -8,7 +8,7 @@ export interface ChatRequest {
   session_id?: string;
   context?: Record<string, unknown>;
   /** Detected skill to inject additional system prompt (keyword-matched). */
-  skill?: "coupon" | "optimizer" | null;
+  skill?: "coupon" | "optimizer" | "market_intel" | "price_intel" | "subscription_value" | null;
   /** Accumulated optimizer expenses for context continuity. */
   optimizer_expenses?: string;
 }
