@@ -40,6 +40,34 @@
       "good": { "min": 4.5, "max": 6.0, "interpretation": "Reasonable rates. Buying makes sense if staying 5+ years." },
       "elevated": { "min": 6.0, "max": 7.5, "interpretation": "Rates are elevated. Run numbers carefully before buying." },
       "high": { "min": 7.5, "max": null, "interpretation": "High rates. Monthly payments significantly higher. Consider waiting if possible." }
+    },
+    "ism_pmi": {
+      "strong_expansion": { "min": 55, "max": null, "interpretation": "Manufacturing growing robustly. Economy is healthy. Demand is strong — don't expect many discounts on manufactured goods." },
+      "expansion": { "min": 50, "max": 55, "interpretation": "Manufacturing growing modestly. Balanced conditions." },
+      "contraction": { "min": 42.3, "max": 50, "interpretation": "Manufacturing shrinking but overall GDP may still be positive. Watch for discounts on durable goods as inventory builds." },
+      "severe_contraction": { "min": 0, "max": 42.3, "interpretation": "Manufacturing deeply contracting. Overall GDP likely declining. Recession probable. Full defensive financial posture." }
+    },
+    "initial_claims": {
+      "very_healthy": { "min": 0, "max": 220000, "interpretation": "Very few layoffs. Labor market is tight. Workers have leverage for raises and job switches." },
+      "healthy": { "min": 220000, "max": 250000, "interpretation": "Normal level of layoffs. Stable job market." },
+      "concerning": { "min": 250000, "max": 300000, "interpretation": "Layoffs accelerating. Job market softening. Build emergency fund to 6 months." },
+      "recessionary": { "min": 300000, "max": null, "interpretation": "Significant layoffs occurring. Recession likely underway. Maximize financial defense." }
+    },
+    "credit_spreads_hy": {
+      "tight": { "min": 0, "max": 300, "interpretation": "Investors very confident. Credit flowing freely. No stress in financial system." },
+      "normal": { "min": 300, "max": 450, "interpretation": "Normal risk pricing. Balanced conditions." },
+      "stressed": { "min": 450, "max": 600, "interpretation": "Financial stress building. Credit tightening. Businesses finding it harder to borrow." },
+      "crisis": { "min": 600, "max": null, "interpretation": "Severe financial stress. Credit markets seizing. Historically a strong long-term buying signal for patient investors, but short-term pain is likely." }
+    },
+    "sahm_rule": {
+      "normal": { "min": 0, "max": 0.3, "interpretation": "Labor market stable. No recession signal." },
+      "watch": { "min": 0.3, "max": 0.5, "interpretation": "Unemployment trending up. Not yet at recession levels but worth monitoring. Strengthen emergency fund." },
+      "triggered": { "min": 0.5, "max": null, "interpretation": "Sahm Rule triggered. Historically indicates recession in progress. However, context matters — check if driven by layoffs (bad) or labor supply increase (less concerning). Regardless, strengthen financial position." }
+    },
+    "yield_curve": {
+      "normal": { "min": 0.5, "max": null, "interpretation": "Normal upward-sloping yield curve. No recession signal from this indicator." },
+      "flat": { "min": -0.1, "max": 0.5, "interpretation": "Yield curve is flat. Economy may be transitioning. Not alarming by itself." },
+      "inverted": { "min": null, "max": -0.1, "interpretation": "Yield curve inverted. Historically preceded every recession since 1955, but had a recent false signal (2022-2024 inversion with no recession). Take seriously but don't panic — combine with other indicators." }
     }
   },
 

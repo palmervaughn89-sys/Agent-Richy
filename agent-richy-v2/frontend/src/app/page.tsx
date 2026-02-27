@@ -34,7 +34,7 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
 
 /* ── Marquee items ────────────────────────────────────────────────── */
 const MARQUEE_ITEMS = [
-  '27 Core Capabilities',
+  '28 Core Capabilities',
   'All-in-One Finance AI',
   '$847 Avg. Annual Savings',
   '24/7 Always Available',

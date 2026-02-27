@@ -1,3 +1,5 @@
+import { ECONOMIC_FEEDS } from './economicFeeds';
+
 // Every data source has a freshness classification
 export type DataFreshness = "live" | "daily" | "weekly" | "monthly" | "quarterly" | "annual" | "static";
 
@@ -165,6 +167,182 @@ export const DATA_SOURCES: Record<string, DataSource> = {
     fallbackToStatic: true,
     file: "src/data/prescription-savings.json",
     searchQuery: "[DRUG_NAME] price GoodRx [LOCATION]"
+  },
+
+  // ==========================================
+  // ECONOMIC DATA FEEDS (auto-generated from ECONOMIC_FEEDS)
+  // ==========================================
+  cpi_all: {
+    name: "CPI All Items",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "current CPI inflation rate"
+  },
+  cpi_food: {
+    name: "CPI Food at Home",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "grocery food CPI inflation latest"
+  },
+  cpi_food_away: {
+    name: "CPI Food Away From Home",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "restaurant food prices inflation CPI food away from home"
+  },
+  cpi_energy: {
+    name: "CPI Energy",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "energy prices CPI electricity natural gas inflation"
+  },
+  cpi_medical: {
+    name: "CPI Medical Care",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "medical care CPI healthcare inflation latest"
+  },
+  cpi_shelter: {
+    name: "CPI Shelter",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "shelter CPI rent inflation housing costs latest"
+  },
+  cpi_apparel: {
+    name: "CPI Apparel",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "apparel clothing CPI prices inflation latest"
+  },
+  fed_funds: {
+    name: "Fed Funds Rate",
+    freshness: "daily",
+    maxAge: 1440,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "current federal funds rate"
+  },
+  mortgage_rate: {
+    name: "30yr Mortgage Rate",
+    freshness: "weekly",
+    maxAge: 10080,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "current 30 year mortgage rate"
+  },
+  treasury_10yr: {
+    name: "10-Year Treasury Yield",
+    freshness: "daily",
+    maxAge: 1440,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "10 year treasury yield today"
+  },
+  prime_rate: {
+    name: "Prime Rate",
+    freshness: "daily",
+    maxAge: 1440,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "current prime rate today"
+  },
+  gas_price: {
+    name: "National Gas Price",
+    freshness: "weekly",
+    maxAge: 10080,
+    fallbackToStatic: false,
+    searchQuery: "average gas price per gallon today"
+  },
+  electricity_price: {
+    name: "Residential Electricity Price",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: false,
+    searchQuery: "average residential electricity rate per kwh"
+  },
+  unemployment: {
+    name: "Unemployment Rate",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "current unemployment rate"
+  },
+  wage_growth: {
+    name: "Wage Growth (YoY)",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "average hourly earnings growth wage growth latest"
+  },
+  consumer_confidence: {
+    name: "Consumer Confidence",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "consumer confidence index latest"
+  },
+  retail_sales: {
+    name: "Retail Sales",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "retail sales latest month census bureau"
+  },
+  personal_savings_rate: {
+    name: "Personal Savings Rate",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "personal savings rate latest month BEA"
+  },
+  home_price_index: {
+    name: "Case-Shiller Home Price Index",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "Case Shiller home price index latest year over year change"
+  },
+  housing_inventory: {
+    name: "Housing Inventory (Months of Supply)",
+    freshness: "monthly",
+    maxAge: 43200,
+    fallbackToStatic: true,
+    file: "src/data/economic-reference.json",
+    searchQuery: "housing inventory months supply latest real estate market"
+  },
+  sp500: {
+    name: "S&P 500",
+    freshness: "live",
+    maxAge: 60,
+    fallbackToStatic: false,
+    searchQuery: "S&P 500 today"
+  },
+  vix: {
+    name: "VIX Volatility Index",
+    freshness: "live",
+    maxAge: 60,
+    fallbackToStatic: false,
+    searchQuery: "VIX volatility index today current level"
   }
 };
 
@@ -222,4 +400,10 @@ WHEN RUNNING FINANCIAL TWIN SIMULATIONS:
 3. Use life-event-costs.json for event cost estimates
 4. SEARCH for current mortgage rates if home purchase is involved
 5. SEARCH for current salary data if career change is involved
+
+WHEN ANSWERING ANY QUESTION INVOLVING RATES, PRICES, OR ECONOMIC CONDITIONS:
+- ALWAYS search first. The economic nervous system depends on current data.
+- Never quote economic figures from memory — inflation, unemployment, rates, and prices change constantly.
+- After fetching one data point, think through correlation chains: what does this imply for related areas?
+- One economic shift can change advice across budgeting, investing, purchasing, and saving simultaneously.
 `;
