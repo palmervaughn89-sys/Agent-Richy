@@ -195,3 +195,24 @@ export async function calcNetWorth(data: {
     body: JSON.stringify(data),
   });
 }
+
+// ── Trading ─────────────────────────────────────────────────────────────
+
+export async function getWeeklyPicks(topN: number = 10) {
+  return fetchJSON<any[]>(`/api/trading/weekly-picks?top_n=${topN}`);
+}
+
+export async function scoreStock(ticker: string) {
+  return fetchJSON<any>(`/api/trading/score/${encodeURIComponent(ticker)}`);
+}
+
+export async function getPortfolioAnalysis(tickers: string[]) {
+  return fetchJSON<any>('/api/trading/portfolio-analysis', {
+    method: 'POST',
+    body: JSON.stringify({ tickers }),
+  });
+}
+
+export async function getPerformance() {
+  return fetchJSON<any>('/api/trading/performance');
+}

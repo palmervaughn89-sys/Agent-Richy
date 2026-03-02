@@ -15,11 +15,11 @@ class CoachRichy(BaseAgent):
 
     def get_system_prompt(self, user_profile: dict, financial_plan: dict) -> str:
         """Build Coach Richy's system prompt."""
-        from models.user_profile import UserProfile
+        from models.profile import FinancialProfile
 
         # Build a temporary profile to use _build_known_data
-        p = UserProfile(**{k: v for k, v in user_profile.items()
-                          if k in UserProfile.__dataclass_fields__})
+        p = FinancialProfile(**{k: v for k, v in user_profile.items()
+                               if k in FinancialProfile.model_fields})
         known_str = self._build_known_data(p)
 
         plan_str = ""

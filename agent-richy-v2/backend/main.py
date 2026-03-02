@@ -5,13 +5,15 @@ import os
 import logging
 
 # Add parent directory so imports of video_data, agent_richy work
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+# Use append (not insert) to avoid shadowing this module's own main.py
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routers import chat, keystroke, profile, kids, calculators, coupons
+from routers.trading import router as trading_router
 from core.config import AGENTS, COLORS
 
 logging.basicConfig(level=logging.INFO)
@@ -43,6 +45,7 @@ app.include_router(profile.router)
 app.include_router(kids.router)
 app.include_router(calculators.router)
 app.include_router(coupons.router)
+app.include_router(trading_router)
 
 
 @app.get("/")

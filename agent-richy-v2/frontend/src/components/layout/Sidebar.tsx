@@ -13,6 +13,7 @@ import {
   Calculator,
   PieChart,
   Sparkles,
+  TrendingUp,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -20,6 +21,7 @@ const NAV_ITEMS = [
   { href: '/chat', label: 'Chat', icon: MessageSquare },
   { href: '/kids', label: 'Kids Zone', icon: GraduationCap },
   { href: '/lifestyle-portfolio', label: 'Lifestyle Portfolio', icon: PieChart },
+  { href: '/trading', label: 'Trading', icon: TrendingUp },
   { href: '/plan', label: 'My Plan', icon: Target },
   { href: '/profile', label: 'Profile', icon: User },
   { href: '/calculators', label: 'Calculators', icon: Calculator },

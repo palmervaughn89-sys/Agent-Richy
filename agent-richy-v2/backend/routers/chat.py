@@ -89,10 +89,10 @@ async def chat(request: ChatRequest):
         logger.info(f"[skill-detection] Injecting '{request.skill}' prompt for session {session_id}")
 
     # Create a simple profile object the agents can use
-    from models.user_profile import UserProfile
-    profile = UserProfile(**{
+    from models.profile import FinancialProfile
+    profile = FinancialProfile(**{
         k: v for k, v in profile_dict.items()
-        if k in UserProfile.__dataclass_fields__
+        if k in FinancialProfile.model_fields
     })
 
     # Call the agent
@@ -184,10 +184,10 @@ async def chat_stream(request: ChatRequest):
     if skill_context:
         logger.info(f"[skill-detection] Injecting '{request.skill}' prompt for stream session {session_id}")
 
-    from models.user_profile import UserProfile
-    profile = UserProfile(**{
+    from models.profile import FinancialProfile
+    profile = FinancialProfile(**{
         k: v for k, v in profile_dict.items()
-        if k in UserProfile.__dataclass_fields__
+        if k in FinancialProfile.model_fields
     })
 
     async def generate():

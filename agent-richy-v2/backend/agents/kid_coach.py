@@ -14,9 +14,9 @@ class KidCoach(BaseAgent):
         )
 
     def get_system_prompt(self, user_profile: dict, financial_plan: dict) -> str:
-        from models.user_profile import UserProfile
-        p = UserProfile(**{k: v for k, v in user_profile.items()
-                          if k in UserProfile.__dataclass_fields__})
+        from models.profile import FinancialProfile
+        p = FinancialProfile(**{k: v for k, v in user_profile.items()
+                               if k in FinancialProfile.model_fields})
         known_str = self._build_known_data(p)
 
         age = user_profile.get("age", 12) or 12

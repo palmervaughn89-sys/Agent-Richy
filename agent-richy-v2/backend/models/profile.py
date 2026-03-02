@@ -33,6 +33,12 @@ class FinancialProfile(BaseModel):
     def monthly_surplus(self) -> float:
         return self.monthly_income - self.monthly_expenses
 
+    def is_youth(self) -> bool:
+        return self.user_type == "youth"
+
+    def is_adult(self) -> bool:
+        return self.user_type == "adult"
+
     def total_debt(self) -> float:
         return sum(self.debts.values())
 
